@@ -887,6 +887,7 @@
     <div class="view-tabs">
       <button class="view-tab active" data-view="table">Table</button>
       <button class="view-tab" data-view="compare">Compare</button>
+      <button class="view-tab" data-view="subs">Subs</button>
       <button class="view-tab" data-view="chart">Charts</button>
       <button class="view-tab" data-view="models">Models</button>
     </div>
@@ -1066,6 +1067,7 @@ document.getElementById('loginPassword').addEventListener('keydown', function(e)
     switch(currentView) {
       case 'table': renderTable(data); break;
       case 'compare': renderCompare(data); break;
+      case 'subs': renderSubs(data); break;
       case 'chart': renderCharts(data); break;
       case 'models': renderModels(); break;
     }
@@ -1246,6 +1248,106 @@ document.getElementById('loginPassword').addEventListener('keydown', function(e)
     });
 
     if (!html) html = '<div class="matrix-container"><p style="color:var(--text-muted);padding:20px">Select a specific product and strength for comparison view.</p></div>';
+
+    document.getElementById('viewContent').innerHTML = '<div class="matrix-container">' + html + '</div>';
+  }
+
+  function renderSubs(data) {
+    // Group all products (ignore filters for purchase type)
+    const allData = PRICING_DATA.products;
+    const cat = document.getElementById('filterCategory').value;
+    const prod = document.getElementById('filterProduct').value;
+    const str = document.getElementById('filterStrength').value;
+
+    let filtered = allData;
+    if (cat !== 'all') filtered = filtered.filter(p => p.category === cat);
+    if (prod !== 'all') filtered = filtered.filter(p => p.product === prod);
+    if (str !== 'all') filtered = filtered.filter(p => p.strength === str);
+
+    // Group by product + strength
+    const groups = {};
+    filtered.forEach(p => {
+      const key = `${p.product}|${p.strength}`;
+      if (!groups[key]) groups[key] = { product: p.product, strength: p.strength, category: p.category, items: [] };
+      groups[key].items.push(p);
+    });
+
+    let html = '';
+
+    Object.values(groups).forEach(group => {
+      // Get all competitors for this product
+      const competitors = [...new Set(group.items.map(p => p.competitor))].sort();
+      const packSizes = [...new Set(group.items.filter(p => p.packSize).map(p => p.packSize))].sort((a,b) => a-b);
+
+      if (packSizes.length === 0) return;
+
+      html += `<div class="matrix-section"><h3>${group.product} ${group.strength} (${group.category})</h3>`;
+      html += '<table class="matrix-table"><thead><tr><th>Competitor</th>';
+      packSizes.forEach(ps => { html += `<th>x${ps}</th>`; });
+      html += '<th style="min-width:180px">Subscription Model</th></tr></thead><tbody>';
+
+      competitors.forEach(comp => {
+        const compItems = group.items.filter(p => p.competitor === comp);
+        const hasSub = compItems.some(p => p.purchaseType === 'subscription');
+        const hasOneTime = compItems.some(p => p.purchaseType === 'one-time');
+
+        html += '<tr>';
+        html += `<td><span class="competitor-badge ${getCompClass(comp)}">${comp}</span></td>`;
+
+        packSizes.forEach(ps => {
+          const otItem = compItems.find(p => p.packSize === ps && p.purchaseType === 'one-time');
+          const subItem = compItems.find(p => p.packSize === ps && p.purchaseType === 'subscription');
+
+          if (otItem || subItem) {
+            let cellHtml = '';
+            if (otItem) {
+              cellHtml += `<div style="font-size:11px;color:var(--text-muted)">OT: ${fmtPrice(otItem.price)}</div>`;
+            }
+            if (subItem) {
+              const saving = otItem ? Math.round((1 - subItem.price / otItem.price) * 100) : null;
+              cellHtml += `<div style="color:var(--green);font-weight:600">Sub: ${fmtPrice(subItem.price)}`;
+              if (saving) cellHtml += ` <small>(-${saving}%)</small>`;
+              cellHtml += '</div>';
+            }
+            if (!subItem && otItem) {
+              cellHtml += `<div style="font-size:10px;color:var(--text-muted);font-style:italic">No sub</div>`;
+            }
+            html += `<td>${cellHtml}</td>`;
+          } else {
+            html += '<td class="cell-na">-</td>';
+          }
+        });
+
+        // Subscription model summary
+        const meta = PRICING_DATA.competitors[comp];
+        let subModel = '';
+        if (hasSub) {
+          const subItems = compItems.filter(p => p.purchaseType === 'subscription');
+          const subPacks = [...new Set(subItems.map(p => p.packSize))].sort((a,b) => a-b);
+          const otMatches = subPacks.map(ps => {
+            const ot = compItems.find(p => p.packSize === ps && p.purchaseType === 'one-time');
+            const sub = compItems.find(p => p.packSize === ps && p.purchaseType === 'subscription');
+            if (ot && sub) return Math.round((1 - sub.price / ot.price) * 100);
+            return null;
+          }).filter(Boolean);
+          const avgDiscount = otMatches.length ? Math.round(otMatches.reduce((a,b) => a+b, 0) / otMatches.length) : null;
+
+          subModel = `<span style="color:var(--green);font-weight:600">Yes</span>`;
+          if (avgDiscount) subModel += ` <small>(~${avgDiscount}% off)</small>`;
+          subModel += `<br><small style="color:var(--text-muted)">Packs: ${subPacks.map(p => 'x'+p).join(', ')}</small>`;
+        } else if (meta && meta.subscription && meta.subscription.toLowerCase().includes('sub')) {
+          subModel = `<span style="color:var(--yellow)">Sub-only model</span><br><small style="color:var(--text-muted)">${meta.subscription}</small>`;
+        } else {
+          subModel = `<span style="color:var(--text-muted)">No subscription</span>`;
+        }
+        html += `<td>${subModel}</td>`;
+        html += '</tr>';
+      });
+
+      html += '</tbody></table></div>';
+    });
+
+    if (!html) html = '<p style="color:var(--text-muted);padding:20px">Select a category or product to see subscription options.</p>';
 
     document.getElementById('viewContent').innerHTML = '<div class="matrix-container">' + html + '</div>';
   }
