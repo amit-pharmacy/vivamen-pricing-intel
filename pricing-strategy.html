@@ -92,6 +92,10 @@
     <h1><span>Viva</span> Pricing Strategy</h1>
     <div class="subtitle">Top 5 Google-ranking competitors per product | Cost price + margin analysis | March 2026</div>
   </div>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <a href="index.html" style="font-size:12px;color:var(--accent);text-decoration:none;padding:7px 14px;border:1px solid var(--border);border-radius:6px;">Main Dashboard</a>
+    <button id="exportBtn" onclick="exportXLSX()" style="font-size:12px;font-weight:600;color:var(--text);background:var(--accent);border:none;padding:7px 14px;border-radius:6px;cursor:pointer;">Export XLSX</button>
+  </div>
 </header>
 
 <div class="controls">
@@ -782,6 +786,95 @@ function renderProducts(items) {
 
 populateFilters();
 render();
+
+// --- EXPORT XLSX ---
+function exportXLSX() {
+  const btn = document.getElementById('exportBtn');
+  btn.textContent = 'Loading...';
+  btn.disabled = true;
+
+  // Load SheetJS if not already loaded
+  if (typeof XLSX === 'undefined') {
+    const s = document.createElement('script');
+    s.src = 'https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js';
+    s.onload = () => doExport();
+    s.onerror = () => { btn.textContent = 'Export XLSX'; btn.disabled = false; alert('Failed to load XLSX library. Check your internet connection.'); };
+    document.head.appendChild(s);
+  } else {
+    doExport();
+  }
+
+  function doExport() {
+    try {
+      const items = getFiltered();
+      const rows = [];
+
+      items.forEach(item => {
+        const stats = getStats(item);
+        const margin = (item.vivaPrice && item.costPrice) ? ((item.vivaPrice - item.costPrice) / item.vivaPrice * 100) : null;
+        const minViable = item.costPrice ? item.costPrice * 1.1 : null;
+
+        // Viva row
+        rows.push({
+          Brand: item.brand,
+          Category: item.category,
+          Product: item.product,
+          Strength: item.strength,
+          'Pack Size': item.packSize,
+          Competitor: item.brand + ' (YOU)',
+          'SEO Rank': '-',
+          Price: item.vivaPrice,
+          'Cost Price': item.costPrice || '',
+          'Margin %': margin ? +margin.toFixed(1) : '',
+          'Min Viable (10%)': minViable ? +minViable.toFixed(2) : '',
+          'Cheapest Competitor': stats.min || '',
+          'Avg Competitor': stats.avg ? +stats.avg.toFixed(2) : '',
+          'Median Competitor': stats.median ? +stats.median.toFixed(2) : '',
+          'Price Rank': stats.position ? stats.position + ' of ' + (stats.count + 1) : '',
+          'Profit / Sale': (item.vivaPrice && item.costPrice) ? +(item.vivaPrice - item.costPrice).toFixed(2) : ''
+        });
+
+        // Competitor rows
+        item.competitors.forEach(c => {
+          rows.push({
+            Brand: item.brand,
+            Category: item.category,
+            Product: item.product,
+            Strength: item.strength,
+            'Pack Size': item.packSize,
+            Competitor: c.name,
+            'SEO Rank': c.rank,
+            Price: c.price || (c.note || 'N/A'),
+            'Cost Price': '',
+            'Margin %': '',
+            'Min Viable (10%)': '',
+            'Cheapest Competitor': '',
+            'Avg Competitor': '',
+            'Median Competitor': '',
+            'Price Rank': '',
+            'Profit / Sale': ''
+          });
+        });
+      });
+
+      const ws = XLSX.utils.json_to_sheet(rows);
+
+      // Column widths
+      ws['!cols'] = [
+        {wch:10},{wch:20},{wch:22},{wch:10},{wch:18},{wch:28},{wch:9},{wch:10},
+        {wch:10},{wch:10},{wch:14},{wch:16},{wch:14},{wch:16},{wch:12},{wch:12}
+      ];
+
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Pricing Strategy');
+      XLSX.writeFile(wb, 'viva-pricing-strategy.xlsx');
+    } catch(e) {
+      alert('Export failed: ' + e.message);
+    }
+    btn.textContent = 'Export XLSX';
+    btn.disabled = false;
+  }
+}
 </script>
 </body>
 </html>
