@@ -77,11 +77,28 @@
 
   .note { font-size:11px; color:var(--text-muted); font-style:italic; }
 
+  .overview-panel { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:20px; }
+  .overview-panel h3 { font-size:14px; font-weight:700; margin-bottom:14px; color:var(--text); }
+  .overview-row { display:flex; align-items:center; gap:10px; margin-bottom:6px; font-size:12px; }
+  .overview-label { width:200px; min-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--text-muted); }
+  .overview-track { flex:1; height:22px; background:var(--surface2); border-radius:4px; position:relative; overflow:visible; }
+  .overview-avg-line { position:absolute; top:-2px; bottom:-2px; width:2px; background:var(--yellow); z-index:2; }
+  .overview-avg-label { position:absolute; top:-14px; font-size:9px; color:var(--yellow); white-space:nowrap; font-weight:600; }
+  .overview-dot { position:absolute; top:50%; width:14px; height:14px; border-radius:50%; transform:translate(-50%,-50%); z-index:3; border:2px solid var(--surface); }
+  .overview-dot.cheap { background:var(--green); }
+  .overview-dot.mid { background:var(--yellow); }
+  .overview-dot.expensive { background:var(--red); }
+  .overview-pct { width:55px; min-width:55px; text-align:right; font-weight:700; font-size:12px; font-variant-numeric:tabular-nums; }
+  .overview-legend { display:flex; gap:16px; margin-top:12px; font-size:11px; color:var(--text-muted); align-items:center; }
+  .overview-legend span { display:flex; align-items:center; gap:4px; }
+  .legend-dot { width:8px; height:8px; border-radius:50%; display:inline-block; }
+
   @media (max-width:768px) {
     .controls { flex-direction:column; }
     .summary-strip { grid-template-columns:repeat(2,1fr); }
     .bar-wrap { width:60px; }
     select { min-width:100%; }
+    .overview-label { width:120px; min-width:120px; font-size:11px; }
   }
 </style>
 </head>
@@ -123,6 +140,7 @@
 
 <main>
   <div class="summary-strip" id="summaryStrip"></div>
+  <div id="overviewChart"></div>
   <div id="products"></div>
 </main>
 
@@ -696,6 +714,7 @@ function getFiltered() {
 function render() {
   const items = getFiltered();
   renderSummary(items);
+  renderOverview(items);
   renderProducts(items);
 }
 
@@ -722,6 +741,49 @@ function renderSummary(items) {
   `;
 }
 
+function renderOverview(items) {
+  const rows = items.filter(i => i.vivaPrice && getStats(i).count >= 2).map(i => {
+    const s = getStats(i);
+    const diff = ((i.vivaPrice / s.avg) - 1) * 100;
+    return { label: `${i.product} ${i.strength} (${i.packSize})`, vivaPrice: i.vivaPrice, min: s.min, max: s.max, avg: s.avg, diff, position: s.position, total: s.count + 1 };
+  });
+  if (!rows.length) { document.getElementById('overviewChart').innerHTML = ''; return; }
+
+  // Sort by diff (most expensive first)
+  rows.sort((a, b) => b.diff - a.diff);
+
+  let html = `<div class="overview-panel">`;
+  html += `<h3>Market Position Overview — Viva vs Competitor Average</h3>`;
+
+  rows.forEach(r => {
+    // Scale: min=0%, max=100% of the track
+    const range = r.max - r.min || 1;
+    const vivaPos = Math.max(0, Math.min(100, ((r.vivaPrice - r.min) / range) * 100));
+    const avgPos = Math.max(0, Math.min(100, ((r.avg - r.min) / range) * 100));
+    const dotClass = r.diff < -10 ? 'cheap' : r.diff > 10 ? 'expensive' : 'mid';
+    const pctColor = r.diff < -10 ? 'var(--green)' : r.diff > 10 ? 'var(--red)' : 'var(--yellow)';
+
+    html += `<div class="overview-row">`;
+    html += `<div class="overview-label" title="${r.label}">${r.label}</div>`;
+    html += `<div class="overview-track">`;
+    html += `<div class="overview-avg-line" style="left:${avgPos}%"><div class="overview-avg-label" style="left:-8px">avg</div></div>`;
+    html += `<div class="overview-dot ${dotClass}" style="left:${vivaPos}%" title="Viva: ${fmt(r.vivaPrice)} | Avg: ${fmt(r.avg)} | Cheapest: ${fmt(r.min)}"></div>`;
+    html += `</div>`;
+    html += `<div class="overview-pct" style="color:${pctColor}">${r.diff > 0 ? '+' : ''}${r.diff.toFixed(0)}%</div>`;
+    html += `</div>`;
+  });
+
+  html += `<div class="overview-legend">`;
+  html += `<span><span class="legend-dot" style="background:var(--green)"></span> &gt;10% cheaper</span>`;
+  html += `<span><span class="legend-dot" style="background:var(--yellow)"></span> Within ±10%</span>`;
+  html += `<span><span class="legend-dot" style="background:var(--red)"></span> &gt;10% more expensive</span>`;
+  html += `<span style="margin-left:8px">| <span style="color:var(--yellow);font-weight:600">—</span> = competitor avg</span>`;
+  html += `</div>`;
+  html += `</div>`;
+
+  document.getElementById('overviewChart').innerHTML = html;
+}
+
 function renderProducts(items) {
   const container = document.getElementById('products');
   let html = '';
@@ -731,7 +793,6 @@ function renderProducts(items) {
     const margin = (item.vivaPrice && item.costPrice) ? ((item.vivaPrice - item.costPrice) / item.vivaPrice * 100) : null;
     const marginClass = margin > 40 ? 'margin-good' : margin > 15 ? 'margin-tight' : 'margin-bad';
     const maxP = Math.max(...item.competitors.filter(c=>c.price).map(c=>c.price), item.vivaPrice||0);
-    const minFloor = item.costPrice ? item.costPrice * 1.1 : null; // 10% min margin
 
     html += `<div class="product-card">`;
     html += `<div class="product-header"><div><span class="product-name">${item.product} ${item.strength}</span> <span style="color:var(--text-muted);font-size:12px;margin-left:6px">${item.packSize}</span></div>`;
@@ -740,20 +801,17 @@ function renderProducts(items) {
 
     // Table
     html += `<table class="comp-table"><thead><tr>`;
-    html += `<th></th><th>Rank</th><th>Price</th><th>Per Unit</th><th>vs Bar</th><th>Cost</th><th>Margin</th><th>Room to Cut</th>`;
+    html += `<th></th><th>Rank</th><th>Price</th><th>vs Bar</th><th>Cost</th><th>Margin</th>`;
     html += `</tr></thead><tbody>`;
 
     // Viva row
-    const vivaPerUnit = item.vivaPrice ? fmt(item.vivaPrice / parseInt(item.packSize)||1) : '-';
     html += `<tr class="viva-row">`;
     html += `<td style="font-weight:700">${item.brand}</td>`;
     html += `<td style="font-size:11px">YOU</td>`;
     html += `<td style="font-weight:700">${item.vivaPrice ? fmt(item.vivaPrice) : 'N/A'}</td>`;
-    html += `<td>-</td>`;
     html += `<td>${maxP && item.vivaPrice ? `<div class="bar-wrap"><div class="bar-fill bar-viva" style="width:${item.vivaPrice/maxP*100}%"></div></div>` : ''}</td>`;
     html += `<td style="color:var(--orange);font-size:11px">${item.costPrice ? fmt(item.costPrice) : '-'}</td>`;
     html += `<td class="${marginClass}" style="font-weight:700">${margin != null ? margin.toFixed(0)+'%' : '-'}</td>`;
-    html += `<td style="font-size:11px;color:var(--green)">${(item.vivaPrice && item.costPrice) ? 'Can go to '+fmt(item.costPrice * 1.1) : '-'}</td>`;
     html += `</tr>`;
 
     // Competitors sorted by price
@@ -767,9 +825,8 @@ function renderProducts(items) {
       html += `<td><span class="rank-badge rank-${c.rank}">${c.rank}</span> ${c.name}</td>`;
       html += `<td style="font-size:11px;color:var(--text-muted)">#${c.rank}</td>`;
       html += `<td class="${cls}">${c.price ? fmt(c.price) : `<span class="note">${c.note||'N/A'}</span>`}</td>`;
-      html += `<td style="font-size:11px;color:var(--text-muted)">-</td>`;
       html += `<td>${maxP && c.price ? `<div class="bar-wrap"><div class="bar-fill ${barCls}" style="width:${c.price/maxP*100}%"></div></div>` : ''}</td>`;
-      html += `<td></td><td></td><td></td>`;
+      html += `<td></td><td></td>`;
       html += `</tr>`;
     });
 
@@ -791,9 +848,6 @@ function renderProducts(items) {
     if (item.costPrice && item.vivaPrice) {
       const profit = item.vivaPrice - item.costPrice;
       html += `<div class="mini-stat"><div class="ms-label">Profit / Sale</div><div class="ms-val" style="color:${profit>5?'var(--green)':'var(--red)'}">${fmt(profit)}</div></div>`;
-    }
-    if (minFloor && stats.min) {
-      html += `<div class="mini-stat"><div class="ms-label">Min Viable Price</div><div class="ms-val" style="color:var(--orange)">${fmt(minFloor)}</div><div class="ms-sub">10% margin floor</div></div>`;
     }
     html += `</div>`;
 
