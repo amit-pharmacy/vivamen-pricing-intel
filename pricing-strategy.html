@@ -703,42 +703,51 @@ function getStats(item) {
   return { avg, median:med, min:s[0], max:s[s.length-1], position:pos, count:prices.length, total:item.competitors.length, prices };
 }
 
-// --- FILTERS ---
-function populateFilters() {
-  const brands = [...new Set(DATA.map(d=>d.brand))];
-  const cats = [...new Set(DATA.map(d=>d.category))];
-  fillSel('fBrand', brands);
-  fillSel('fCategory', cats);
-  updateDependentFilters();
-}
+// --- FILTERS (bidirectional) ---
+const FILTER_IDS = ['fBrand','fCategory','fProduct','fStrength','fPack'];
+const FILTER_KEYS = { fBrand:'brand', fCategory:'category', fProduct:'product', fStrength:'strength', fPack:'packSize' };
 
-function fillSel(id, vals) {
+function populateFilters() { syncFilters(); }
+
+function fillSel(id, vals, keepVal) {
   const el = document.getElementById(id);
-  const first = el.options[0];
+  const label = el.options[0].textContent;
+  const prev = keepVal || el.value;
   el.innerHTML = '';
-  el.appendChild(first);
+  const all = document.createElement('option'); all.value='all'; all.textContent=label; el.appendChild(all);
   vals.forEach(v => { const o=document.createElement('option'); o.value=v; o.textContent=v; el.appendChild(o); });
+  // Restore selection if still valid, otherwise reset to all
+  if (prev !== 'all' && vals.includes(prev)) el.value = prev; else el.value = 'all';
 }
 
-function updateDependentFilters() {
-  let items = DATA;
-  const brand = document.getElementById('fBrand').value;
-  const cat = document.getElementById('fCategory').value;
-  if (brand!=='all') items = items.filter(d=>d.brand===brand);
-  if (cat!=='all') items = items.filter(d=>d.category===cat);
+function syncFilters(changedId) {
+  // Get current values
+  const vals = {};
+  FILTER_IDS.forEach(id => vals[id] = document.getElementById(id).value);
 
-  const prods = [...new Set(items.map(d=>d.product))];
-  fillSel('fProduct', prods);
+  // Apply all active filters to get the matching dataset
+  let filtered = DATA;
+  FILTER_IDS.forEach(id => {
+    if (vals[id] !== 'all') filtered = filtered.filter(d => d[FILTER_KEYS[id]] === vals[id]);
+  });
 
-  const prod = document.getElementById('fProduct').value;
-  if (prod!=='all') items = items.filter(d=>d.product===prod);
-  const strengths = [...new Set(items.map(d=>d.strength))];
-  fillSel('fStrength', strengths);
+  // For each filter, show only options compatible with ALL OTHER active filters
+  FILTER_IDS.forEach(id => {
+    if (id === changedId) return; // don't rebuild the one the user just changed
+    let pool = DATA;
+    FILTER_IDS.forEach(otherId => {
+      if (otherId === id) return; // exclude self
+      if (vals[otherId] !== 'all') pool = pool.filter(d => d[FILTER_KEYS[otherId]] === vals[otherId]);
+    });
+    const options = [...new Set(pool.map(d => d[FILTER_KEYS[id]]))];
+    fillSel(id, options);
+  });
 
-  const str = document.getElementById('fStrength').value;
-  if (str!=='all') items = items.filter(d=>d.strength===str);
-  const packs = [...new Set(items.map(d=>d.packSize))];
-  fillSel('fPack', packs);
+  // Auto-select if only one option remains
+  FILTER_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el.options.length === 2 && el.value === 'all') el.value = el.options[1].value;
+  });
 }
 
 function getFiltered() {
@@ -886,21 +895,9 @@ function renderProducts(items) {
 }
 
 // --- EVENTS ---
-['fBrand','fCategory','fProduct','fStrength','fPack'].forEach(id => {
+FILTER_IDS.forEach(id => {
   document.getElementById(id).addEventListener('change', () => {
-    if (id==='fBrand' || id==='fCategory') {
-      document.getElementById('fProduct').value='all';
-      document.getElementById('fStrength').value='all';
-      document.getElementById('fPack').value='all';
-    }
-    if (id==='fProduct') {
-      document.getElementById('fStrength').value='all';
-      document.getElementById('fPack').value='all';
-    }
-    if (id==='fStrength') {
-      document.getElementById('fPack').value='all';
-    }
-    updateDependentFilters();
+    syncFilters(id);
     render();
   });
 });
