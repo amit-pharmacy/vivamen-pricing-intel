@@ -76,6 +76,7 @@
   .mini-stat .ms-sub { font-size:10px; color:var(--text-muted); }
 
   .note { font-size:11px; color:var(--text-muted); font-style:italic; }
+  .comp-table a:hover { background:var(--accent); color:#fff !important; border-color:var(--accent) !important; }
 
   .vs-avg-badge { display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; font-variant-numeric:tabular-nums; }
   .vs-avg-badge.cheap { background:rgba(34,197,94,0.12); color:var(--green); }
@@ -688,6 +689,164 @@ const DATA = [
     ]},
 ];
 
+// --- COMPETITOR URL MAP ---
+// Key format: "CompetitorName" → url (pharmacy-level, covers all their products on one page)
+// Or "CompetitorName|ProductName" → url (product-specific override)
+const URL_MAP = {
+  // === PHARMACY-LEVEL (single page for all variants of a drug) ===
+  "Simple Online Pharmacy|Sildenafil":"https://www.simpleonlinepharmacy.co.uk/online-doctor/erectile-dysfunction/sildenafil/",
+  "Superdrug|Sildenafil":"https://onlinedoctor.superdrug.com/sildenafil.html",
+  "Chemist Click|Sildenafil":"https://www.chemistclick.co.uk/erectile-dysfunction-treatment/sildenafil-tablets",
+  "Manual|Sildenafil":"https://www.manual.co/erectile-dysfunction/sildenafil",
+  "Oxford Online Pharmacy|Sildenafil":"https://www.oxfordonlinepharmacy.co.uk/erectile-dysfunction/sildenafil",
+  "Boots|Sildenafil":"https://onlinedoctor.boots.com/treatments/sildenafil",
+  "Doctor Fox|Tadalafil":"https://www.doctorfox.co.uk/erectile-dysfunction/tadalafil.html",
+  "Oxford Online Pharmacy|Tadalafil":"https://www.oxfordonlinepharmacy.co.uk/erectile-dysfunction/tadalafil-tablets",
+  "Simple Online Pharmacy|Tadalafil":"https://www.simpleonlinepharmacy.co.uk/online-doctor/erectile-dysfunction/tadalafil/",
+  "Boots|Tadalafil":"https://onlinedoctor.boots.com/treatments/tadalafil",
+  "MedExpress|Tadalafil":"https://www.medexpress.co.uk/clinics/erectile-dysfunction/generic-tadalafil",
+  "Doctor Fox|Tadalafil Daily":"https://www.doctorfox.co.uk/erectile-dysfunction/tadalafil.html",
+  "Boots|Tadalafil Daily":"https://onlinedoctor.boots.com/treatments/tadalafil",
+  "Asda|Tadalafil Daily":"https://onlinedoctor.asda.com/uk/tadalafil.html",
+  "Superdrug|Tadalafil Daily":"https://onlinedoctor.superdrug.com/tadalafil.html",
+  "Simple Online Pharmacy|Tadalafil Daily":"https://www.simpleonlinepharmacy.co.uk/online-doctor/erectile-dysfunction/tadalafil/",
+  "WebMed Pharmacy|Spedra":"https://webmedpharmacy.co.uk/buy/spedra",
+  "The Independent Pharmacy|Spedra":"https://www.theindependentpharmacy.co.uk/erectile-dysfunction-ed/spedra-tablets",
+  "UK Meds|Spedra":"https://www.ukmeds.co.uk/spedra",
+  "MedExpress|Spedra":"https://www.medexpress.co.uk/clinics/erectile-dysfunction/spedra",
+  "Pharmica|Spedra":"https://www.pharmica.co.uk/erectile-dysfunction/spedra/",
+  "Superdrug|Spedra":"https://onlinedoctor.superdrug.com/spedra.html",
+  "Oxford Online Pharmacy|Viagra Connect":"https://www.oxfordonlinepharmacy.co.uk/erectile-dysfunction/viagra-connect",
+  "Pharmica|Viagra Connect":"https://www.pharmica.co.uk/erectile-dysfunction/viagra-connect/",
+  "Pharmacy2U|Viagra Connect":"https://www.pharmacy2u.co.uk/shop/products/VIAGRA-Connect-50mg-4-Tablets_0145535",
+  "The Independent Pharmacy|Viagra Connect":"https://www.theindependentpharmacy.co.uk/erectile-dysfunction-ed/viagra-connect",
+  "Superdrug|Viagra Connect":"https://www.superdrug.com/health/sexual-health/erectile-dysfunction/viagra-connect-4-pack/p/760060",
+  "Chemist Direct|Viagra Connect":"https://www.chemistdirect.co.uk/viagra-connect-50mg/prd-0145549",
+  // Priligy
+  "Doctor Fox|Priligy (Dapoxetine)":"https://www.doctorfox.co.uk/premature-ejaculation/priligy-tablets.html",
+  "Medical Specialists|Priligy (Dapoxetine)":"https://www.medical-specialists.co.uk/priligy.html",
+  "iQ Doctor|Priligy (Dapoxetine)":"https://www.iqdoctor.co.uk/treatments/premature-ejaculation/priligy-dapoxetine/",
+  "Assured Pharmacy|Priligy (Dapoxetine)":"https://www.assuredpharmacy.co.uk/priligy-dapoxetine",
+  "Superdrug|Priligy (Dapoxetine)":"https://onlinedoctor.superdrug.com/priligy.html",
+  "E-Surgery|Priligy (Dapoxetine)":"https://e-surgery.com/product/priligy/",
+  // Finasteride
+  "Simple Online Pharmacy|Finasteride":"https://www.simpleonlinepharmacy.co.uk/online-doctor/hair-loss/finasteride/",
+  "UK Meds|Finasteride":"https://www.ukmeds.co.uk/finasteride",
+  "Doctor Fox|Finasteride":"https://www.doctorfox.co.uk/hair-loss-treatments/finasteride.html",
+  "Pharmica|Finasteride":"https://www.pharmica.co.uk/hair-loss/finasteride/",
+  "The Family Chemist|Finasteride":"https://www.thefamilychemist.co.uk/hair-loss/finasteride/",
+  // Minoxidil Oral
+  "Oxford Online Pharmacy|Minoxidil Oral":"https://www.oxfordonlinepharmacy.co.uk/hair-loss/minoxidil-loniten-2-5mg-60-tablets-for-hair-loss-in-men-and-women",
+  "Simple Online Pharmacy|Minoxidil Oral":"https://www.simpleonlinepharmacy.co.uk/online-doctor/hair-loss/oral-minoxidil/",
+  "Hair Repair Clinic|Minoxidil Oral":"https://hairrepairclinic.co.uk/product/oral-minoxidil-2-5mg-60-tablets/",
+  "DrHair|Minoxidil Oral":"https://drhair.co.uk/product/minoxidil-2-5mg-tablets/",
+  "Sons|Minoxidil Oral":"https://sons.co.uk/products/oral-minoxidil",
+  // Min+Fin
+  "E-Surgery|Min+Fin Solution":"https://e-surgery.com/product/minoxidil-5-finasteride-0-1-solution/",
+  "DrHair|Min+Fin Solution":"https://drhair.co.uk/product/drhair-finasteride-minoxidil-formula/",
+  "Doctor Fox|Min+Fin Solution":"https://www.doctorfox.co.uk/hair-loss-treatments/hair-growth-spray.html",
+  "Hair Repair Clinic|Min+Fin Solution":"https://hairrepairclinic.co.uk/product/topical-finasteride-with-minoxidil-2/",
+  "iQ Doctor|Min+Fin Solution":"https://www.iqdoctor.co.uk/treatments/hair-loss/minoxidil-with-finasteride-topical-solution/",
+  // Regaine Foam
+  "Daily Chemist|Regaine Foam":"https://www.dailychemist.com/product/regaine-for-men-extra-strength-foam-5-73mls-1-month-supply/",
+  "Pharmica|Regaine Foam":"https://www.pharmica.co.uk/hair-loss/regaine/",
+  "Doctor Fox|Regaine Foam":"https://www.doctorfox.co.uk/hair-loss-treatments/regaine.html",
+  "Chemist Direct|Regaine Foam":"https://www.chemistdirect.co.uk/regaine-for-men-5--foam--1-month-supply/prd-3ke",
+  "Simple Online Pharmacy|Regaine Foam":"https://www.simpleonlinepharmacy.co.uk/online-doctor/regaine/regaine-for-men-foam/",
+  // Regaine Solution
+  "The Family Chemist|Regaine Solution":"https://www.thefamilychemist.co.uk/hair-loss/regaine/",
+  "Pharmica|Regaine Solution":"https://www.pharmica.co.uk/hair-loss/regaine-extra-strength-solution/",
+  "Doctor Fox|Regaine Solution":"https://www.doctorfox.co.uk/hair-loss-treatments/regaine.html",
+  "Chemist Direct|Regaine Solution":"https://www.chemistdirect.co.uk/regaine-for-men-solution/cat-40042",
+  // Mounjaro (all strengths same page per pharmacy)
+  "Asda|Mounjaro":"https://onlinedoctor.asda.com/uk/mounjaro.html",
+  "Boots|Mounjaro":"https://onlinedoctor.boots.com/treatments/mounjaro",
+  "MedExpress|Mounjaro":"https://www.medexpress.co.uk/clinics/weight-loss/mounjaro",
+  "Superdrug|Mounjaro":"https://onlinedoctor.superdrug.com/mounjaro.html",
+  "Pharmacy2U|Mounjaro":"https://www.pharmacy2u.co.uk/online-doctor/conditions/weight-loss/treatments/mounjaro",
+  // Wegovy
+  "Pharmacy2U|Wegovy":"https://www.pharmacy2u.co.uk/online-doctor/conditions/weight-loss/treatments/wegovy",
+  "Asda|Wegovy":"https://onlinedoctor.asda.com/uk/wegovy.html",
+  "Phlo Clinic|Wegovy":"https://phloclinic.co.uk/weight-loss-service/wegovy",
+  "Superdrug|Wegovy":"https://onlinedoctor.superdrug.com/wegovy.html",
+  "WebMed Pharmacy|Wegovy":"https://webmedpharmacy.co.uk/buy/wegovy",
+  // Testosterone
+  "Asda|Testogel Sachets":"https://onlinedoctor.asda.com/uk/testogel.html",
+  "E-Surgery|Testogel Sachets":"https://e-surgery.com/product/testogel-sachets/",
+  "Simple Online Pharmacy|Testogel Sachets":"https://www.simpleonlinepharmacy.co.uk/online-doctor/low-testosterone/testogel-sachets/",
+  "PharmXtra|Testogel Sachets":"https://www.pharmxtra.com/testogel-sachets",
+  "Superdrug|Testogel Sachets":"https://onlinedoctor.superdrug.com/testogel-for-women.html",
+  "Clear Chemist|Tostran Gel":"https://www.clearchemist.co.uk/tostran-2-gel-60g.html",
+  "E-Surgery|Tostran Gel":"https://e-surgery.com/product/tostran-2-gel/",
+  "Simple Online Pharmacy|Tostran Gel":"https://www.simpleonlinepharmacy.co.uk/online-doctor/low-testosterone/tostran-gel/",
+  "Asda|Tostran Gel":"https://onlinedoctor.asda.com/uk/tostran.html",
+  "Superdrug|Tostran Gel":"https://onlinedoctor.superdrug.com/tostran-gel.html",
+  // Test Kits
+  "London Health Co|Testosterone Test Kit":"https://londonhealthcompany.co.uk/products/testosterone-blood-test",
+  "Optimale|Testosterone Test Kit":"https://www.optimale.co.uk/product/testosterone-blood-test/",
+  "OneDayTests|Testosterone Test Kit":"https://onedaytests.com/products/testosterone-blood-test",
+  "ZAVA|Testosterone Test Kit":"https://www.zavamed.com/uk/testosterone-test-kit.html",
+  "Superdrug|Testosterone Test Kit":"https://onlinedoctor.superdrug.com/testosterone-test-kit.html",
+  // HRT
+  "The Independent Pharmacy|Estriol Cream":"https://www.theindependentpharmacy.co.uk/vaginal-dryness/estriol",
+  "Clear Chemist|Estriol Cream":"https://www.clearchemist.co.uk/estriol-cream-0-01-with-applicator-80g.html",
+  "Superdrug|Estriol Cream":"https://onlinedoctor.superdrug.com/estriol-cream.html",
+  "Asda|Estriol Cream":"https://onlinedoctor.asda.com/uk/estriol-cream.html",
+  "Pharmacy Online|Estriol Cream":"https://www.pharmacyonline.co.uk/online-doctor/vaginal-dryness/ovestin-cream/",
+  "E-Surgery|Imvaggis":"https://e-surgery.com/product/imvaggis-estriol-pessary/",
+  "The Independent Pharmacy|Imvaggis":"https://www.theindependentpharmacy.co.uk/vaginal-dryness/imvaggis-pessaries",
+  "Treated.com|Imvaggis":"https://uk.treated.com/vaginal-dryness/imvaggis",
+  "Click Pharmacy|Imvaggis":"https://www.clickpharmacy.co.uk/hormone-replacement-therapy/imvaggis-pessaries",
+  "Asda|Utrogestan + Oestrogel":"https://onlinedoctor.asda.com/uk/utrogestan.html",
+  "E-Surgery|Utrogestan + Oestrogel":"https://e-surgery.com/product/utrogestan-capsules/",
+  "The Independent Pharmacy|Utrogestan + Oestrogel":"https://www.theindependentpharmacy.co.uk/menopause-hrt/oestrogel",
+  "Chemist4U|Utrogestan + Oestrogel":"https://www.chemist-4-u.com/oestrogel-pump",
+  "Oxford Online Pharmacy|Utrogestan + Oestrogel":"https://www.oxfordonlinepharmacy.co.uk/hormone-replacement-therapy/oestrogel-80g-plus-30-utrogestan-caps-100mg-monthly-combi-pack",
+  "E-Surgery|Utrogestan":"https://e-surgery.com/product/utrogestan-capsules/",
+  "The Independent Pharmacy|Utrogestan":"https://www.theindependentpharmacy.co.uk/menopause-hrt/utrogestan-100mg-capsules",
+  "The Online Clinic|Utrogestan":"https://www.theonlineclinic.co.uk/utrogestan.asp",
+  "Asda|Utrogestan":"https://onlinedoctor.asda.com/uk/utrogestan.html",
+  "Clear Chemist|Utrogestan":"https://www.clearchemist.co.uk/utrogestan-100mg-caps.html",
+  "Chemist4U|Oestrogel":"https://www.chemist-4-u.com/oestrogel-pump",
+  "Oxford Online Pharmacy|Oestrogel":"https://www.oxfordonlinepharmacy.co.uk/hormone-replacement-therapy/oestrogel",
+  "Click Pharmacy|Oestrogel":"https://www.clickpharmacy.co.uk/hormone-replacement-therapy/oestrogel",
+  "The Independent Pharmacy|Oestrogel":"https://www.theindependentpharmacy.co.uk/menopause-hrt/oestrogel",
+  "Asda|Oestrogel":"https://onlinedoctor.asda.com/uk/hormone-replacement-therapy.html",
+  "Livewell Nationwide|Androfeme":"https://livewellnationwide.co.uk/private-prescription-androfeme-50ml/",
+  "LIVVE|Androfeme":"https://livve.uk/products/androfeme-testosterone-cream",
+  "The Online Clinic|Androfeme":"https://www.theonlineclinic.co.uk/androfeme.asp",
+  "Myla Health|Androfeme":"https://www.mylahealth.co.uk/hrt-testosterone",
+  "Church Pharmacy|Androfeme":"https://store.churchpharmacy.co.uk/product/androfeme-119044",
+  "SimplyMeds Online|Lenzetto Spray":"https://www.simplymedsonline.co.uk/menopause-hrt/lenzetto-spray.html",
+  "Oxford Online Pharmacy|Lenzetto Spray":"https://www.oxfordonlinepharmacy.co.uk/hormone-replacement-therapy/lenzetto-estradiol-1-53mg-transdermal-spray-solution-56-doses-8-1ml",
+  "The Independent Pharmacy|Lenzetto Spray":"https://www.theindependentpharmacy.co.uk/menopause-hrt/lenzetto",
+  "The Online Clinic|Lenzetto Spray":"https://www.theonlineclinic.co.uk/lenzetto.asp",
+  "Clear Chemist|Lenzetto Spray":"https://www.clearchemist.co.uk/lenzetto-spray.html",
+  "ZAVA|Menopause Test Kit":"https://www.zavamed.com/uk/menopause-test-kit.html",
+  "Superdrug|Menopause Test Kit":"https://onlinedoctor.superdrug.com/menopause-test-kit.html",
+  "Asda|Menopause Test Kit":"https://onlinedoctor.asda.com/uk/menopause-test-kit.html",
+  "Better2Know|Menopause Test Kit":"https://www.better2know.co.uk/shop/products/home-testing-kits/menopause-screen",
+  "Pharmica|Menopause Test Kit":"https://www.pharmica.co.uk/menopause/suresign-menopause-rapid-tests/",
+  "EasyTests|Female Hormone Test Kit":"https://www.easytests.co.uk/home-testing-kits/female-hormone",
+  "London Health Co|Female Hormone Test Kit":"https://londonhealthcompany.co.uk/products/female-hormone-blood-test",
+  "Numan|Female Hormone Test Kit":"https://www.numan.com/diagnostics/female-hormone-test",
+  "Better2Know|Female Hormone Test Kit":"https://www.better2know.co.uk/shop/products/home-testing-kits/female-hormones-screen",
+  "Hertility Health|Female Hormone Test Kit":"https://hertilityhealth.com/hormone-and-fertility-testing",
+  // Boots specific pack URLs
+  "Boots|Sildenafil|50mg|4 tablets":"https://www.boots.com/boots-sildenafil-50mg-film-coated-tablets-4s-10303198",
+  "Boots|Sildenafil|50mg|8 tablets":"https://www.boots.com/boots-sildenafil-50mg-film-coated-tablets-8s-10304660",
+};
+
+// Inject URLs into DATA
+DATA.forEach(item => {
+  item.competitors.forEach(c => {
+    // Try most specific first: Competitor|Product|Strength|PackSize
+    c.url = URL_MAP[`${c.name}|${item.product}|${item.strength}|${item.packSize}`]
+      || URL_MAP[`${c.name}|${item.product}`]
+      || null;
+  });
+});
+
 // --- UTILITY ---
 function fmt(v) { return v == null ? '-' : '\u00A3' + v.toFixed(2); }
 function pct(v) { return v == null ? '-' : (v > 0 ? '+' : '') + v.toFixed(0) + '%'; }
@@ -836,7 +995,7 @@ function renderProducts(items) {
 
     // Table
     html += `<table class="comp-table"><thead><tr>`;
-    html += `<th></th><th>Rank</th><th>Price</th><th>vs Bar</th><th>Cost</th><th>Margin</th>`;
+    html += `<th></th><th>Rank</th><th>Price</th><th>vs Bar</th><th>Cost</th><th>Margin</th><th></th>`;
     html += `</tr></thead><tbody>`;
 
     // Viva row
@@ -847,6 +1006,7 @@ function renderProducts(items) {
     html += `<td>${maxP && price ? `<div class="bar-wrap"><div class="bar-fill bar-viva" style="width:${price/maxP*100}%"></div></div>` : ''}</td>`;
     html += `<td style="color:var(--orange);font-size:11px">${item.costPrice ? fmt(item.costPrice) : '-'}</td>`;
     html += `<td class="${marginClass}" style="font-weight:700">${margin != null ? margin.toFixed(0)+'%' : '-'}</td>`;
+    html += `<td></td>`;
     html += `</tr>`;
 
     // Competitors sorted by price
@@ -862,6 +1022,7 @@ function renderProducts(items) {
       html += `<td class="${cls}">${c.price ? fmt(c.price) : `<span class="note">${c.note||'N/A'}</span>`}</td>`;
       html += `<td>${maxP && c.price ? `<div class="bar-wrap"><div class="bar-fill ${barCls}" style="width:${c.price/maxP*100}%"></div></div>` : ''}</td>`;
       html += `<td></td><td></td>`;
+      html += `<td>${c.url ? `<a href="${c.url}" target="_blank" rel="noopener" style="font-size:10px;color:var(--accent);text-decoration:none;padding:2px 8px;border:1px solid var(--border);border-radius:4px;white-space:nowrap">View</a>` : ''}</td>`;
       html += `</tr>`;
     });
 
