@@ -83,12 +83,54 @@
   .vs-avg-badge.expensive { background:rgba(239,68,68,0.12); color:var(--red); }
   .vs-avg-bar { width:40px; height:5px; border-radius:3px; display:inline-block; vertical-align:middle; }
 
+  /* Tabs */
+  .tab-bar { display:flex; gap:0; margin-right:auto; }
+  .tab-btn { padding:8px 18px; font-size:12px; font-weight:600; color:var(--text-muted); background:transparent; border:1px solid var(--border); cursor:pointer; transition:all 0.2s; }
+  .tab-btn:first-child { border-radius:6px 0 0 6px; }
+  .tab-btn:last-child { border-radius:0 6px 6px 0; }
+  .tab-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+
+  /* Price Planner */
+  .planner-wrap { display:none; }
+  .planner-wrap.active { display:block; }
+  .analysis-wrap { display:none; }
+  .analysis-wrap.active { display:block; }
+
+  .planner-actions { display:flex; gap:8px; margin-bottom:16px; align-items:center; }
+  .planner-actions button { font-size:12px; font-weight:600; padding:8px 16px; border-radius:6px; cursor:pointer; border:none; }
+  .btn-save { background:var(--green); color:#fff; }
+  .btn-save:hover { opacity:0.9; }
+  .btn-reset { background:var(--surface2); color:var(--text-muted); border:1px solid var(--border) !important; }
+  .btn-reset:hover { color:var(--text); }
+  .planner-status { font-size:11px; color:var(--green); margin-left:8px; opacity:0; transition:opacity 0.3s; }
+  .planner-status.show { opacity:1; }
+
+  table.planner-table { width:100%; border-collapse:collapse; font-size:12px; background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  table.planner-table th { background:var(--surface2); padding:10px 14px; text-align:left; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); border-bottom:1px solid var(--border); white-space:nowrap; }
+  table.planner-table td { padding:8px 14px; border-bottom:1px solid rgba(46,51,69,0.5); white-space:nowrap; font-variant-numeric:tabular-nums; }
+  table.planner-table tr:last-child td { border-bottom:none; }
+  table.planner-table tr:hover { background:rgba(99,102,241,0.03); }
+  table.planner-table input[type="number"] { width:80px; background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:5px 8px; border-radius:4px; font-size:12px; font-variant-numeric:tabular-nums; text-align:right; }
+  table.planner-table input[type="number"]:focus { outline:none; border-color:var(--accent); }
+  .planner-diff { font-size:11px; font-weight:600; }
+  .planner-diff.up { color:var(--red); }
+  .planner-diff.down { color:var(--green); }
+  .planner-diff.same { color:var(--text-muted); }
+
+  .planner-summary { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:10px; margin-bottom:16px; }
+  .planner-summary .summary-stat .val-compare { display:flex; gap:8px; align-items:baseline; }
+  .planner-summary .summary-stat .old-val { font-size:14px; color:var(--text-muted); text-decoration:line-through; }
+  .planner-summary .summary-stat .arrow { font-size:14px; color:var(--text-muted); }
+
   @media (max-width:768px) {
     .controls { flex-direction:column; }
     .summary-strip { grid-template-columns:repeat(2,1fr); }
     .bar-wrap { width:60px; }
     select { min-width:100%; }
     .overview-label { width:120px; min-width:120px; font-size:11px; }
+    .tab-bar { width:100%; }
+    .tab-btn { flex:1; text-align:center; }
+    table.planner-table input[type="number"] { width:65px; }
   }
 </style>
 </head>
@@ -106,31 +148,46 @@
 </header>
 
 <div class="controls">
-  <div class="control-group">
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('analysis')">Analysis</button>
+    <button class="tab-btn" onclick="switchTab('planner')">Price Planner</button>
+  </div>
+  <div class="control-group" id="ctrl-brand">
     <label>Brand</label>
     <select id="fBrand"><option value="all">All Brands</option></select>
   </div>
-  <div class="control-group">
+  <div class="control-group" id="ctrl-category">
     <label>Category</label>
     <select id="fCategory"><option value="all">All Categories</option></select>
   </div>
-  <div class="control-group">
+  <div class="control-group" id="ctrl-product">
     <label>Product</label>
     <select id="fProduct"><option value="all">All Products</option></select>
   </div>
-  <div class="control-group">
+  <div class="control-group" id="ctrl-strength">
     <label>Strength</label>
     <select id="fStrength"><option value="all">All Strengths</option></select>
   </div>
-  <div class="control-group">
+  <div class="control-group" id="ctrl-pack">
     <label>Pack Size</label>
     <select id="fPack"><option value="all">All Pack Sizes</option></select>
   </div>
 </div>
 
 <main>
-  <div class="summary-strip" id="summaryStrip"></div>
-  <div id="products"></div>
+  <div class="analysis-wrap active" id="analysisView">
+    <div class="summary-strip" id="summaryStrip"></div>
+    <div id="products"></div>
+  </div>
+  <div class="planner-wrap" id="plannerView">
+    <div class="planner-summary" id="plannerSummary"></div>
+    <div class="planner-actions">
+      <button class="btn-save" onclick="savePlanner()">Save Proposed Prices</button>
+      <button class="btn-reset" onclick="resetPlanner()">Reset All</button>
+      <span class="planner-status" id="plannerStatus">Saved!</span>
+    </div>
+    <table class="planner-table" id="plannerTable"></table>
+  </div>
 </main>
 
 <script>
@@ -643,7 +700,7 @@ function getStats(item) {
   const med = s.length%2===0 ? (s[s.length/2-1]+s[s.length/2])/2 : s[Math.floor(s.length/2)];
   let pos = null;
   if (item.vivaPrice != null) { const all=[...prices,item.vivaPrice].sort((a,b)=>a-b); pos=all.indexOf(item.vivaPrice)+1; }
-  return { avg, median:med, min:s[0], max:s[s.length-1], position:pos, count:prices.length, total:item.competitors.length };
+  return { avg, median:med, min:s[0], max:s[s.length-1], position:pos, count:prices.length, total:item.competitors.length, prices };
 }
 
 // --- FILTERS ---
@@ -707,29 +764,35 @@ function render() {
 }
 
 function renderSummary(items) {
-  const withStats = items.filter(i=>i.vivaPrice && getStats(i).avg);
-  let cheaperCount=0, totalCompared=0;
-  let totalDiff=0;
+  const proposed = loadProposed();
+  const hasProposed = Object.keys(proposed).length > 0;
+
+  function getPrice(i) { return effectivePrice(i); }
+
+  const withStats = items.filter(i=>getPrice(i) && getStats(i).avg);
+  let totalDiff=0, totalCompared=0;
   withStats.forEach(i => {
     const s=getStats(i);
-    if(s.avg) { totalDiff += (i.vivaPrice/s.avg - 1)*100; totalCompared++; }
-    if(s.position && s.position <= Math.ceil((s.count+1)/2)) cheaperCount++;
+    if(s.avg) { totalDiff += (getPrice(i)/s.avg - 1)*100; totalCompared++; }
   });
   const avgDiff = totalCompared ? totalDiff/totalCompared : 0;
-  const avgMargin = items.filter(i=>i.vivaPrice&&i.costPrice).reduce((acc,i)=>{
-    return acc + ((i.vivaPrice-i.costPrice)/i.vivaPrice*100);
-  },0) / (items.filter(i=>i.vivaPrice&&i.costPrice).length||1);
+  const margItems = items.filter(i=>getPrice(i)&&i.costPrice);
+  const avgMargin = margItems.reduce((acc,i)=>{
+    const p = getPrice(i);
+    return acc + ((p-i.costPrice)/p*100);
+  },0) / (margItems.length||1);
 
-  // Competitiveness Score: % of products priced below competitor average
-  const compRows = items.filter(i => i.vivaPrice && getStats(i).avg);
-  const belowAvg = compRows.filter(i => i.vivaPrice < getStats(i).avg).length;
+  const compRows = items.filter(i => getPrice(i) && getStats(i).avg);
+  const belowAvg = compRows.filter(i => getPrice(i) < getStats(i).avg).length;
   const compScore = compRows.length ? Math.round((belowAvg / compRows.length) * 100) : 0;
   const scoreColor = compScore >= 60 ? 'var(--green)' : compScore >= 40 ? 'var(--yellow)' : 'var(--red)';
 
+  const proposedLabel = hasProposed ? ' <span style="font-size:9px;color:var(--accent);font-weight:600;vertical-align:super">PROPOSED</span>' : '';
+
   document.getElementById('summaryStrip').innerHTML = `
-    <div class="summary-stat"><div class="label">Competitiveness</div><div class="val" style="color:${scoreColor}">${compScore}/100</div><div class="sub">${belowAvg} of ${compRows.length} below avg</div></div>
-    <div class="summary-stat"><div class="label">Avg vs Market</div><div class="val" style="color:${avgDiff>10?'var(--red)':avgDiff<-10?'var(--green)':'var(--yellow)'}">${pct(avgDiff)}</div><div class="sub">${avgDiff>0?'Above':'Below'} avg competitor price</div></div>
-    <div class="summary-stat"><div class="label">Avg Gross Margin</div><div class="val" style="color:${avgMargin>30?'var(--green)':avgMargin>15?'var(--yellow)':'var(--red)'}">${avgMargin.toFixed(0)}%</div><div class="sub">Based on cost (inc. VAT)</div></div>
+    <div class="summary-stat"><div class="label">Competitiveness${proposedLabel}</div><div class="val" style="color:${scoreColor}">${compScore}/100</div><div class="sub">${belowAvg} of ${compRows.length} below avg</div></div>
+    <div class="summary-stat"><div class="label">Avg vs Market${proposedLabel}</div><div class="val" style="color:${avgDiff>10?'var(--red)':avgDiff<-10?'var(--green)':'var(--yellow)'}">${pct(avgDiff)}</div><div class="sub">${avgDiff>0?'Above':'Below'} avg competitor price</div></div>
+    <div class="summary-stat"><div class="label">Avg Gross Margin${proposedLabel}</div><div class="val" style="color:${avgMargin>30?'var(--green)':avgMargin>15?'var(--yellow)':'var(--red)'}">${avgMargin.toFixed(0)}%</div><div class="sub">Based on cost (inc. VAT)</div></div>
     <div class="summary-stat"><div class="label">Products</div><div class="val">${items.length}</div></div>
   `;
 }
@@ -740,21 +803,25 @@ function renderProducts(items) {
 
   items.forEach(item => {
     const stats = getStats(item);
-    const margin = (item.vivaPrice && item.costPrice) ? ((item.vivaPrice - item.costPrice) / item.vivaPrice * 100) : null;
+    const price = effectivePrice(item);
+    const isProposed = price !== item.vivaPrice;
+    const margin = (price && item.costPrice) ? ((price - item.costPrice) / price * 100) : null;
     const marginClass = margin > 40 ? 'margin-good' : margin > 15 ? 'margin-tight' : 'margin-bad';
-    const maxP = Math.max(...item.competitors.filter(c=>c.price).map(c=>c.price), item.vivaPrice||0);
+    const maxP = Math.max(...item.competitors.filter(c=>c.price).map(c=>c.price), price||0);
 
     // vs avg badge
     let vsAvgHtml = '';
-    if (item.vivaPrice && stats.avg) {
-      const d = ((item.vivaPrice / stats.avg) - 1) * 100;
+    if (price && stats.avg) {
+      const d = ((price / stats.avg) - 1) * 100;
       const cls = d < -10 ? 'cheap' : d > 10 ? 'expensive' : 'mid';
       const barColor = d < -10 ? 'var(--green)' : d > 10 ? 'var(--red)' : 'var(--yellow)';
       vsAvgHtml = `<span class="vs-avg-badge ${cls}"><span class="vs-avg-bar" style="background:${barColor};width:${Math.min(Math.abs(d),50)}px"></span>${d>0?'+':''}${d.toFixed(0)}% vs avg</span>`;
     }
 
+    const proposedTag = isProposed ? ' <span style="font-size:9px;background:var(--accent);color:#fff;padding:2px 6px;border-radius:3px;vertical-align:middle">PROPOSED</span>' : '';
+
     html += `<div class="product-card">`;
-    html += `<div class="product-header"><div><span class="product-name">${item.product} ${item.strength}</span> <span style="color:var(--text-muted);font-size:12px;margin-left:6px">${item.packSize}</span> ${vsAvgHtml}</div>`;
+    html += `<div class="product-header"><div><span class="product-name">${item.product} ${item.strength}</span> <span style="color:var(--text-muted);font-size:12px;margin-left:6px">${item.packSize}</span> ${vsAvgHtml}${proposedTag}</div>`;
     html += `<div class="product-meta"><span class="tag tag-brand">${item.brand}</span><span class="tag tag-cat">${item.category}</span></div></div>`;
     html += `<div class="product-body">`;
 
@@ -765,10 +832,10 @@ function renderProducts(items) {
 
     // Viva row
     html += `<tr class="viva-row">`;
-    html += `<td style="font-weight:700">${item.brand}</td>`;
+    html += `<td style="font-weight:700">${item.brand}${isProposed ? ' <span style="font-size:9px;color:var(--accent)">(was '+fmt(item.vivaPrice)+')</span>' : ''}</td>`;
     html += `<td style="font-size:11px">YOU</td>`;
-    html += `<td style="font-weight:700">${item.vivaPrice ? fmt(item.vivaPrice) : 'N/A'}</td>`;
-    html += `<td>${maxP && item.vivaPrice ? `<div class="bar-wrap"><div class="bar-fill bar-viva" style="width:${item.vivaPrice/maxP*100}%"></div></div>` : ''}</td>`;
+    html += `<td style="font-weight:700">${price ? fmt(price) : 'N/A'}</td>`;
+    html += `<td>${maxP && price ? `<div class="bar-wrap"><div class="bar-fill bar-viva" style="width:${price/maxP*100}%"></div></div>` : ''}</td>`;
     html += `<td style="color:var(--orange);font-size:11px">${item.costPrice ? fmt(item.costPrice) : '-'}</td>`;
     html += `<td class="${marginClass}" style="font-weight:700">${margin != null ? margin.toFixed(0)+'%' : '-'}</td>`;
     html += `</tr>`;
@@ -796,16 +863,18 @@ function renderProducts(items) {
     html += `<div class="mini-stat"><div class="ms-label">Cheapest</div><div class="ms-val" style="color:var(--green)">${stats.min?fmt(stats.min):'TBD'}</div></div>`;
     html += `<div class="mini-stat"><div class="ms-label">Average</div><div class="ms-val">${stats.avg?fmt(stats.avg):'TBD'}</div></div>`;
     html += `<div class="mini-stat"><div class="ms-label">Median</div><div class="ms-val">${stats.median?fmt(stats.median):'TBD'}</div></div>`;
-    if (item.vivaPrice && stats.avg) {
-      const d=((item.vivaPrice/stats.avg-1)*100);
+    if (price && stats.avg) {
+      const d=((price/stats.avg-1)*100);
       html += `<div class="mini-stat"><div class="ms-label">Viva vs Avg</div><div class="ms-val" style="color:${d>10?'var(--red)':d<-10?'var(--green)':'var(--yellow)'}">${pct(d)}</div></div>`;
     }
-    if (stats.position != null) {
-      const pcls = stats.position<=2?'var(--green)':stats.position<=4?'var(--yellow)':'var(--red)';
-      html += `<div class="mini-stat"><div class="ms-label">Price Rank</div><div class="ms-val" style="color:${pcls}">#${stats.position} of ${stats.count+1}</div></div>`;
+    if (price && stats.prices) {
+      const allPrices = [...stats.prices, price].sort((a,b)=>a-b);
+      const pos = allPrices.indexOf(price) + 1;
+      const pcls = pos<=2?'var(--green)':pos<=4?'var(--yellow)':'var(--red)';
+      html += `<div class="mini-stat"><div class="ms-label">Price Rank</div><div class="ms-val" style="color:${pcls}">#${pos} of ${allPrices.length}</div></div>`;
     }
-    if (item.costPrice && item.vivaPrice) {
-      const profit = item.vivaPrice - item.costPrice;
+    if (item.costPrice && price) {
+      const profit = price - item.costPrice;
       html += `<div class="mini-stat"><div class="ms-label">Profit / Sale</div><div class="ms-val" style="color:${profit>5?'var(--green)':'var(--red)'}">${fmt(profit)}</div></div>`;
     }
     html += `</div>`;
@@ -836,6 +905,219 @@ function renderProducts(items) {
   });
 });
 
+// --- PROPOSED PRICES (localStorage) ---
+const LS_KEY = 'viva-proposed-prices';
+function loadProposed() {
+  try { return JSON.parse(localStorage.getItem(LS_KEY)) || {}; } catch(e) { return {}; }
+}
+function saveProposed(map) { localStorage.setItem(LS_KEY, JSON.stringify(map)); }
+function getItemKey(item) { return `${item.product}|${item.strength}|${item.packSize}`; }
+
+// Get effective price (proposed if set, otherwise vivaPrice)
+function effectivePrice(item) {
+  const proposed = loadProposed();
+  const key = getItemKey(item);
+  return (proposed[key] != null && proposed[key] !== '') ? proposed[key] : item.vivaPrice;
+}
+
+// --- TAB SWITCHING ---
+let currentTab = 'analysis';
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', (i===0 && tab==='analysis') || (i===1 && tab==='planner')));
+  document.getElementById('analysisView').classList.toggle('active', tab==='analysis');
+  document.getElementById('plannerView').classList.toggle('active', tab==='planner');
+  // Show/hide filters (only for analysis)
+  ['ctrl-brand','ctrl-category','ctrl-product','ctrl-strength','ctrl-pack'].forEach(id => {
+    document.getElementById(id).style.display = tab==='analysis' ? '' : 'none';
+  });
+  if (tab==='analysis') render();
+  if (tab==='planner') renderPlanner();
+}
+
+// --- PLANNER ---
+function renderPlanner() {
+  const items = DATA;
+  const proposed = loadProposed();
+
+  // Planner summary: compare current vs proposed overall stats
+  renderPlannerSummary(items, proposed);
+
+  let html = '<thead><tr>';
+  html += '<th>Product</th><th>Strength</th><th>Pack Size</th><th>Category</th>';
+  html += '<th>Cost</th><th>Current Price</th><th>Proposed Price</th>';
+  html += '<th>Change</th><th>New Margin</th><th>New vs Avg</th>';
+  html += '</tr></thead><tbody>';
+
+  items.forEach((item, idx) => {
+    const key = getItemKey(item);
+    const proposedVal = proposed[key] != null ? proposed[key] : '';
+    const currentP = item.vivaPrice;
+    const cost = item.costPrice || 0;
+    const stats = getStats(item);
+
+    // Calculate proposed metrics
+    const propP = proposedVal !== '' ? parseFloat(proposedVal) : currentP;
+    const newMargin = (propP && cost) ? ((propP - cost) / propP * 100) : null;
+    const newVsAvg = (propP && stats.avg) ? ((propP / stats.avg - 1) * 100) : null;
+    const priceDiff = (proposedVal !== '' && currentP) ? ((propP - currentP) / currentP * 100) : null;
+
+    const marginCls = newMargin > 40 ? 'margin-good' : newMargin > 15 ? 'margin-tight' : 'margin-bad';
+    const vsAvgCls = newVsAvg !== null ? (newVsAvg < -10 ? 'style="color:var(--green)"' : newVsAvg > 10 ? 'style="color:var(--red)"' : 'style="color:var(--yellow)"') : '';
+    const diffCls = priceDiff !== null ? (priceDiff > 0 ? 'up' : priceDiff < 0 ? 'down' : 'same') : 'same';
+
+    html += `<tr>`;
+    html += `<td style="font-weight:600">${item.product}</td>`;
+    html += `<td>${item.strength}</td>`;
+    html += `<td>${item.packSize}</td>`;
+    html += `<td><span class="tag tag-cat" style="font-size:9px">${item.category}</span></td>`;
+    html += `<td style="color:var(--orange)">${cost ? fmt(cost) : '-'}</td>`;
+    html += `<td>${currentP ? fmt(currentP) : 'N/A'}</td>`;
+    html += `<td><input type="number" step="0.01" min="0" data-idx="${idx}" data-key="${key}" value="${proposedVal}" placeholder="${currentP||''}" oninput="onPlannerInput(this)"></td>`;
+    html += `<td><span class="planner-diff ${diffCls}">${priceDiff !== null ? (priceDiff > 0 ? '+' : '') + priceDiff.toFixed(1) + '%' : '-'}</span></td>`;
+    html += `<td class="${marginCls}">${newMargin !== null ? newMargin.toFixed(0) + '%' : '-'}</td>`;
+    html += `<td ${vsAvgCls}>${newVsAvg !== null ? (newVsAvg > 0 ? '+' : '') + newVsAvg.toFixed(0) + '% vs avg' : '-'}</td>`;
+    html += `</tr>`;
+  });
+
+  html += '</tbody>';
+  document.getElementById('plannerTable').innerHTML = html;
+}
+
+function renderPlannerSummary(items, proposed) {
+  // Current stats
+  const currentStats = calcOverallStats(items, false);
+  // Proposed stats (use proposed where available)
+  const proposedStats = calcOverallStats(items, true);
+  const hasProposed = Object.keys(proposed).length > 0;
+
+  let html = '';
+
+  // Competitiveness
+  const curScoreColor = currentStats.compScore >= 60 ? 'var(--green)' : currentStats.compScore >= 40 ? 'var(--yellow)' : 'var(--red)';
+  const newScoreColor = proposedStats.compScore >= 60 ? 'var(--green)' : proposedStats.compScore >= 40 ? 'var(--yellow)' : 'var(--red)';
+  html += `<div class="summary-stat"><div class="label">Competitiveness</div>`;
+  if (hasProposed && proposedStats.compScore !== currentStats.compScore) {
+    html += `<div class="val-compare"><span class="old-val">${currentStats.compScore}/100</span><span class="arrow">&rarr;</span><span class="val" style="color:${newScoreColor};font-size:20px">${proposedStats.compScore}/100</span></div>`;
+  } else {
+    html += `<div class="val" style="color:${curScoreColor}">${currentStats.compScore}/100</div>`;
+  }
+  html += `</div>`;
+
+  // Avg vs Market
+  const curDiffColor = currentStats.avgDiff > 10 ? 'var(--red)' : currentStats.avgDiff < -10 ? 'var(--green)' : 'var(--yellow)';
+  const newDiffColor = proposedStats.avgDiff > 10 ? 'var(--red)' : proposedStats.avgDiff < -10 ? 'var(--green)' : 'var(--yellow)';
+  html += `<div class="summary-stat"><div class="label">Avg vs Market</div>`;
+  if (hasProposed && Math.abs(proposedStats.avgDiff - currentStats.avgDiff) > 0.5) {
+    html += `<div class="val-compare"><span class="old-val">${pct(currentStats.avgDiff)}</span><span class="arrow">&rarr;</span><span class="val" style="color:${newDiffColor};font-size:20px">${pct(proposedStats.avgDiff)}</span></div>`;
+  } else {
+    html += `<div class="val" style="color:${curDiffColor}">${pct(currentStats.avgDiff)}</div>`;
+  }
+  html += `</div>`;
+
+  // Avg Margin
+  const curMarginColor = currentStats.avgMargin > 30 ? 'var(--green)' : currentStats.avgMargin > 15 ? 'var(--yellow)' : 'var(--red)';
+  const newMarginColor = proposedStats.avgMargin > 30 ? 'var(--green)' : proposedStats.avgMargin > 15 ? 'var(--yellow)' : 'var(--red)';
+  html += `<div class="summary-stat"><div class="label">Avg Gross Margin</div>`;
+  if (hasProposed && Math.abs(proposedStats.avgMargin - currentStats.avgMargin) > 0.5) {
+    html += `<div class="val-compare"><span class="old-val">${currentStats.avgMargin.toFixed(0)}%</span><span class="arrow">&rarr;</span><span class="val" style="color:${newMarginColor};font-size:20px">${proposedStats.avgMargin.toFixed(0)}%</span></div>`;
+  } else {
+    html += `<div class="val" style="color:${curMarginColor}">${currentStats.avgMargin.toFixed(0)}%</div>`;
+  }
+  html += `</div>`;
+
+  // Products with proposed prices
+  const proposedCount = Object.values(proposed).filter(v => v !== '' && v != null).length;
+  html += `<div class="summary-stat"><div class="label">Proposed Prices Set</div><div class="val">${proposedCount} <span style="font-size:13px;color:var(--text-muted)">/ ${items.length}</span></div></div>`;
+
+  document.getElementById('plannerSummary').innerHTML = html;
+}
+
+function calcOverallStats(items, useProposed) {
+  const proposed = useProposed ? loadProposed() : {};
+  let totalDiff = 0, totalCompared = 0, belowAvg = 0, compTotal = 0;
+  let totalMargin = 0, marginCount = 0;
+
+  items.forEach(item => {
+    const key = getItemKey(item);
+    const price = (useProposed && proposed[key] != null && proposed[key] !== '') ? parseFloat(proposed[key]) : item.vivaPrice;
+    const stats = getStats(item);
+    if (price && stats.avg) {
+      totalDiff += (price / stats.avg - 1) * 100;
+      totalCompared++;
+      if (price < stats.avg) belowAvg++;
+      compTotal++;
+    }
+    if (price && item.costPrice) {
+      totalMargin += (price - item.costPrice) / price * 100;
+      marginCount++;
+    }
+  });
+
+  return {
+    compScore: compTotal ? Math.round((belowAvg / compTotal) * 100) : 0,
+    avgDiff: totalCompared ? totalDiff / totalCompared : 0,
+    avgMargin: marginCount ? totalMargin / marginCount : 0
+  };
+}
+
+function onPlannerInput(el) {
+  // Live update the row
+  const idx = parseInt(el.dataset.idx);
+  const item = DATA[idx];
+  const val = el.value.trim();
+  const propP = val !== '' ? parseFloat(val) : item.vivaPrice;
+  const cost = item.costPrice || 0;
+  const stats = getStats(item);
+  const row = el.closest('tr');
+  const cells = row.querySelectorAll('td');
+
+  // Change column
+  if (val !== '' && item.vivaPrice) {
+    const diff = ((propP - item.vivaPrice) / item.vivaPrice * 100);
+    const cls = diff > 0 ? 'up' : diff < 0 ? 'down' : 'same';
+    cells[7].innerHTML = `<span class="planner-diff ${cls}">${diff > 0 ? '+' : ''}${diff.toFixed(1)}%</span>`;
+  } else {
+    cells[7].innerHTML = '<span class="planner-diff same">-</span>';
+  }
+
+  // Margin column
+  const newMargin = (propP && cost) ? ((propP - cost) / propP * 100) : null;
+  const marginCls = newMargin > 40 ? 'margin-good' : newMargin > 15 ? 'margin-tight' : 'margin-bad';
+  cells[8].className = marginCls;
+  cells[8].textContent = newMargin !== null ? newMargin.toFixed(0) + '%' : '-';
+
+  // vs Avg column
+  const newVsAvg = (propP && stats.avg) ? ((propP / stats.avg - 1) * 100) : null;
+  cells[9].style.color = newVsAvg !== null ? (newVsAvg < -10 ? 'var(--green)' : newVsAvg > 10 ? 'var(--red)' : 'var(--yellow)') : '';
+  cells[9].textContent = newVsAvg !== null ? (newVsAvg > 0 ? '+' : '') + newVsAvg.toFixed(0) + '% vs avg' : '-';
+
+  // Live-update summary with temporary proposed map
+  const proposed = loadProposed();
+  const key = el.dataset.key;
+  if (val !== '') proposed[key] = parseFloat(val); else delete proposed[key];
+  renderPlannerSummary(DATA, proposed);
+}
+
+function savePlanner() {
+  const proposed = {};
+  document.querySelectorAll('#plannerTable input[type="number"]').forEach(el => {
+    if (el.value.trim() !== '') {
+      proposed[el.dataset.key] = parseFloat(el.value);
+    }
+  });
+  saveProposed(proposed);
+  const status = document.getElementById('plannerStatus');
+  status.classList.add('show');
+  setTimeout(() => status.classList.remove('show'), 2000);
+}
+
+function resetPlanner() {
+  if (!confirm('Reset all proposed prices?')) return;
+  localStorage.removeItem(LS_KEY);
+  renderPlanner();
+}
+
 populateFilters();
 render();
 
@@ -861,9 +1143,12 @@ function exportXLSX() {
       const items = getFiltered();
       const rows = [];
 
+      const proposed = loadProposed();
       items.forEach(item => {
         const stats = getStats(item);
-        const margin = (item.vivaPrice && item.costPrice) ? ((item.vivaPrice - item.costPrice) / item.vivaPrice * 100) : null;
+        const price = effectivePrice(item);
+        const isProposed = price !== item.vivaPrice;
+        const margin = (price && item.costPrice) ? ((price - item.costPrice) / price * 100) : null;
         const minViable = item.costPrice ? item.costPrice * 1.1 : null;
 
         // Viva row
@@ -875,7 +1160,9 @@ function exportXLSX() {
           'Pack Size': item.packSize,
           Competitor: item.brand + ' (YOU)',
           'SEO Rank': '-',
-          Price: item.vivaPrice,
+          Price: price,
+          'Proposed': isProposed ? price : '',
+          'Original Price': isProposed ? item.vivaPrice : '',
           'Cost Price': item.costPrice || '',
           'Margin %': margin ? +margin.toFixed(1) : '',
           'Min Viable (10%)': minViable ? +minViable.toFixed(2) : '',
