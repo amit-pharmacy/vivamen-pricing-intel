@@ -78,20 +78,16 @@
   .note { font-size:11px; color:var(--text-muted); font-style:italic; }
 
   .overview-panel { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:20px; }
-  .overview-panel h3 { font-size:14px; font-weight:700; margin-bottom:14px; color:var(--text); }
-  .overview-row { display:flex; align-items:center; gap:10px; margin-bottom:6px; font-size:12px; }
-  .overview-label { width:200px; min-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--text-muted); }
-  .overview-track { flex:1; height:22px; background:var(--surface2); border-radius:4px; position:relative; overflow:visible; }
-  .overview-avg-line { position:absolute; top:-2px; bottom:-2px; width:2px; background:var(--yellow); z-index:2; }
-  .overview-avg-label { position:absolute; top:-14px; font-size:9px; color:var(--yellow); white-space:nowrap; font-weight:600; }
-  .overview-dot { position:absolute; top:50%; width:14px; height:14px; border-radius:50%; transform:translate(-50%,-50%); z-index:3; border:2px solid var(--surface); }
-  .overview-dot.cheap { background:var(--green); }
-  .overview-dot.mid { background:var(--yellow); }
-  .overview-dot.expensive { background:var(--red); }
-  .overview-pct { width:55px; min-width:55px; text-align:right; font-weight:700; font-size:12px; font-variant-numeric:tabular-nums; }
-  .overview-legend { display:flex; gap:16px; margin-top:12px; font-size:11px; color:var(--text-muted); align-items:center; }
-  .overview-legend span { display:flex; align-items:center; gap:4px; }
-  .legend-dot { width:8px; height:8px; border-radius:50%; display:inline-block; }
+  .overview-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+  .overview-header h3 { font-size:14px; font-weight:700; color:var(--text); margin:0; }
+  .score-badge { display:flex; align-items:center; gap:8px; }
+  .score-num { font-size:28px; font-weight:800; line-height:1; }
+  .score-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); }
+  .ov-row { display:flex; align-items:center; gap:8px; margin-bottom:4px; font-size:11px; }
+  .ov-name { width:180px; min-width:180px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--text-muted); }
+  .ov-bar-wrap { flex:1; height:16px; background:var(--surface2); border-radius:3px; display:flex; align-items:center; position:relative; }
+  .ov-bar { height:100%; border-radius:3px; min-width:2px; }
+  .ov-pct { width:50px; min-width:50px; text-align:right; font-weight:700; font-size:11px; font-variant-numeric:tabular-nums; }
 
   @media (max-width:768px) {
     .controls { flex-direction:column; }
@@ -745,42 +741,49 @@ function renderOverview(items) {
   const rows = items.filter(i => i.vivaPrice && getStats(i).count >= 2).map(i => {
     const s = getStats(i);
     const diff = ((i.vivaPrice / s.avg) - 1) * 100;
-    return { label: `${i.product} ${i.strength} (${i.packSize})`, vivaPrice: i.vivaPrice, min: s.min, max: s.max, avg: s.avg, diff, position: s.position, total: s.count + 1 };
+    return { label: `${i.product} ${i.strength}`, pack: i.packSize, diff };
   });
   if (!rows.length) { document.getElementById('overviewChart').innerHTML = ''; return; }
 
-  // Sort by diff (most expensive first)
-  rows.sort((a, b) => b.diff - a.diff);
+  rows.sort((a, b) => a.diff - b.diff); // cheapest first
+
+  // Competitiveness Score: 0-100. 100 = all products cheapest. Based on how many are below avg.
+  const cheaper = rows.filter(r => r.diff < 0).length;
+  const score = Math.round((cheaper / rows.length) * 100);
+  const scoreColor = score >= 60 ? 'var(--green)' : score >= 40 ? 'var(--yellow)' : 'var(--red)';
+  const maxAbs = Math.max(...rows.map(r => Math.abs(r.diff)), 1);
 
   let html = `<div class="overview-panel">`;
-  html += `<h3>Market Position Overview — Viva vs Competitor Average</h3>`;
+  html += `<div class="overview-header">`;
+  html += `<h3>Viva vs Market Average</h3>`;
+  html += `<div class="score-badge"><div><div class="score-num" style="color:${scoreColor}">${score}</div><div class="score-label">Competitiveness Score</div></div></div>`;
+  html += `</div>`;
 
   rows.forEach(r => {
-    // Scale: min=0%, max=100% of the track
-    const range = r.max - r.min || 1;
-    const vivaPos = Math.max(0, Math.min(100, ((r.vivaPrice - r.min) / range) * 100));
-    const avgPos = Math.max(0, Math.min(100, ((r.avg - r.min) / range) * 100));
-    const dotClass = r.diff < -10 ? 'cheap' : r.diff > 10 ? 'expensive' : 'mid';
-    const pctColor = r.diff < -10 ? 'var(--green)' : r.diff > 10 ? 'var(--red)' : 'var(--yellow)';
+    const barWidth = Math.abs(r.diff) / maxAbs * 50; // max 50% width
+    const color = r.diff < -10 ? 'var(--green)' : r.diff > 10 ? 'var(--red)' : 'var(--yellow)';
+    const pctText = (r.diff > 0 ? '+' : '') + r.diff.toFixed(0) + '%';
 
-    html += `<div class="overview-row">`;
-    html += `<div class="overview-label" title="${r.label}">${r.label}</div>`;
-    html += `<div class="overview-track">`;
-    html += `<div class="overview-avg-line" style="left:${avgPos}%"><div class="overview-avg-label" style="left:-8px">avg</div></div>`;
-    html += `<div class="overview-dot ${dotClass}" style="left:${vivaPos}%" title="Viva: ${fmt(r.vivaPrice)} | Avg: ${fmt(r.avg)} | Cheapest: ${fmt(r.min)}"></div>`;
+    html += `<div class="ov-row">`;
+    html += `<div class="ov-name" title="${r.label} ${r.pack}">${r.label}</div>`;
+    html += `<div class="ov-bar-wrap">`;
+    if (r.diff < 0) {
+      // Cheaper: bar grows left from center
+      html += `<div style="width:50%;display:flex;justify-content:flex-end"><div class="ov-bar" style="width:${barWidth}%;background:${color};border-radius:3px 0 0 3px"></div></div>`;
+      html += `<div style="width:1px;background:var(--border);height:100%"></div>`;
+      html += `<div style="width:50%"></div>`;
+    } else {
+      // More expensive: bar grows right from center
+      html += `<div style="width:50%"></div>`;
+      html += `<div style="width:1px;background:var(--border);height:100%"></div>`;
+      html += `<div style="width:50%"><div class="ov-bar" style="width:${barWidth}%;background:${color};border-radius:0 3px 3px 0"></div></div>`;
+    }
     html += `</div>`;
-    html += `<div class="overview-pct" style="color:${pctColor}">${r.diff > 0 ? '+' : ''}${r.diff.toFixed(0)}%</div>`;
+    html += `<div class="ov-pct" style="color:${color}">${pctText}</div>`;
     html += `</div>`;
   });
 
-  html += `<div class="overview-legend">`;
-  html += `<span><span class="legend-dot" style="background:var(--green)"></span> &gt;10% cheaper</span>`;
-  html += `<span><span class="legend-dot" style="background:var(--yellow)"></span> Within ±10%</span>`;
-  html += `<span><span class="legend-dot" style="background:var(--red)"></span> &gt;10% more expensive</span>`;
-  html += `<span style="margin-left:8px">| <span style="color:var(--yellow);font-weight:600">—</span> = competitor avg</span>`;
   html += `</div>`;
-  html += `</div>`;
-
   document.getElementById('overviewChart').innerHTML = html;
 }
 
