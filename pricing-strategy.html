@@ -199,7 +199,7 @@ const DATA = [
     vivaPrice:8.99, costPrice:0.71, costWithVat:0.85,
     competitors:[
       {name:"Simple Online Pharmacy",rank:1,price:7.49,note:"403 blocked"},
-      {name:"Superdrug",rank:2,price:14.99},
+      {name:"Superdrug",rank:2,price:14.99,note:"From price"},
       {name:"Boots",rank:3,price:15.00},
       {name:"Chemist Click",rank:4,price:13.89},
       {name:"Doctor Fox",rank:5,price:3.50,note:"+£4-7 fees"}
@@ -208,7 +208,7 @@ const DATA = [
     vivaPrice:16.99, costPrice:1.43, costWithVat:1.71,
     competitors:[
       {name:"Simple Online Pharmacy",rank:1,price:11.99,note:"403 blocked"},
-      {name:"Superdrug",rank:2,price:26.99},
+      {name:"Superdrug",rank:2,price:26.99,note:"From price"},
       {name:"Boots",rank:3,price:28.00},
       {name:"Chemist Click",rank:4,price:19.99},
       {name:"Oxford Online Pharmacy",rank:6,price:13.79}
@@ -218,7 +218,7 @@ const DATA = [
     vivaPrice:9.99, costPrice:0.73, costWithVat:0.88,
     competitors:[
       {name:"Simple Online Pharmacy",rank:1,price:8.99,note:"403 blocked"},
-      {name:"Superdrug",rank:2,price:15.99,note:"403 blocked"},
+      {name:"Superdrug",rank:2,price:15.99,note:"From price"},
       {name:"Boots",rank:3,price:25.00},
       {name:"Chemist Click",rank:4,price:14.89},
       {name:"Oxford Online Pharmacy",rank:6,price:8.19}
@@ -227,7 +227,7 @@ const DATA = [
     vivaPrice:18.99, costPrice:1.46, costWithVat:1.76,
     competitors:[
       {name:"Simple Online Pharmacy",rank:1,price:14.99,note:"403 blocked"},
-      {name:"Superdrug",rank:2,price:23.00,note:"403 blocked"},
+      {name:"Superdrug",rank:2,price:23.00,note:"From price"},
       {name:"Boots",rank:3,price:35.00},
       {name:"Chemist Click",rank:4,price:21.49},
       {name:"Oxford Online Pharmacy",rank:6,price:14.89}
@@ -277,7 +277,7 @@ const DATA = [
       {name:"Doctor Fox",rank:1,price:18.00,note:"+£4-7 fees"},
       {name:"Boots",rank:2,price:55.00,note:"403 blocked"},
       {name:"Asda",rank:3,price:45.00,note:"403 blocked"},
-      {name:"Superdrug",rank:4,price:47.99,note:"403 blocked"},
+      {name:"Superdrug",rank:4,price:47.99,note:"From price"},
       {name:"Simple Online Pharmacy",rank:6,price:39.99,note:"403 blocked"}
     ]},
   { product:"Tadalafil Daily", strength:"5mg", packSize:"28 tablets", category:"Erectile Dysfunction", brand:"VivaMen",
@@ -286,7 +286,7 @@ const DATA = [
       {name:"Doctor Fox",rank:1,price:17.00,note:"+£4-7 fees"},
       {name:"Boots",rank:2,price:55.00,note:"403 blocked"},
       {name:"Asda",rank:3,price:50.00,note:"403 blocked"},
-      {name:"Superdrug",rank:4,price:47.99,note:"403 blocked"},
+      {name:"Superdrug",rank:4,price:47.99,note:"From price"},
       {name:"Simple Online Pharmacy",rank:6,price:14.99,note:"403 blocked"}
     ]},
   // Spedra
@@ -303,7 +303,7 @@ const DATA = [
     vivaPrice:29.99, costPrice:16.90, costWithVat:16.90,
     competitors:[
       {name:"WebMed Pharmacy",rank:1,price:33.00},
-      {name:"Superdrug",rank:2,price:32.00,note:"403 blocked"},
+      {name:"Superdrug",rank:2,price:32.00},
       {name:"The Independent Pharmacy",rank:3,price:32.50},
       {name:"UK Meds",rank:4,price:29.97},
       {name:"MedExpress",rank:5,price:28.99}
@@ -312,7 +312,7 @@ const DATA = [
     vivaPrice:42.99, costPrice:26.28, costWithVat:26.28,
     competitors:[
       {name:"WebMed Pharmacy",rank:1,price:41.00},
-      {name:"Superdrug",rank:2,price:41.00,note:"403 blocked"},
+      {name:"Superdrug",rank:2,price:41.00},
       {name:"The Independent Pharmacy",rank:3,price:42.00},
       {name:"UK Meds",rank:4,price:41.96},
       {name:"MedExpress",rank:5,price:36.99}
@@ -324,7 +324,7 @@ const DATA = [
       {name:"UK Meds",rank:4,price:45.49},
       {name:"MedExpress",rank:5,price:49.99},
       {name:"The Independent Pharmacy",rank:3,price:49.00},
-      {name:"Pharmica",rank:6,price:46.99,note:"403 JS blocked"}
+      {name:"Pharmica",rank:6,price:49.99}
     ]},
   { product:"Spedra", strength:"100mg", packSize:"8 tablets", category:"Erectile Dysfunction", brand:"VivaMen",
     vivaPrice:56.99, costPrice:31.51, costWithVat:31.51,
@@ -367,9 +367,9 @@ const DATA = [
   { product:"Priligy (Dapoxetine)", strength:"30mg", packSize:"3 tablets", category:"Premature Ejaculation", brand:"VivaMen",
     vivaPrice:34.99, costPrice:18.00, costWithVat:18.00,
     competitors:[
-      {name:"Doctor Fox",rank:1,price:16.50},
+      {name:"Doctor Fox",rank:1,price:16.50,note:"Generic dapoxetine"},
       {name:"Medical Specialists",rank:2,price:21.25},
-      {name:"iQ Doctor",rank:3,price:22.99},
+      {name:"iQ Doctor",rank:3,price:22.99,note:"JS blocked"},
       {name:"Assured Pharmacy",rank:4,price:24.00},
       {name:"Superdrug",rank:5,price:26.00}
     ]},
@@ -381,6 +381,7 @@ const DATA = [
       {name:"E-Surgery",rank:3,price:44.95},
       {name:"Assured Pharmacy",rank:4,price:46.95},
       {name:"Superdrug",rank:5,price:48.00}
+
     ]},
 
   // ========== HAIR LOSS ==========
@@ -444,12 +445,12 @@ const DATA = [
       {name:"Daily Chemist",rank:6,price:21.99},
       {name:"Pharmica",rank:3,price:36.99},
       {name:"Doctor Fox",rank:4,price:29.50},
-      {name:"Chemist Direct",rank:5,price:34.00}
+      {name:"Chemist Direct",rank:5,price:35.00,note:"Via search"}
     ]},
   { product:"Regaine Foam", strength:"5%", packSize:"3 months (3 cans)", category:"Hair Loss", brand:"VivaMen",
     vivaPrice:79.99, costPrice:71.62, costWithVat:71.62,
     competitors:[
-      {name:"Simple Online Pharmacy",rank:2,price:41.75},
+      {name:"Simple Online Pharmacy",rank:2,price:41.75,note:"403 blocked"},
       {name:"Pharmica",rank:3,price:54.99},
       {name:"Doctor Fox",rank:4,price:66.00},
       {name:"Chemist Direct",rank:5,price:55.00}
@@ -600,7 +601,7 @@ const DATA = [
       {name:"Optimale",rank:2,price:33.95},
       {name:"OneDayTests",rank:5,price:19.00},
       {name:"ZAVA",rank:4,price:49.99},
-      {name:"Superdrug",rank:3,price:55.00,note:"403 blocked"}
+      {name:"Superdrug",rank:3,price:55.00}
     ]},
 
   // ========== VIVAFEM HRT ==========
@@ -609,7 +610,7 @@ const DATA = [
     competitors:[
       {name:"The Independent Pharmacy",rank:1,price:24.99},
       {name:"Clear Chemist",rank:2,price:29.99,note:"80g tube"},
-      {name:"Superdrug",rank:3,price:55.00,note:"403 blocked"},
+      {name:"Superdrug",rank:3,price:55.00,note:"80g tube only"},
       {name:"Asda",rank:4,price:22.50,note:"403 blocked"},
       {name:"Pharmacy Online",rank:5,price:20.95,note:"15g Ovestin"}
     ]},
@@ -673,7 +674,7 @@ const DATA = [
     vivaPrice:119.99, costPrice:110.05, costWithVat:110.05,
     competitors:[
       {name:"ZAVA",rank:4,price:24.99},
-      {name:"Superdrug",rank:1,price:24.99,note:"403 blocked"},
+      {name:"Superdrug",rank:1,price:35.00},
       {name:"Asda",rank:3,price:32.00,note:"Via search snippet"},
       {name:"Better2Know",rank:2,price:119.00},
       {name:"Pharmica",rank:5,price:6.49,note:"OTC dipstick, not lab test"}
