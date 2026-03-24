@@ -77,17 +77,11 @@
 
   .note { font-size:11px; color:var(--text-muted); font-style:italic; }
 
-  .overview-panel { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:20px; }
-  .overview-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
-  .overview-header h3 { font-size:14px; font-weight:700; color:var(--text); margin:0; }
-  .score-badge { display:flex; align-items:center; gap:8px; }
-  .score-num { font-size:28px; font-weight:800; line-height:1; }
-  .score-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); }
-  .ov-row { display:flex; align-items:center; gap:8px; margin-bottom:4px; font-size:11px; }
-  .ov-name { width:180px; min-width:180px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--text-muted); }
-  .ov-bar-wrap { flex:1; height:16px; background:var(--surface2); border-radius:3px; display:flex; align-items:center; position:relative; }
-  .ov-bar { height:100%; border-radius:3px; min-width:2px; }
-  .ov-pct { width:50px; min-width:50px; text-align:right; font-weight:700; font-size:11px; font-variant-numeric:tabular-nums; }
+  .vs-avg-badge { display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; font-variant-numeric:tabular-nums; }
+  .vs-avg-badge.cheap { background:rgba(34,197,94,0.12); color:var(--green); }
+  .vs-avg-badge.mid { background:rgba(234,179,8,0.12); color:var(--yellow); }
+  .vs-avg-badge.expensive { background:rgba(239,68,68,0.12); color:var(--red); }
+  .vs-avg-bar { width:40px; height:5px; border-radius:3px; display:inline-block; vertical-align:middle; }
 
   @media (max-width:768px) {
     .controls { flex-direction:column; }
@@ -136,7 +130,6 @@
 
 <main>
   <div class="summary-strip" id="summaryStrip"></div>
-  <div id="overviewChart"></div>
   <div id="products"></div>
 </main>
 
@@ -710,7 +703,6 @@ function getFiltered() {
 function render() {
   const items = getFiltered();
   renderSummary(items);
-  renderOverview(items);
   renderProducts(items);
 }
 
@@ -728,63 +720,18 @@ function renderSummary(items) {
     return acc + ((i.vivaPrice-i.costPrice)/i.vivaPrice*100);
   },0) / (items.filter(i=>i.vivaPrice&&i.costPrice).length||1);
 
+  // Competitiveness Score: % of products priced below competitor average
+  const compRows = items.filter(i => i.vivaPrice && getStats(i).avg);
+  const belowAvg = compRows.filter(i => i.vivaPrice < getStats(i).avg).length;
+  const compScore = compRows.length ? Math.round((belowAvg / compRows.length) * 100) : 0;
+  const scoreColor = compScore >= 60 ? 'var(--green)' : compScore >= 40 ? 'var(--yellow)' : 'var(--red)';
+
   document.getElementById('summaryStrip').innerHTML = `
-    <div class="summary-stat"><div class="label">Products Shown</div><div class="val">${items.length}</div></div>
+    <div class="summary-stat"><div class="label">Competitiveness</div><div class="val" style="color:${scoreColor}">${compScore}/100</div><div class="sub">${belowAvg} of ${compRows.length} below avg</div></div>
     <div class="summary-stat"><div class="label">Avg vs Market</div><div class="val" style="color:${avgDiff>10?'var(--red)':avgDiff<-10?'var(--green)':'var(--yellow)'}">${pct(avgDiff)}</div><div class="sub">${avgDiff>0?'Above':'Below'} avg competitor price</div></div>
-    <div class="summary-stat"><div class="label">Cheaper Half</div><div class="val" style="color:var(--green)">${cheaperCount}/${totalCompared}</div><div class="sub">Products where Viva is in cheaper half</div></div>
     <div class="summary-stat"><div class="label">Avg Gross Margin</div><div class="val" style="color:${avgMargin>30?'var(--green)':avgMargin>15?'var(--yellow)':'var(--red)'}">${avgMargin.toFixed(0)}%</div><div class="sub">Based on cost (inc. VAT)</div></div>
-    <div class="summary-stat"><div class="label">Pending Data</div><div class="val" style="color:var(--text-muted)">${items.reduce((a,i)=>a+i.competitors.filter(c=>!c.price).length,0)}</div><div class="sub">Missing competitor data</div></div>
+    <div class="summary-stat"><div class="label">Products</div><div class="val">${items.length}</div></div>
   `;
-}
-
-function renderOverview(items) {
-  const rows = items.filter(i => i.vivaPrice && getStats(i).count >= 2).map(i => {
-    const s = getStats(i);
-    const diff = ((i.vivaPrice / s.avg) - 1) * 100;
-    return { label: `${i.product} ${i.strength}`, pack: i.packSize, diff };
-  });
-  if (!rows.length) { document.getElementById('overviewChart').innerHTML = ''; return; }
-
-  rows.sort((a, b) => a.diff - b.diff); // cheapest first
-
-  // Competitiveness Score: 0-100. 100 = all products cheapest. Based on how many are below avg.
-  const cheaper = rows.filter(r => r.diff < 0).length;
-  const score = Math.round((cheaper / rows.length) * 100);
-  const scoreColor = score >= 60 ? 'var(--green)' : score >= 40 ? 'var(--yellow)' : 'var(--red)';
-  const maxAbs = Math.max(...rows.map(r => Math.abs(r.diff)), 1);
-
-  let html = `<div class="overview-panel">`;
-  html += `<div class="overview-header">`;
-  html += `<h3>Viva vs Market Average</h3>`;
-  html += `<div class="score-badge"><div><div class="score-num" style="color:${scoreColor}">${score}</div><div class="score-label">Competitiveness Score</div></div></div>`;
-  html += `</div>`;
-
-  rows.forEach(r => {
-    const barWidth = Math.abs(r.diff) / maxAbs * 50; // max 50% width
-    const color = r.diff < -10 ? 'var(--green)' : r.diff > 10 ? 'var(--red)' : 'var(--yellow)';
-    const pctText = (r.diff > 0 ? '+' : '') + r.diff.toFixed(0) + '%';
-
-    html += `<div class="ov-row">`;
-    html += `<div class="ov-name" title="${r.label} ${r.pack}">${r.label}</div>`;
-    html += `<div class="ov-bar-wrap">`;
-    if (r.diff < 0) {
-      // Cheaper: bar grows left from center
-      html += `<div style="width:50%;display:flex;justify-content:flex-end"><div class="ov-bar" style="width:${barWidth}%;background:${color};border-radius:3px 0 0 3px"></div></div>`;
-      html += `<div style="width:1px;background:var(--border);height:100%"></div>`;
-      html += `<div style="width:50%"></div>`;
-    } else {
-      // More expensive: bar grows right from center
-      html += `<div style="width:50%"></div>`;
-      html += `<div style="width:1px;background:var(--border);height:100%"></div>`;
-      html += `<div style="width:50%"><div class="ov-bar" style="width:${barWidth}%;background:${color};border-radius:0 3px 3px 0"></div></div>`;
-    }
-    html += `</div>`;
-    html += `<div class="ov-pct" style="color:${color}">${pctText}</div>`;
-    html += `</div>`;
-  });
-
-  html += `</div>`;
-  document.getElementById('overviewChart').innerHTML = html;
 }
 
 function renderProducts(items) {
@@ -797,8 +744,17 @@ function renderProducts(items) {
     const marginClass = margin > 40 ? 'margin-good' : margin > 15 ? 'margin-tight' : 'margin-bad';
     const maxP = Math.max(...item.competitors.filter(c=>c.price).map(c=>c.price), item.vivaPrice||0);
 
+    // vs avg badge
+    let vsAvgHtml = '';
+    if (item.vivaPrice && stats.avg) {
+      const d = ((item.vivaPrice / stats.avg) - 1) * 100;
+      const cls = d < -10 ? 'cheap' : d > 10 ? 'expensive' : 'mid';
+      const barColor = d < -10 ? 'var(--green)' : d > 10 ? 'var(--red)' : 'var(--yellow)';
+      vsAvgHtml = `<span class="vs-avg-badge ${cls}"><span class="vs-avg-bar" style="background:${barColor};width:${Math.min(Math.abs(d),50)}px"></span>${d>0?'+':''}${d.toFixed(0)}% vs avg</span>`;
+    }
+
     html += `<div class="product-card">`;
-    html += `<div class="product-header"><div><span class="product-name">${item.product} ${item.strength}</span> <span style="color:var(--text-muted);font-size:12px;margin-left:6px">${item.packSize}</span></div>`;
+    html += `<div class="product-header"><div><span class="product-name">${item.product} ${item.strength}</span> <span style="color:var(--text-muted);font-size:12px;margin-left:6px">${item.packSize}</span> ${vsAvgHtml}</div>`;
     html += `<div class="product-meta"><span class="tag tag-brand">${item.brand}</span><span class="tag tag-cat">${item.category}</span></div></div>`;
     html += `<div class="product-body">`;
 
