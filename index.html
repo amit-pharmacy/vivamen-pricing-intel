@@ -727,6 +727,8 @@
 <header>
   <h1><span>VivaMen</span> Pricing Intelligence</h1>
   <div style="display:flex;align-items:center;gap:12px">
+    <a href="pricing-strategy.html" style="font-size:12px;color:var(--accent);text-decoration:none;padding:7px 14px;border:1px solid var(--border);border-radius:6px;">Pricing Strategy</a>
+    <button id="exportBtn" onclick="exportXLSX()" style="font-size:12px;font-weight:600;color:var(--text);background:var(--accent);border:none;padding:7px 14px;border-radius:6px;cursor:pointer;">Export XLSX</button>
     <button class="add-product-btn" onclick="openAddProduct()">+ Add Product</button>
     <div class="header-meta">Last updated: <span id="lastUpdated"></span></div>
   </div>
@@ -1581,6 +1583,54 @@ function copyCommand(btn) {
       btn.classList.remove('copied');
     }, 2000);
   });
+}
+
+// --- EXPORT XLSX ---
+function exportXLSX() {
+  const btn = document.getElementById('exportBtn');
+  btn.textContent = 'Loading...';
+  btn.disabled = true;
+
+  if (typeof XLSX === 'undefined') {
+    const s = document.createElement('script');
+    s.src = 'https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js';
+    s.onload = () => doExport();
+    s.onerror = () => { btn.textContent = 'Export XLSX'; btn.disabled = false; alert('Failed to load XLSX library.'); };
+    document.head.appendChild(s);
+  } else {
+    doExport();
+  }
+
+  function doExport() {
+    try {
+      const data = PRICING_DATA.products;
+      const rows = [];
+      data.forEach(p => {
+        rows.push({
+          Competitor: p.competitor,
+          Category: p.category,
+          Product: p.product,
+          Strength: p.strength || '',
+          'Pack Size': p.packLabel || '',
+          Quantity: p.quantity || '',
+          Type: p.purchaseType || '',
+          Price: p.price,
+          'Per Unit': p.perUnit != null ? +p.perUnit.toFixed(2) : '',
+          URL: p.url || ''
+        });
+      });
+
+      const ws = XLSX.utils.json_to_sheet(rows);
+      ws['!cols'] = [{wch:22},{wch:18},{wch:22},{wch:10},{wch:14},{wch:8},{wch:12},{wch:10},{wch:10},{wch:50}];
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Pricing Data');
+      XLSX.writeFile(wb, 'vivamen-pricing-intel.xlsx');
+    } catch(e) {
+      alert('Export failed: ' + e.message);
+    }
+    btn.textContent = 'Export XLSX';
+    btn.disabled = false;
+  }
 }
 </script>
 </body>
