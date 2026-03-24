@@ -1,5 +1,5 @@
 // VivaMen Competitor Pricing Data
-// Last updated: 2026-03-20
+// Last updated: 2026-03-24
 // Sources: Direct scraping of competitor websites
 
 // Source URL map: competitor|product -> URL where this price was found
@@ -403,8 +403,8 @@ const PRICING_DATA = {
     // ============================================================
 
     // --- Pharmica Viagra Connect 50mg ---
-    { competitor: "Pharmica", product: "Viagra Connect", category: "Erectile Dysfunction", strength: "50mg", type: "on-demand", packSize: 4, price: 17.99, perUnit: 4.50, purchaseType: "one-time", brand: "Branded" },
-    { competitor: "Pharmica", product: "Viagra Connect", category: "Erectile Dysfunction", strength: "50mg", type: "on-demand", packSize: 8, price: 33.99, perUnit: 4.25, purchaseType: "one-time", brand: "Branded" },
+    { competitor: "Pharmica", product: "Viagra Connect", category: "Erectile Dysfunction", strength: "50mg", type: "on-demand", packSize: 4, price: 9.99, perUnit: 2.50, purchaseType: "one-time", brand: "Branded" },
+    { competitor: "Pharmica", product: "Viagra Connect", category: "Erectile Dysfunction", strength: "50mg", type: "on-demand", packSize: 8, price: 19.99, perUnit: 2.50, purchaseType: "one-time", brand: "Branded" },
     { competitor: "Pharmica", product: "Viagra Connect", category: "Erectile Dysfunction", strength: "50mg", type: "on-demand", packSize: 16, price: 67.99, perUnit: 4.25, purchaseType: "one-time", brand: "Branded" },
     { competitor: "Pharmica", product: "Viagra Connect", category: "Erectile Dysfunction", strength: "50mg", type: "on-demand", packSize: 32, price: 131.99, perUnit: 4.12, purchaseType: "one-time", brand: "Branded" },
 
@@ -582,7 +582,7 @@ const PRICING_DATA = {
     // --- Pharmica Finasteride Milpharm One-Time (most expensive) ---
     { competitor: "Pharmica", product: "Finasteride", category: "Hair Loss", strength: "1mg", type: "daily", packSize: 28, price: 19.99, perUnit: 0.71, purchaseType: "one-time", brand: "Milpharm", notes: "Milpharm manufacturer" },
     { competitor: "Pharmica", product: "Finasteride", category: "Hair Loss", strength: "1mg", type: "daily", packSize: 56, price: 38.99, perUnit: 0.70, purchaseType: "one-time", brand: "Milpharm", notes: "Milpharm manufacturer" },
-    { competitor: "Pharmica", product: "Finasteride", category: "Hair Loss", strength: "1mg", type: "daily", packSize: 84, price: 56.99, perUnit: 0.68, purchaseType: "one-time", brand: "Milpharm", notes: "Milpharm manufacturer" },
+    { competitor: "Pharmica", product: "Finasteride", category: "Hair Loss", strength: "1mg", type: "daily", packSize: 84, price: 57.03, perUnit: 0.68, purchaseType: "one-time", brand: "Milpharm", notes: "Milpharm manufacturer" },
     { competitor: "Pharmica", product: "Finasteride", category: "Hair Loss", strength: "1mg", type: "daily", packSize: 168, price: 109.99, perUnit: 0.65, purchaseType: "one-time", brand: "Milpharm", notes: "Milpharm manufacturer" },
 
     // --- Pharmica Finasteride Avianta One-Time (mid-price) ---
@@ -1223,7 +1223,7 @@ const PRICING_DATA = {
     // --- Simple Online Finasteride ---
     { competitor: "Simple Online Pharmacy", product: "Finasteride", category: "Hair Loss", strength: "1mg", type: "daily", packSize: 28, price: 13.95, perUnit: 0.50, purchaseType: "one-time", brand: "Generic" },
     { competitor: "Simple Online Pharmacy", product: "Finasteride", category: "Hair Loss", strength: "1mg", type: "daily", packSize: 56, price: 23.45, perUnit: 0.42, purchaseType: "one-time", brand: "Generic" },
-    { competitor: "Simple Online Pharmacy", product: "Finasteride", category: "Hair Loss", strength: "1mg", type: "daily", packSize: 84, price: 34.55, perUnit: 0.41, purchaseType: "one-time", brand: "Generic" },
+    { competitor: "Simple Online Pharmacy", product: "Finasteride", category: "Hair Loss", strength: "1mg", type: "daily", packSize: 84, price: 32.95, perUnit: 0.39, purchaseType: "one-time", brand: "Generic" },
     { competitor: "Simple Online Pharmacy", product: "Finasteride", category: "Hair Loss", strength: "1mg", type: "daily", packSize: 168, price: 54.95, perUnit: 0.33, purchaseType: "one-time", brand: "Generic" },
 
     // --- Simple Online Priligy ---
