@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VivaMen & VivaFem — Pricing Strategy Dashboard</title>
+<title>Viva Pricing Strategy Dashboard</title>
 <style>
   :root {
     --bg: #0f1117; --surface: #1a1d27; --surface2: #242836; --border: #2e3345;
     --text: #e4e6ed; --text-muted: #8b8fa3; --accent: #6366f1; --accent2: #818cf8;
-    --green: #22c55e; --red: #ef4444; --yellow: #eab308; --orange: #f97316;
+    --green: #22c55e; --red: #ef4444; --yellow: #eab308; --orange: #f97316; --pink: #ec4899;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
@@ -16,76 +16,72 @@
   header h1 { font-size:18px; font-weight:600; }
   header h1 span { color:var(--accent); }
   .subtitle { font-size:12px; color:var(--text-muted); }
-  .controls { background:var(--surface); border-bottom:1px solid var(--border); padding:12px 24px; display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
-  .filter-btn { padding:6px 14px; border-radius:6px; border:1px solid var(--border); background:var(--surface2); color:var(--text-muted); font-size:12px; cursor:pointer; transition:all 0.15s; }
-  .filter-btn.active { border-color:var(--accent); color:var(--accent); background:rgba(99,102,241,0.1); }
-  .filter-btn:hover { border-color:var(--accent2); color:var(--text); }
-  main { padding:24px; max-width:1400px; margin:0 auto; }
 
-  .product-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; margin-bottom:20px; overflow:hidden; }
-  .product-header { padding:16px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; }
-  .product-name { font-size:16px; font-weight:700; }
-  .product-category { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; padding:3px 8px; border-radius:4px; background:rgba(99,102,241,0.1); color:var(--accent); }
-  .product-body { padding:16px 20px; }
+  .controls { background:var(--surface); border-bottom:1px solid var(--border); padding:12px 24px; display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end; }
+  .control-group { display:flex; flex-direction:column; gap:4px; }
+  .control-group label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); }
+  select { background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:7px 12px; border-radius:6px; font-size:12px; min-width:150px; cursor:pointer; }
+  select:focus { outline:none; border-color:var(--accent); }
 
-  .price-row { display:grid; grid-template-columns: 180px 100px 100px 1fr 80px 80px 100px; align-items:center; padding:8px 0; border-bottom:1px solid rgba(46,51,69,0.5); font-size:13px; gap:8px; }
-  .price-row.header { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); border-bottom:1px solid var(--border); padding-bottom:10px; margin-bottom:4px; }
-  .price-row:last-child { border-bottom:none; }
+  main { padding:24px; max-width:1500px; margin:0 auto; }
 
-  .comp-name { font-weight:500; display:flex; align-items:center; gap:6px; }
-  .rank-badge { display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:50%; font-size:10px; font-weight:700; flex-shrink:0; }
+  .summary-strip { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr)); gap:10px; margin-bottom:20px; }
+  .summary-stat { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px; }
+  .summary-stat .label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); margin-bottom:2px; }
+  .summary-stat .val { font-size:20px; font-weight:700; }
+  .summary-stat .sub { font-size:11px; color:var(--text-muted); margin-top:2px; }
+
+  .product-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; margin-bottom:16px; overflow:hidden; }
+  .product-header { padding:14px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+  .product-name { font-size:15px; font-weight:700; }
+  .product-meta { display:flex; gap:8px; align-items:center; }
+  .tag { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; padding:3px 8px; border-radius:4px; }
+  .tag-cat { background:rgba(99,102,241,0.1); color:var(--accent); }
+  .tag-brand { background:rgba(236,72,153,0.1); color:var(--pink); }
+  .product-body { padding:16px 20px; overflow-x:auto; }
+
+  table.comp-table { width:100%; border-collapse:collapse; font-size:12px; }
+  table.comp-table th { background:var(--surface2); padding:8px 12px; text-align:left; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); border-bottom:1px solid var(--border); white-space:nowrap; }
+  table.comp-table td { padding:8px 12px; border-bottom:1px solid rgba(46,51,69,0.5); white-space:nowrap; font-variant-numeric:tabular-nums; }
+  table.comp-table tr:last-child td { border-bottom:none; }
+  table.comp-table tr:hover { background:rgba(99,102,241,0.03); }
+  tr.viva-row { background:rgba(99,102,241,0.06); }
+  tr.viva-row td { font-weight:600; color:var(--accent); }
+
+  .rank-badge { display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:50%; font-size:10px; font-weight:700; }
   .rank-1 { background:rgba(234,179,8,0.2); color:var(--yellow); }
-  .rank-2 { background:rgba(139,143,163,0.15); color:var(--text-muted); }
-  .rank-3 { background:rgba(168,85,247,0.15); color:#a855f7; }
-  .rank-4 { background:rgba(99,102,241,0.1); color:var(--accent); }
-  .rank-5 { background:rgba(139,143,163,0.1); color:var(--text-muted); }
+  .rank-2 { background:rgba(192,192,192,0.15); color:#c0c0c0; }
+  .rank-3 { background:rgba(205,127,50,0.15); color:#cd7f32; }
+  .rank-4,.rank-5 { background:rgba(139,143,163,0.1); color:var(--text-muted); }
 
-  .price { font-weight:600; font-variant-numeric:tabular-nums; }
-  .price.cheapest { color:var(--green); }
-  .price.expensive { color:var(--red); }
-  .price.mid { color:var(--text); }
+  .price-cheap { color:var(--green); font-weight:600; }
+  .price-exp { color:var(--red); }
+  .price-mid { color:var(--text); }
 
-  .viva-row { background:rgba(99,102,241,0.06); border-radius:6px; margin:4px -8px; padding:8px !important; }
-  .viva-row .comp-name { color:var(--accent); font-weight:700; }
+  .bar-wrap { width:120px; height:18px; background:var(--surface2); border-radius:3px; overflow:hidden; display:inline-block; vertical-align:middle; }
+  .bar-fill { height:100%; border-radius:3px; transition:width 0.4s; }
+  .bar-viva { background:var(--accent); }
+  .bar-cheap { background:var(--green); }
+  .bar-norm { background:var(--text-muted); opacity:0.35; }
+  .bar-exp { background:var(--red); opacity:0.5; }
 
-  .bar-container { height:24px; background:var(--surface2); border-radius:4px; position:relative; overflow:hidden; }
-  .bar { height:100%; border-radius:4px; min-width:2px; transition:width 0.5s; }
-  .bar.viva { background:var(--accent); }
-  .bar.cheap { background:var(--green); }
-  .bar.normal { background:var(--text-muted); opacity:0.4; }
-  .bar.expensive { background:var(--red); opacity:0.6; }
+  .margin-good { color:var(--green); }
+  .margin-tight { color:var(--yellow); }
+  .margin-bad { color:var(--red); }
 
-  .stats-row { display:flex; gap:16px; margin-top:12px; padding-top:12px; border-top:1px solid var(--border); flex-wrap:wrap; }
-  .stat { background:var(--surface2); border-radius:8px; padding:10px 14px; min-width:120px; }
-  .stat .label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); margin-bottom:2px; }
-  .stat .value { font-size:18px; font-weight:700; }
-  .stat .value.green { color:var(--green); }
-  .stat .value.red { color:var(--red); }
-  .stat .value.accent { color:var(--accent); }
-  .stat .value.yellow { color:var(--yellow); }
-  .stat .sub { font-size:11px; color:var(--text-muted); }
+  .stats-row { display:flex; gap:12px; margin-top:12px; padding-top:12px; border-top:1px solid var(--border); flex-wrap:wrap; }
+  .mini-stat { background:var(--surface2); border-radius:6px; padding:8px 12px; }
+  .mini-stat .ms-label { font-size:9px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); }
+  .mini-stat .ms-val { font-size:16px; font-weight:700; margin-top:1px; }
+  .mini-stat .ms-sub { font-size:10px; color:var(--text-muted); }
 
-  .position-tag { font-size:11px; font-weight:700; padding:2px 8px; border-radius:4px; }
-  .pos-good { background:rgba(34,197,94,0.15); color:var(--green); }
-  .pos-ok { background:rgba(234,179,8,0.15); color:var(--yellow); }
-  .pos-bad { background:rgba(239,68,68,0.15); color:var(--red); }
+  .note { font-size:11px; color:var(--text-muted); font-style:italic; }
 
-  .legend { display:flex; gap:16px; margin-bottom:20px; font-size:12px; color:var(--text-muted); flex-wrap:wrap; }
-  .legend-item { display:flex; align-items:center; gap:6px; }
-  .legend-dot { width:10px; height:10px; border-radius:50%; }
-
-  .summary-table { width:100%; border-collapse:collapse; font-size:13px; margin-top:16px; }
-  .summary-table th { background:var(--surface2); padding:10px 14px; text-align:left; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); border:1px solid var(--border); }
-  .summary-table td { padding:10px 14px; border:1px solid var(--border); font-variant-numeric:tabular-nums; }
-  .summary-table tr:hover { background:rgba(99,102,241,0.03); }
-
-  @media (max-width:900px) {
-    .price-row { grid-template-columns: 140px 80px 80px 1fr; }
-    .price-row .hide-mobile { display:none; }
-  }
-  @media (max-width:600px) {
-    .price-row { grid-template-columns: 1fr 80px 80px; }
-    .stats-row { flex-direction:column; }
+  @media (max-width:768px) {
+    .controls { flex-direction:column; }
+    .summary-strip { grid-template-columns:repeat(2,1fr); }
+    .bar-wrap { width:60px; }
+    select { min-width:100%; }
   }
 </style>
 </head>
@@ -94,420 +90,830 @@
 <header>
   <div>
     <h1><span>Viva</span> Pricing Strategy</h1>
-    <div class="subtitle">Top 5 Google-ranking competitors per product vs Viva pricing | March 2026</div>
+    <div class="subtitle">Top 5 Google-ranking competitors per product | Cost price + margin analysis | March 2026</div>
   </div>
-  <div class="subtitle" id="dataStatus">Data loading...</div>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <a href="index.html" style="font-size:12px;color:var(--accent);text-decoration:none;padding:7px 14px;border:1px solid var(--border);border-radius:6px;">Main Dashboard</a>
+    <button id="exportBtn" onclick="exportXLSX()" style="font-size:12px;font-weight:600;color:var(--text);background:var(--accent);border:none;padding:7px 14px;border-radius:6px;cursor:pointer;">Export XLSX</button>
+  </div>
 </header>
 
 <div class="controls">
-  <button class="filter-btn active" data-filter="all">All Products</button>
-  <button class="filter-btn" data-filter="ed">Erectile Dysfunction</button>
-  <button class="filter-btn" data-filter="hair">Hair Loss</button>
-  <button class="filter-btn" data-filter="weight">Weight Loss</button>
-  <button class="filter-btn" data-filter="testosterone">Testosterone</button>
-  <button class="filter-btn" data-filter="hrt">HRT (VivaFem)</button>
-  <button class="filter-btn" data-filter="tests">Test Kits</button>
+  <div class="control-group">
+    <label>Brand</label>
+    <select id="fBrand"><option value="all">All Brands</option></select>
+  </div>
+  <div class="control-group">
+    <label>Category</label>
+    <select id="fCategory"><option value="all">All Categories</option></select>
+  </div>
+  <div class="control-group">
+    <label>Product</label>
+    <select id="fProduct"><option value="all">All Products</option></select>
+  </div>
+  <div class="control-group">
+    <label>Strength</label>
+    <select id="fStrength"><option value="all">All Strengths</option></select>
+  </div>
+  <div class="control-group">
+    <label>Pack Size</label>
+    <select id="fPack"><option value="all">All Pack Sizes</option></select>
+  </div>
 </div>
 
 <main>
-  <div class="legend">
-    <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div> Viva price</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Cheapest</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--text-muted);opacity:0.4"></div> Mid-range</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--red);opacity:0.6"></div> Most expensive</div>
-    <div class="legend-item" style="margin-left:auto;font-size:11px">Rank = Google "buy X online UK" position</div>
-  </div>
+  <div class="summary-strip" id="summaryStrip"></div>
   <div id="products"></div>
 </main>
 
 <script>
 const DATA = [
-  // === ERECTILE DYSFUNCTION ===
-  {
-    product: "Sildenafil 50mg", packSize: "4 tablets", category: "ed", brand: "VivaMen",
-    vivaPrice: 8.99,
-    competitors: [
-      { name: "Simple Online Pharmacy", rank: 1, price: 7.49 },
-      { name: "Superdrug", rank: 2, price: null, note: "Awaiting data" },
-      { name: "Boots", rank: 3, price: 15.00 },
-      { name: "Chemist Click", rank: 4, price: 13.89 },
-      { name: "Manual", rank: 5, price: 14.00 },
-    ]
-  },
-  {
-    product: "Sildenafil 100mg", packSize: "4 tablets", category: "ed", brand: "VivaMen",
-    vivaPrice: 9.99,
-    competitors: [
-      { name: "Simple Online Pharmacy", rank: 1, price: 8.99 },
-      { name: "Superdrug", rank: 2, price: null, note: "Awaiting data" },
-      { name: "Boots", rank: 3, price: 19.99 },
-      { name: "Chemist Click", rank: 4, price: 14.89 },
-      { name: "Manual", rank: 5, price: null, note: "Sub only" },
-    ]
-  },
-  {
-    product: "Tadalafil 10mg", packSize: "4 tablets", category: "ed", brand: "VivaMen",
-    vivaPrice: 17.99,
-    competitors: [
-      { name: "Doctor Fox", rank: 1, price: 9.40 },
-      { name: "Oxford Online Pharmacy", rank: 2, price: 10.49 },
-      { name: "Simple Online Pharmacy", rank: 3, price: 8.99 },
-      { name: "Boots", rank: 4, price: 22.00 },
-      { name: "MedExpress", rank: 5, price: 19.99 },
-    ]
-  },
-  {
-    product: "Tadalafil 20mg", packSize: "4 tablets", category: "ed", brand: "VivaMen",
-    vivaPrice: 17.99,
-    competitors: [
-      { name: "Doctor Fox", rank: 1, price: 10.60 },
-      { name: "Oxford Online Pharmacy", rank: 2, price: 11.99 },
-      { name: "Simple Online Pharmacy", rank: 3, price: 9.99 },
-      { name: "Boots", rank: 4, price: 22.00 },
-      { name: "MedExpress", rank: 5, price: 19.99 },
-    ]
-  },
-  {
-    product: "Tadalafil Daily 2.5mg", packSize: "28 tablets", category: "ed", brand: "VivaMen",
-    vivaPrice: 29.99,
-    competitors: [
-      { name: "Doctor Fox", rank: 1, price: 34.00 },
-      { name: "Boots", rank: 2, price: 55.00 },
-      { name: "Asda", rank: 3, price: 45.00 },
-      { name: "Superdrug", rank: 4, price: null, note: "Awaiting data" },
-      { name: "Chemist Click", rank: 5, price: null, note: "Sells 4/8/12 only" },
-    ]
-  },
-  {
-    product: "Tadalafil Daily 5mg", packSize: "28 tablets", category: "ed", brand: "VivaMen",
-    vivaPrice: 32.99,
-    competitors: [
-      { name: "Doctor Fox", rank: 1, price: 16.00 },
-      { name: "Boots", rank: 2, price: 55.00 },
-      { name: "Asda", rank: 3, price: 50.00 },
-      { name: "Superdrug", rank: 4, price: null, note: "Awaiting data" },
-      { name: "Chemist Click", rank: 5, price: null, note: "Sells 4/8/12 only" },
-    ]
-  },
-  {
-    product: "Spedra 100mg", packSize: "4 tablets", category: "ed", brand: "VivaMen",
-    vivaPrice: 29.99,
-    competitors: [
-      { name: "WebMed Pharmacy", rank: 1, price: null, note: "Awaiting data" },
-      { name: "Superdrug", rank: 2, price: null, note: "Awaiting data" },
-      { name: "The Independent Pharmacy", rank: 3, price: 27.99 },
-      { name: "UK Meds", rank: 4, price: 29.97 },
-      { name: "Pharmica", rank: 5, price: 26.99 },
-    ]
-  },
-  {
-    product: "Viagra Connect 50mg", packSize: "4 tablets", category: "ed", brand: "VivaMen",
-    vivaPrice: 26.99,
-    competitors: [
-      { name: "Oxford Online Pharmacy", rank: 1, price: 20.99 },
-      { name: "Pharmica", rank: 2, price: 19.99 },
-      { name: "Pharmacy2U", rank: 3, price: null, note: "Awaiting data" },
-      { name: "The Independent Pharmacy", rank: 4, price: 22.99 },
-      { name: "Chemist Direct", rank: 5, price: null, note: "Awaiting data" },
-    ]
-  },
-  {
-    product: "Priligy (Dapoxetine) 30mg", packSize: "3 tablets", category: "ed", brand: "VivaMen",
-    vivaPrice: null,
-    note: "Not in VivaMen range yet",
-    competitors: [
-      { name: "Doctor Fox", rank: 1, price: 19.90 },
-      { name: "Numan", rank: 2, price: null, note: "Sub only" },
-      { name: "Boots", rank: 3, price: 29.99 },
-      { name: "Prescription Doctor", rank: 4, price: null, note: "Awaiting data" },
-      { name: "Lloyds Pharmacy", rank: 5, price: 34.99 },
-    ]
-  },
-  // === HAIR LOSS ===
-  {
-    product: "Finasteride 1mg", packSize: "28 tablets", category: "hair", brand: "VivaMen",
-    vivaPrice: 14.99,
-    competitors: [
-      { name: "Simple Online Pharmacy", rank: 1, price: 7.49 },
-      { name: "UK Meds", rank: 2, price: 14.39 },
-      { name: "Doctor Fox", rank: 3, price: 7.50 },
-      { name: "Pharmica", rank: 4, price: 15.99 },
-      { name: "The Family Chemist", rank: 5, price: 10.99 },
-    ]
-  },
-  {
-    product: "Finasteride 1mg", packSize: "84 tablets", category: "hair", brand: "VivaMen",
-    vivaPrice: 39.99,
-    competitors: [
-      { name: "Simple Online Pharmacy", rank: 1, price: 17.49 },
-      { name: "UK Meds", rank: 2, price: 26.98 },
-      { name: "Doctor Fox", rank: 3, price: 17.50 },
-      { name: "Pharmica", rank: 4, price: 44.99 },
-      { name: "The Family Chemist", rank: 5, price: 29.99 },
-    ]
-  },
-  {
-    product: "Minoxidil Oral 2.5mg", packSize: "60 tablets", category: "hair", brand: "VivaMen",
-    vivaPrice: 40.00,
-    competitors: [
-      { name: "Oxford Online Pharmacy", rank: 1, price: 22.79 },
-      { name: "Simple Online Pharmacy", rank: 2, price: 29.99 },
-      { name: "Sons", rank: 3, price: null, note: "Sub only ~30/mo" },
-      { name: "DrHair", rank: 4, price: 25.00 },
-      { name: "Pill Doctor", rank: 5, price: null, note: "Awaiting data" },
-    ]
-  },
-  {
-    product: "Min + Fin Scalp Solution", packSize: "1 month (60ml)", category: "hair", brand: "VivaMen",
-    vivaPrice: 29.99,
-    competitors: [
-      { name: "E-Surgery", rank: 1, price: 21.95 },
-      { name: "DrHair", rank: 2, price: 22.50 },
-      { name: "Doctor Fox", rank: 3, price: 26.00 },
-      { name: "Hair Repair Clinic", rank: 4, price: 25.00 },
-      { name: "iQ Doctor", rank: 5, price: 80.00 },
-    ]
-  },
-  {
-    product: "Regaine Foam 5%", packSize: "3 months (3 cans)", category: "hair", brand: "VivaMen",
-    vivaPrice: 79.99,
-    competitors: [
-      { name: "The Family Chemist", rank: 1, price: null, note: "Combo only" },
-      { name: "Simple Online Pharmacy", rank: 2, price: 41.75 },
-      { name: "Pharmica", rank: 3, price: 54.99 },
-      { name: "Doctor Fox", rank: 4, price: 66.00 },
-      { name: "Chemist Direct", rank: 5, price: 55.00 },
-    ]
-  },
-  {
-    product: "Regaine Solution 5%", packSize: "3 months (3 bottles)", category: "hair", brand: "VivaMen",
-    vivaPrice: 64.99,
-    competitors: [
-      { name: "The Family Chemist", rank: 1, price: 64.99 },
-      { name: "Simple Online Pharmacy", rank: 2, price: null, note: "Awaiting data" },
-      { name: "Pharmica", rank: 3, price: 57.99 },
-      { name: "Doctor Fox", rank: 4, price: 64.00 },
-      { name: "Chemist Direct", rank: 5, price: 59.00 },
-    ]
-  },
-  // === WEIGHT LOSS ===
-  {
-    product: "Mounjaro 2.5mg", packSize: "1 pen (4 doses)", category: "weight", brand: "VivaMen",
-    vivaPrice: 169.00,
-    competitors: [
-      { name: "Asda", rank: 1, price: 148.97 },
-      { name: "Boots", rank: 2, price: 149.00 },
-      { name: "MedExpress", rank: 3, price: 179.99 },
-      { name: "Superdrug", rank: 4, price: null, note: "Awaiting data" },
-      { name: "Pharmacy2U", rank: 5, price: null, note: "Awaiting data" },
-    ]
-  },
-  {
-    product: "Mounjaro 5mg", packSize: "1 pen (4 doses)", category: "weight", brand: "VivaMen",
-    vivaPrice: 189.00,
-    competitors: [
-      { name: "Asda", rank: 1, price: 188.97 },
-      { name: "Boots", rank: 2, price: 189.00 },
-      { name: "MedExpress", rank: 3, price: 189.99 },
-      { name: "Superdrug", rank: 4, price: null, note: "Awaiting data" },
-      { name: "Pharmacy2U", rank: 5, price: null, note: "Awaiting data" },
-    ]
-  },
-  {
-    product: "Mounjaro 10mg", packSize: "1 pen (4 doses)", category: "weight", brand: "VivaMen",
-    vivaPrice: 279.00,
-    competitors: [
-      { name: "Asda", rank: 1, price: 278.97 },
-      { name: "Boots", rank: 2, price: 275.00 },
-      { name: "MedExpress", rank: 3, price: 279.99 },
-      { name: "Superdrug", rank: 4, price: null, note: "Awaiting data" },
-      { name: "Pharmacy2U", rank: 5, price: null, note: "Awaiting data" },
-    ]
-  },
-  {
-    product: "Mounjaro 15mg", packSize: "1 pen (4 doses)", category: "weight", brand: "VivaMen",
-    vivaPrice: 319.00,
-    competitors: [
-      { name: "Asda", rank: 1, price: 298.97 },
-      { name: "Boots", rank: 2, price: 319.00 },
-      { name: "MedExpress", rank: 3, price: 309.99 },
-      { name: "Superdrug", rank: 4, price: null, note: "Awaiting data" },
-      { name: "Pharmacy2U", rank: 5, price: null, note: "Awaiting data" },
-    ]
-  },
-  {
-    product: "Wegovy 0.25mg", packSize: "1 pen (4 doses)", category: "weight", brand: "VivaMen",
-    vivaPrice: 114.99,
-    competitors: [
-      { name: "Asda", rank: 1, price: 88.97 },
-      { name: "Phlo Clinic", rank: 2, price: null, note: "Awaiting data" },
-      { name: "Superdrug", rank: 3, price: null, note: "Awaiting data" },
-      { name: "MedExpress", rank: 4, price: 99.99 },
-      { name: "WebMed Pharmacy", rank: 5, price: null, note: "Awaiting data" },
-    ]
-  },
-  {
-    product: "Wegovy 2.4mg", packSize: "1 pen (4 doses)", category: "weight", brand: "VivaMen",
-    vivaPrice: 249.99,
-    competitors: [
-      { name: "Asda", rank: 1, price: 188.97 },
-      { name: "Phlo Clinic", rank: 2, price: null, note: "Awaiting data" },
-      { name: "Superdrug", rank: 3, price: null, note: "Awaiting data" },
-      { name: "MedExpress", rank: 4, price: 199.99 },
-      { name: "WebMed Pharmacy", rank: 5, price: null, note: "Awaiting data" },
-    ]
-  },
-  // === TESTOSTERONE ===
-  {
-    product: "Testogel 40.5mg Sachets", packSize: "30 sachets", category: "testosterone", brand: "VivaMen",
-    vivaPrice: 74.99,
-    competitors: [
-      { name: "Asda", rank: 1, price: 54.50 },
-      { name: "E-Surgery", rank: 2, price: 54.95 },
-      { name: "Simple Online Pharmacy", rank: 3, price: 59.99 },
-      { name: "PharmXtra", rank: 4, price: null, note: "Awaiting data" },
-      { name: "Superdrug", rank: 5, price: null, note: "Awaiting data" },
-    ]
-  },
-  {
-    product: "Tostran 2% Gel", packSize: "60g pump", category: "testosterone", brand: "VivaMen",
-    vivaPrice: 54.99,
-    competitors: [
-      { name: "Simple Online Pharmacy", rank: 1, price: 44.99 },
-      { name: "Asda", rank: 2, price: 53.00 },
-      { name: "Pharmacy Planet", rank: 3, price: null, note: "Awaiting data" },
-      { name: "Dock Pharmacy", rank: 4, price: null, note: "Awaiting data" },
-      { name: "E-Surgery", rank: 5, price: 39.95 },
-    ]
-  },
-  {
-    product: "Testosterone Test Kit", packSize: "1 kit", category: "tests", brand: "VivaMen",
-    vivaPrice: 129.99,
-    competitors: [
-      { name: "London Health Co", rank: 1, price: null, note: "Awaiting data" },
-      { name: "Optimale", rank: 2, price: null, note: "Awaiting data" },
-      { name: "Superdrug", rank: 3, price: null, note: "Awaiting data" },
-      { name: "ZAVA", rank: 4, price: null, note: "Awaiting data" },
-      { name: "OneDayTests", rank: 5, price: null, note: "Awaiting data" },
-    ]
-  },
+  // ========== ERECTILE DYSFUNCTION ==========
+  // Sildenafil 50mg
+  { product:"Sildenafil", strength:"50mg", packSize:"4 tablets", category:"Erectile Dysfunction", brand:"VivaMen",
+    vivaPrice:8.99, costPrice:0.71, costWithVat:0.85,
+    competitors:[
+      {name:"Simple Online Pharmacy",rank:1,price:7.49},
+      {name:"Superdrug",rank:2,price:15.99},
+      {name:"Boots",rank:3,price:15.00},
+      {name:"Chemist Click",rank:4,price:13.89},
+      {name:"Manual",rank:5,price:14.00}
+    ]},
+  { product:"Sildenafil", strength:"50mg", packSize:"8 tablets", category:"Erectile Dysfunction", brand:"VivaMen",
+    vivaPrice:16.99, costPrice:1.43, costWithVat:1.71,
+    competitors:[
+      {name:"Simple Online Pharmacy",rank:1,price:11.99},
+      {name:"Superdrug",rank:2,price:23.00},
+      {name:"Boots",rank:3,price:25.00},
+      {name:"Chemist Click",rank:4,price:19.99},
+      {name:"Oxford Online Pharmacy",rank:6,price:9.49}
+    ]},
+  // Sildenafil 100mg
+  { product:"Sildenafil", strength:"100mg", packSize:"4 tablets", category:"Erectile Dysfunction", brand:"VivaMen",
+    vivaPrice:9.99, costPrice:0.73, costWithVat:0.88,
+    competitors:[
+      {name:"Simple Online Pharmacy",rank:1,price:8.99},
+      {name:"Superdrug",rank:2,price:15.99},
+      {name:"Boots",rank:3,price:19.99},
+      {name:"Chemist Click",rank:4,price:14.89},
+      {name:"Oxford Online Pharmacy",rank:6,price:5.89}
+    ]},
+  { product:"Sildenafil", strength:"100mg", packSize:"8 tablets", category:"Erectile Dysfunction", brand:"VivaMen",
+    vivaPrice:18.99, costPrice:1.46, costWithVat:1.76,
+    competitors:[
+      {name:"Simple Online Pharmacy",rank:1,price:14.99},
+      {name:"Superdrug",rank:2,price:23.00},
+      {name:"Boots",rank:3,price:34.99},
+      {name:"Chemist Click",rank:4,price:21.49},
+      {name:"Oxford Online Pharmacy",rank:6,price:9.49}
+    ]},
+  // Tadalafil 10mg
+  { product:"Tadalafil", strength:"10mg", packSize:"4 tablets", category:"Erectile Dysfunction", brand:"VivaMen",
+    vivaPrice:17.99, costPrice:1.18, costWithVat:1.42,
+    competitors:[
+      {name:"Doctor Fox",rank:1,price:9.40},
+      {name:"Oxford Online Pharmacy",rank:2,price:10.49},
+      {name:"Simple Online Pharmacy",rank:3,price:8.99},
+      {name:"Boots",rank:4,price:22.00},
+      {name:"MedExpress",rank:5,price:19.99}
+    ]},
+  { product:"Tadalafil", strength:"10mg", packSize:"8 tablets", category:"Erectile Dysfunction", brand:"VivaMen",
+    vivaPrice:29.99, costPrice:2.40, costWithVat:2.88,
+    competitors:[
+      {name:"Doctor Fox",rank:1,price:15.80},
+      {name:"Oxford Online Pharmacy",rank:2,price:17.99},
+      {name:"Simple Online Pharmacy",rank:3,price:14.99},
+      {name:"Boots",rank:4,price:40.00},
+      {name:"MedExpress",rank:5,price:29.99}
+    ]},
+  // Tadalafil 20mg
+  { product:"Tadalafil", strength:"20mg", packSize:"4 tablets", category:"Erectile Dysfunction", brand:"VivaMen",
+    vivaPrice:17.99, costPrice:1.01, costWithVat:1.21,
+    competitors:[
+      {name:"Doctor Fox",rank:1,price:10.60},
+      {name:"Oxford Online Pharmacy",rank:2,price:11.99},
+      {name:"Simple Online Pharmacy",rank:3,price:9.99},
+      {name:"Boots",rank:4,price:22.00},
+      {name:"MedExpress",rank:5,price:19.99}
+    ]},
+  { product:"Tadalafil", strength:"20mg", packSize:"8 tablets", category:"Erectile Dysfunction", brand:"VivaMen",
+    vivaPrice:29.99, costPrice:2.02, costWithVat:2.42,
+    competitors:[
+      {name:"Doctor Fox",rank:1,price:18.20},
+      {name:"Oxford Online Pharmacy",rank:2,price:20.99},
+      {name:"Simple Online Pharmacy",rank:3,price:17.99},
+      {name:"Boots",rank:4,price:40.00},
+      {name:"MedExpress",rank:5,price:29.99}
+    ]},
+  // Tadalafil Daily
+  { product:"Tadalafil Daily", strength:"2.5mg", packSize:"28 tablets", category:"Erectile Dysfunction", brand:"VivaMen",
+    vivaPrice:29.99, costPrice:26.40, costWithVat:26.40,
+    competitors:[
+      {name:"Doctor Fox",rank:1,price:34.00},
+      {name:"Boots",rank:2,price:55.00},
+      {name:"Asda",rank:3,price:45.00},
+      {name:"Superdrug",rank:4,price:47.99},
+      {name:"Simple Online Pharmacy",rank:6,price:39.99}
+    ]},
+  { product:"Tadalafil Daily", strength:"5mg", packSize:"28 tablets", category:"Erectile Dysfunction", brand:"VivaMen",
+    vivaPrice:32.99, costPrice:2.98, costWithVat:3.57,
+    competitors:[
+      {name:"Doctor Fox",rank:1,price:16.00},
+      {name:"Boots",rank:2,price:55.00},
+      {name:"Asda",rank:3,price:50.00},
+      {name:"Superdrug",rank:4,price:47.99},
+      {name:"Simple Online Pharmacy",rank:6,price:14.99}
+    ]},
+  // Spedra
+  { product:"Spedra", strength:"50mg", packSize:"4 tablets", category:"Erectile Dysfunction", brand:"VivaMen",
+    vivaPrice:24.99, costPrice:13.13, costWithVat:13.13,
+    competitors:[
+      {name:"WebMed Pharmacy",rank:1,price:29.00},
+      {name:"The Independent Pharmacy",rank:3,price:21.99},
+      {name:"UK Meds",rank:4,price:25.97},
+      {name:"MedExpress",rank:5,price:24.99},
+      {name:"Pharmica",rank:6,price:26.99}
+    ]},
+  { product:"Spedra", strength:"100mg", packSize:"4 tablets", category:"Erectile Dysfunction", brand:"VivaMen",
+    vivaPrice:29.99, costPrice:16.90, costWithVat:16.90,
+    competitors:[
+      {name:"WebMed Pharmacy",rank:1,price:33.00},
+      {name:"Superdrug",rank:2,price:32.00},
+      {name:"The Independent Pharmacy",rank:3,price:27.99},
+      {name:"UK Meds",rank:4,price:29.97},
+      {name:"Pharmica",rank:5,price:26.99}
+    ]},
+  { product:"Spedra", strength:"200mg", packSize:"4 tablets", category:"Erectile Dysfunction", brand:"VivaMen",
+    vivaPrice:42.99, costPrice:26.28, costWithVat:26.28,
+    competitors:[
+      {name:"WebMed Pharmacy",rank:1,price:41.00},
+      {name:"Superdrug",rank:2,price:41.00},
+      {name:"The Independent Pharmacy",rank:3,price:39.99},
+      {name:"UK Meds",rank:4,price:41.96},
+      {name:"MedExpress",rank:5,price:36.99}
+    ]},
+  { product:"Spedra", strength:"50mg", packSize:"8 tablets", category:"Erectile Dysfunction", brand:"VivaMen",
+    vivaPrice:47.99, costPrice:23.64, costWithVat:23.64,
+    competitors:[
+      {name:"WebMed Pharmacy",rank:1,price:48.00},
+      {name:"UK Meds",rank:4,price:45.49},
+      {name:"MedExpress",rank:5,price:49.99},
+      {name:"The Independent Pharmacy",rank:3,price:43.99},
+      {name:"Pharmica",rank:6,price:46.99}
+    ]},
+  { product:"Spedra", strength:"100mg", packSize:"8 tablets", category:"Erectile Dysfunction", brand:"VivaMen",
+    vivaPrice:56.99, costPrice:31.51, costWithVat:31.51,
+    competitors:[
+      {name:"WebMed Pharmacy",rank:1,price:54.00},
+      {name:"Superdrug",rank:2,price:53.00},
+      {name:"The Independent Pharmacy",rank:3,price:60.00},
+      {name:"UK Meds",rank:4,price:51.96},
+      {name:"Pharmica",rank:5,price:54.99}
+    ]},
+  { product:"Spedra", strength:"200mg", packSize:"8 tablets", category:"Erectile Dysfunction", brand:"VivaMen",
+    vivaPrice:74.99, costPrice:47.28, costWithVat:47.28,
+    competitors:[
+      {name:"WebMed Pharmacy",rank:1,price:69.00},
+      {name:"Superdrug",rank:2,price:72.00},
+      {name:"The Independent Pharmacy",rank:3,price:74.00},
+      {name:"UK Meds",rank:4,price:75.94},
+      {name:"MedExpress",rank:5,price:69.99}
+    ]},
+  // Viagra Connect
+  { product:"Viagra Connect", strength:"50mg", packSize:"4 tablets", category:"Erectile Dysfunction", brand:"VivaMen",
+    vivaPrice:26.99, costPrice:19.40, costWithVat:19.40,
+    competitors:[
+      {name:"Oxford Online Pharmacy",rank:1,price:20.99},
+      {name:"Pharmica",rank:2,price:19.99},
+      {name:"Pharmacy2U",rank:3,price:22.99},
+      {name:"The Independent Pharmacy",rank:4,price:22.99},
+      {name:"Superdrug",rank:5,price:19.99}
+    ]},
+  { product:"Viagra Connect", strength:"50mg", packSize:"8 tablets", category:"Erectile Dysfunction", brand:"VivaMen",
+    vivaPrice:44.99, costPrice:34.07, costWithVat:34.07,
+    competitors:[
+      {name:"Oxford Online Pharmacy",rank:1,price:34.99},
+      {name:"Pharmica",rank:2,price:34.99},
+      {name:"Superdrug",rank:3,price:38.50},
+      {name:"The Independent Pharmacy",rank:4,price:39.99},
+      {name:"Chemist Direct",rank:5,price:38.99}
+    ]},
+  // Priligy / Dapoxetine
+  { product:"Priligy (Dapoxetine)", strength:"30mg", packSize:"3 tablets", category:"Premature Ejaculation", brand:"VivaMen",
+    vivaPrice:34.99, costPrice:18.00, costWithVat:18.00,
+    competitors:[
+      {name:"Doctor Fox",rank:1,price:16.50},
+      {name:"Medical Specialists",rank:2,price:21.25},
+      {name:"iQ Doctor",rank:3,price:22.99},
+      {name:"Assured Pharmacy",rank:4,price:24.00},
+      {name:"Superdrug",rank:5,price:26.00}
+    ]},
+  { product:"Priligy (Dapoxetine)", strength:"30mg", packSize:"6 tablets", category:"Premature Ejaculation", brand:"VivaMen",
+    vivaPrice:54.99, costPrice:36.00, costWithVat:36.00,
+    competitors:[
+      {name:"Doctor Fox",rank:1,price:34.00},
+      {name:"Medical Specialists",rank:2,price:38.95},
+      {name:"E-Surgery",rank:3,price:44.95},
+      {name:"Assured Pharmacy",rank:4,price:46.95},
+      {name:"Superdrug",rank:5,price:48.00}
+    ]},
+
+  // ========== HAIR LOSS ==========
+  { product:"Finasteride", strength:"1mg", packSize:"28 tablets", category:"Hair Loss", brand:"VivaMen",
+    vivaPrice:14.99, costPrice:2.21, costWithVat:2.21,
+    competitors:[
+      {name:"Simple Online Pharmacy",rank:1,price:7.49},
+      {name:"UK Meds",rank:2,price:14.39},
+      {name:"Doctor Fox",rank:3,price:7.50},
+      {name:"Pharmica",rank:4,price:15.99},
+      {name:"The Family Chemist",rank:5,price:10.99}
+    ]},
+  { product:"Finasteride", strength:"1mg", packSize:"56 tablets", category:"Hair Loss", brand:"VivaMen",
+    vivaPrice:27.99, costPrice:4.42, costWithVat:4.42,
+    competitors:[
+      {name:"Simple Online Pharmacy",rank:1,price:11.99},
+      {name:"UK Meds",rank:2,price:19.79},
+      {name:"Doctor Fox",rank:3,price:11.50},
+      {name:"Pharmica",rank:4,price:29.99},
+      {name:"The Family Chemist",rank:5,price:19.99}
+    ]},
+  { product:"Finasteride", strength:"1mg", packSize:"84 tablets", category:"Hair Loss", brand:"VivaMen",
+    vivaPrice:39.99, costPrice:6.62, costWithVat:6.62,
+    competitors:[
+      {name:"Simple Online Pharmacy",rank:1,price:17.49},
+      {name:"UK Meds",rank:2,price:26.98},
+      {name:"Doctor Fox",rank:3,price:17.50},
+      {name:"Pharmica",rank:4,price:44.99},
+      {name:"The Family Chemist",rank:5,price:29.99}
+    ]},
+  { product:"Minoxidil Oral", strength:"2.5mg", packSize:"60 tablets", category:"Hair Loss", brand:"VivaMen",
+    vivaPrice:40.00, costPrice:10.66, costWithVat:10.66,
+    competitors:[
+      {name:"Oxford Online Pharmacy",rank:1,price:22.79},
+      {name:"Simple Online Pharmacy",rank:2,price:29.99},
+      {name:"Hair Repair Clinic",rank:6,price:30.00},
+      {name:"DrHair",rank:4,price:25.00},
+      {name:"Sons",rank:3,price:29.00,note:"Sub/mo (28 tabs)"}
+    ]},
+  { product:"Minoxidil Oral", strength:"2.5mg", packSize:"120 tablets", category:"Hair Loss", brand:"VivaMen",
+    vivaPrice:70.00, costPrice:21.31, costWithVat:21.31,
+    competitors:[
+      {name:"Oxford Online Pharmacy",rank:1,price:39.99},
+      {name:"Simple Online Pharmacy",rank:2,price:49.99},
+      {name:"Sons",rank:3,price:68.00,note:"3mo sub (£22.67/mo)"},
+      {name:"Hair Repair Clinic",rank:6,price:60.00,note:"2x60 tab"},
+      {name:"DrHair",rank:4,price:50.00,note:"2x60 tab est."}
+    ]},
+  { product:"Min+Fin Solution", strength:"5%+0.1%", packSize:"1 month (60ml)", category:"Hair Loss", brand:"VivaMen",
+    vivaPrice:29.99, costPrice:20.40, costWithVat:20.40,
+    competitors:[
+      {name:"E-Surgery",rank:1,price:21.95},
+      {name:"DrHair",rank:2,price:22.50},
+      {name:"Doctor Fox",rank:3,price:26.00},
+      {name:"Hair Repair Clinic",rank:4,price:25.00},
+      {name:"iQ Doctor",rank:5,price:80.00}
+    ]},
+  { product:"Regaine Foam", strength:"5%", packSize:"1 month (1 can)", category:"Hair Loss", brand:"VivaMen",
+    vivaPrice:39.99, costPrice:31.13, costWithVat:31.13,
+    competitors:[
+      {name:"Daily Chemist",rank:6,price:21.99},
+      {name:"Pharmica",rank:3,price:36.99},
+      {name:"Doctor Fox",rank:4,price:29.50},
+      {name:"Chemist Direct",rank:5,price:34.00}
+    ]},
+  { product:"Regaine Foam", strength:"5%", packSize:"3 months (3 cans)", category:"Hair Loss", brand:"VivaMen",
+    vivaPrice:79.99, costPrice:71.62, costWithVat:71.62,
+    competitors:[
+      {name:"Simple Online Pharmacy",rank:2,price:41.75},
+      {name:"Pharmica",rank:3,price:54.99},
+      {name:"Doctor Fox",rank:4,price:66.00},
+      {name:"Chemist Direct",rank:5,price:55.00}
+    ]},
+  { product:"Regaine Solution", strength:"5%", packSize:"1 month (1 bottle)", category:"Hair Loss", brand:"VivaMen",
+    vivaPrice:36.99, costPrice:27.85, costWithVat:27.85,
+    competitors:[
+      {name:"The Family Chemist",rank:1,price:34.99},
+      {name:"Pharmica",rank:3,price:34.99},
+      {name:"Doctor Fox",rank:4,price:29.00},
+      {name:"Chemist Direct",rank:5,price:35.99}
+    ]},
+  { product:"Regaine Solution", strength:"5%", packSize:"3 months (3 bottles)", category:"Hair Loss", brand:"VivaMen",
+    vivaPrice:64.99, costPrice:57.98, costWithVat:57.98,
+    competitors:[
+      {name:"The Family Chemist",rank:1,price:64.99},
+      {name:"Pharmica",rank:3,price:57.99},
+      {name:"Doctor Fox",rank:4,price:64.00},
+      {name:"Chemist Direct",rank:5,price:59.00}
+    ]},
+
+  // ========== WEIGHT LOSS ==========
+  { product:"Mounjaro", strength:"2.5mg", packSize:"1 pen (4 doses)", category:"Weight Loss", brand:"VivaMen",
+    vivaPrice:169.00, costPrice:143.64, costWithVat:143.64,
+    competitors:[
+      {name:"Asda",rank:1,price:148.97},
+      {name:"Boots",rank:2,price:149.00},
+      {name:"MedExpress",rank:3,price:179.99},
+      {name:"Superdrug",rank:4,price:176.00},
+      {name:"Pharmacy2U",rank:5,price:173.24}
+    ]},
+  { product:"Mounjaro", strength:"5mg", packSize:"1 pen (4 doses)", category:"Weight Loss", brand:"VivaMen",
+    vivaPrice:189.00, costPrice:162.00, costWithVat:162.00,
+    competitors:[
+      {name:"Asda",rank:1,price:188.97},
+      {name:"Boots",rank:2,price:189.00},
+      {name:"MedExpress",rank:3,price:189.99},
+      {name:"Superdrug",rank:4,price:189.00},
+      {name:"Pharmacy2U",rank:5,price:196.24}
+    ]},
+  { product:"Mounjaro", strength:"7.5mg", packSize:"1 pen (4 doses)", category:"Weight Loss", brand:"VivaMen",
+    vivaPrice:249.00, costPrice:223.38, costWithVat:223.38,
+    competitors:[
+      {name:"Asda",rank:1,price:248.97},
+      {name:"Boots",rank:2,price:249.00},
+      {name:"MedExpress",rank:3,price:249.99},
+      {name:"Superdrug",rank:4,price:267.00},
+      {name:"Pharmacy2U",rank:5,price:251.24}
+    ]},
+  { product:"Mounjaro", strength:"10mg", packSize:"1 pen (4 doses)", category:"Weight Loss", brand:"VivaMen",
+    vivaPrice:279.00, costPrice:252.54, costWithVat:252.54,
+    competitors:[
+      {name:"Asda",rank:1,price:278.97},
+      {name:"Boots",rank:2,price:275.00},
+      {name:"MedExpress",rank:3,price:279.99},
+      {name:"Superdrug",rank:4,price:302.00},
+      {name:"Pharmacy2U",rank:5,price:286.24}
+    ]},
+  { product:"Mounjaro", strength:"12.5mg", packSize:"1 pen (4 doses)", category:"Weight Loss", brand:"VivaMen",
+    vivaPrice:299.00, costPrice:273.24, costWithVat:273.24,
+    competitors:[
+      {name:"Asda",rank:1,price:288.97},
+      {name:"Boots",rank:2,price:299.00},
+      {name:"MedExpress",rank:3,price:299.99},
+      {name:"Superdrug",rank:4,price:314.00},
+      {name:"Pharmacy2U",rank:5,price:296.24}
+    ]},
+  { product:"Mounjaro", strength:"15mg", packSize:"1 pen (4 doses)", category:"Weight Loss", brand:"VivaMen",
+    vivaPrice:319.00, costPrice:297.00, costWithVat:297.00,
+    competitors:[
+      {name:"Asda",rank:1,price:298.97},
+      {name:"Boots",rank:2,price:319.00},
+      {name:"MedExpress",rank:3,price:309.99},
+      {name:"Superdrug",rank:4,price:334.00},
+      {name:"Pharmacy2U",rank:5,price:306.24}
+    ]},
+  { product:"Wegovy", strength:"0.25mg", packSize:"1 pen (4 doses)", category:"Weight Loss", brand:"VivaMen",
+    vivaPrice:114.99, costPrice:87.90, costWithVat:87.90,
+    competitors:[
+      {name:"Pharmacy2U",rank:6,price:67.99},
+      {name:"Asda",rank:1,price:88.97},
+      {name:"Phlo Clinic",rank:2,price:119.00},
+      {name:"Superdrug",rank:3,price:99.00},
+      {name:"WebMed Pharmacy",rank:5,price:149.00}
+    ]},
+  { product:"Wegovy", strength:"0.5mg", packSize:"1 pen (4 doses)", category:"Weight Loss", brand:"VivaMen",
+    vivaPrice:119.99, costPrice:87.90, costWithVat:87.90,
+    competitors:[
+      {name:"Pharmacy2U",rank:6,price:80.99},
+      {name:"Asda",rank:1,price:108.97},
+      {name:"Phlo Clinic",rank:2,price:139.00},
+      {name:"Superdrug",rank:3,price:119.00},
+      {name:"WebMed Pharmacy",rank:5,price:152.00}
+    ]},
+  { product:"Wegovy", strength:"1mg", packSize:"1 pen (4 doses)", category:"Weight Loss", brand:"VivaMen",
+    vivaPrice:124.99, costPrice:87.90, costWithVat:87.90,
+    competitors:[
+      {name:"Pharmacy2U",rank:6,price:100.49},
+      {name:"Asda",rank:1,price:138.97},
+      {name:"Phlo Clinic",rank:2,price:169.00},
+      {name:"Superdrug",rank:3,price:166.00},
+      {name:"WebMed Pharmacy",rank:5,price:152.00}
+    ]},
+  { product:"Wegovy", strength:"1.7mg", packSize:"1 pen (4 doses)", category:"Weight Loss", brand:"VivaMen",
+    vivaPrice:179.99, costPrice:149.44, costWithVat:149.44,
+    competitors:[
+      {name:"Pharmacy2U",rank:6,price:116.09},
+      {name:"Asda",rank:1,price:168.97},
+      {name:"Phlo Clinic",rank:2,price:189.00},
+      {name:"Superdrug",rank:3,price:192.00},
+      {name:"WebMed Pharmacy",rank:5,price:222.00}
+    ]},
+  { product:"Wegovy", strength:"2.4mg", packSize:"1 pen (4 doses)", category:"Weight Loss", brand:"VivaMen",
+    vivaPrice:249.99, costPrice:210.96, costWithVat:210.96,
+    competitors:[
+      {name:"Pharmacy2U",rank:6,price:129.74},
+      {name:"Asda",rank:1,price:188.97},
+      {name:"Phlo Clinic",rank:2,price:199.00},
+      {name:"Superdrug",rank:3,price:205.00},
+      {name:"WebMed Pharmacy",rank:5,price:260.00}
+    ]},
+
+  // ========== TESTOSTERONE ==========
+  { product:"Testogel Sachets", strength:"40.5mg", packSize:"30 sachets", category:"Testosterone", brand:"VivaMen",
+    vivaPrice:74.99, costPrice:47.93, costWithVat:47.93,
+    competitors:[
+      {name:"Asda",rank:1,price:54.50},
+      {name:"E-Surgery",rank:2,price:54.95},
+      {name:"Simple Online Pharmacy",rank:3,price:59.99},
+      {name:"PharmXtra",rank:4,price:119.99},
+      {name:"Superdrug",rank:5,price:55.00}
+    ]},
+  { product:"Tostran Gel", strength:"2%", packSize:"60g pump", category:"Testosterone", brand:"VivaMen",
+    vivaPrice:54.99, costPrice:32.04, costWithVat:32.04,
+    competitors:[
+      {name:"Clear Chemist",rank:6,price:37.38},
+      {name:"E-Surgery",rank:5,price:39.95},
+      {name:"Simple Online Pharmacy",rank:1,price:44.99},
+      {name:"Asda",rank:2,price:53.00},
+      {name:"Superdrug",rank:7,price:55.00}
+    ]},
+
+  // ========== TEST KITS ==========
+  { product:"Testosterone Test Kit", strength:"-", packSize:"1 kit", category:"Test Kits", brand:"VivaMen",
+    vivaPrice:129.99, costPrice:111.60, costWithVat:111.60,
+    competitors:[
+      {name:"London Health Co",rank:1,price:19.00},
+      {name:"Optimale",rank:2,price:33.95},
+      {name:"OneDayTests",rank:5,price:34.00},
+      {name:"ZAVA",rank:4,price:49.99},
+      {name:"Superdrug",rank:3,price:55.00}
+    ]},
+
+  // ========== VIVAFEM HRT ==========
+  { product:"Estriol Cream", strength:"1mg/g", packSize:"15g tube", category:"HRT", brand:"VivaFem",
+    vivaPrice:16.99, costPrice:6.54, costWithVat:6.54,
+    competitors:[
+      {name:"The Independent Pharmacy",rank:1,price:24.99},
+      {name:"Clear Chemist",rank:2,price:29.99,note:"80g tube"},
+      {name:"Superdrug",rank:3,price:55.00},
+      {name:"Asda",rank:4,price:22.50},
+      {name:"Pharmacy Online",rank:5,price:59.99,note:"80g tube"}
+    ]},
+  { product:"Imvaggis", strength:"0.03mg", packSize:"24 pessaries", category:"HRT", brand:"VivaFem",
+    vivaPrice:29.99, costPrice:16.06, costWithVat:16.06,
+    competitors:[
+      {name:"E-Surgery",rank:1,price:24.95},
+      {name:"The Independent Pharmacy",rank:2,price:25.99},
+      {name:"Treated.com",rank:3,price:53.95,note:"Incl consultation+delivery"},
+      {name:"Click Pharmacy",rank:6,price:25.99,note:"Imvaggis listed"},
+      {name:"Clear Chemist",rank:7,price:27.99}
+    ]},
+  { product:"Utrogestan + Oestrogel", strength:"100mg + 75mcg", packSize:"30 caps + 80g", category:"HRT", brand:"VivaFem",
+    vivaPrice:39.99, costPrice:18.90, costWithVat:18.90,
+    competitors:[
+      {name:"Asda",rank:1,price:36.00},
+      {name:"E-Surgery",rank:2,price:49.90,note:"£24.95 each"},
+      {name:"The Independent Pharmacy",rank:3,price:59.98,note:"£31.99+£27.99"},
+      {name:"Chemist4U",rank:6,price:49.98,note:"£21.99+£27.99 separate"},
+      {name:"Oxford Online Pharmacy",rank:7,price:49.98,note:"£24.99+£24.99 separate"}
+    ]},
+  // Standalone Utrogestan
+  { product:"Utrogestan", strength:"100mg", packSize:"30 capsules", category:"HRT", brand:"VivaFem",
+    vivaPrice:19.99, costPrice:9.90, costWithVat:9.90,
+    competitors:[
+      {name:"E-Surgery",rank:1,price:24.95},
+      {name:"The Independent Pharmacy",rank:2,price:31.99},
+      {name:"The Online Clinic",rank:3,price:34.95},
+      {name:"Asda",rank:4,price:18.00},
+      {name:"Clear Chemist",rank:5,price:29.99}
+    ]},
+  // Standalone Oestrogel
+  { product:"Oestrogel", strength:"0.06%", packSize:"80g pump", category:"HRT", brand:"VivaFem",
+    vivaPrice:19.99, costPrice:9.00, costWithVat:9.00,
+    competitors:[
+      {name:"Chemist4U",rank:1,price:21.99},
+      {name:"Oxford Online Pharmacy",rank:2,price:24.99},
+      {name:"Click Pharmacy",rank:3,price:25.99},
+      {name:"The Independent Pharmacy",rank:4,price:27.99},
+      {name:"Asda",rank:5,price:18.00}
+    ]},
+  { product:"Androfeme", strength:"1%", packSize:"50ml", category:"HRT", brand:"VivaFem",
+    vivaPrice:149.99, costPrice:108.22, costWithVat:108.22,
+    competitors:[
+      {name:"Livewell Nationwide",rank:1,price:99.50},
+      {name:"LIVVE",rank:2,price:110.00},
+      {name:"The Online Clinic",rank:3,price:149.95},
+      {name:"Myla Health",rank:6,price:135.00},
+      {name:"Church Pharmacy",rank:7,price:125.00}
+    ]},
+  { product:"Lenzetto Spray", strength:"1.53mg", packSize:"56 doses", category:"HRT", brand:"VivaFem",
+    vivaPrice:21.99, costPrice:8.28, costWithVat:8.28,
+    competitors:[
+      {name:"SimplyMeds Online",rank:1,price:21.99},
+      {name:"Oxford Online Pharmacy",rank:2,price:21.99},
+      {name:"The Independent Pharmacy",rank:3,price:24.99},
+      {name:"The Online Clinic",rank:4,price:34.95},
+      {name:"Clear Chemist",rank:6,price:22.99}
+    ]},
+  { product:"Menopause Test Kit", strength:"-", packSize:"1 kit", category:"Test Kits", brand:"VivaFem",
+    vivaPrice:119.99, costPrice:110.05, costWithVat:110.05,
+    competitors:[
+      {name:"ZAVA",rank:4,price:24.99},
+      {name:"Superdrug",rank:1,price:24.99,note:"ZAVA white-label"},
+      {name:"Asda",rank:3,price:24.99,note:"ZAVA white-label"},
+      {name:"Better2Know",rank:2,price:119.00},
+      {name:"Pharmica",rank:5,price:6.49,note:"OTC dipstick, not lab test"}
+    ]},
+  { product:"Female Hormone Test Kit", strength:"-", packSize:"1 kit", category:"Test Kits", brand:"VivaFem",
+    vivaPrice:99.99, costPrice:100.80, costWithVat:100.80,
+    competitors:[
+      {name:"EasyTests",rank:3,price:32.00},
+      {name:"London Health Co",rank:2,price:34.99},
+      {name:"Numan",rank:5,price:83.30},
+      {name:"Better2Know",rank:1,price:125.00},
+      {name:"Hertility Health",rank:4,price:249.00}
+    ]},
 ];
 
-function fmt(v) {
-  if (v == null) return '-';
-  return '\u00A3' + v.toFixed(2);
-}
+// --- UTILITY ---
+function fmt(v) { return v == null ? '-' : '\u00A3' + v.toFixed(2); }
+function pct(v) { return v == null ? '-' : (v > 0 ? '+' : '') + v.toFixed(0) + '%'; }
 
 function getStats(item) {
   const prices = item.competitors.filter(c => c.price != null).map(c => c.price);
-  if (prices.length === 0) return { avg: null, median: null, min: null, max: null, position: null };
-  const sorted = [...prices].sort((a,b) => a-b);
-  const avg = prices.reduce((a,b) => a+b, 0) / prices.length;
-  const median = sorted.length % 2 === 0 ? (sorted[sorted.length/2-1] + sorted[sorted.length/2]) / 2 : sorted[Math.floor(sorted.length/2)];
-  const min = sorted[0];
-  const max = sorted[sorted.length-1];
-  let position = null;
-  if (item.vivaPrice != null) {
-    const all = [...prices, item.vivaPrice].sort((a,b) => a-b);
-    position = all.indexOf(item.vivaPrice) + 1;
-  }
-  return { avg, median, min, max, position, count: prices.length, total: item.competitors.length };
+  if (!prices.length) return { avg:null, median:null, min:null, max:null, position:null, count:0, total:item.competitors.length };
+  const s = [...prices].sort((a,b)=>a-b);
+  const avg = prices.reduce((a,b)=>a+b,0)/prices.length;
+  const med = s.length%2===0 ? (s[s.length/2-1]+s[s.length/2])/2 : s[Math.floor(s.length/2)];
+  let pos = null;
+  if (item.vivaPrice != null) { const all=[...prices,item.vivaPrice].sort((a,b)=>a-b); pos=all.indexOf(item.vivaPrice)+1; }
+  return { avg, median:med, min:s[0], max:s[s.length-1], position:pos, count:prices.length, total:item.competitors.length };
 }
 
-function renderProducts(filter) {
+// --- FILTERS ---
+function populateFilters() {
+  const brands = [...new Set(DATA.map(d=>d.brand))];
+  const cats = [...new Set(DATA.map(d=>d.category))];
+  fillSel('fBrand', brands);
+  fillSel('fCategory', cats);
+  updateDependentFilters();
+}
+
+function fillSel(id, vals) {
+  const el = document.getElementById(id);
+  const first = el.options[0];
+  el.innerHTML = '';
+  el.appendChild(first);
+  vals.forEach(v => { const o=document.createElement('option'); o.value=v; o.textContent=v; el.appendChild(o); });
+}
+
+function updateDependentFilters() {
+  let items = DATA;
+  const brand = document.getElementById('fBrand').value;
+  const cat = document.getElementById('fCategory').value;
+  if (brand!=='all') items = items.filter(d=>d.brand===brand);
+  if (cat!=='all') items = items.filter(d=>d.category===cat);
+
+  const prods = [...new Set(items.map(d=>d.product))];
+  fillSel('fProduct', prods);
+
+  const prod = document.getElementById('fProduct').value;
+  if (prod!=='all') items = items.filter(d=>d.product===prod);
+  const strengths = [...new Set(items.map(d=>d.strength))];
+  fillSel('fStrength', strengths);
+
+  const str = document.getElementById('fStrength').value;
+  if (str!=='all') items = items.filter(d=>d.strength===str);
+  const packs = [...new Set(items.map(d=>d.packSize))];
+  fillSel('fPack', packs);
+}
+
+function getFiltered() {
+  let items = DATA;
+  const brand = document.getElementById('fBrand').value;
+  const cat = document.getElementById('fCategory').value;
+  const prod = document.getElementById('fProduct').value;
+  const str = document.getElementById('fStrength').value;
+  const pack = document.getElementById('fPack').value;
+  if (brand!=='all') items=items.filter(d=>d.brand===brand);
+  if (cat!=='all') items=items.filter(d=>d.category===cat);
+  if (prod!=='all') items=items.filter(d=>d.product===prod);
+  if (str!=='all') items=items.filter(d=>d.strength===str);
+  if (pack!=='all') items=items.filter(d=>d.packSize===pack);
+  return items;
+}
+
+// --- RENDER ---
+function render() {
+  const items = getFiltered();
+  renderSummary(items);
+  renderProducts(items);
+}
+
+function renderSummary(items) {
+  const withStats = items.filter(i=>i.vivaPrice && getStats(i).avg);
+  let cheaperCount=0, totalCompared=0;
+  let totalDiff=0;
+  withStats.forEach(i => {
+    const s=getStats(i);
+    if(s.avg) { totalDiff += (i.vivaPrice/s.avg - 1)*100; totalCompared++; }
+    if(s.position && s.position <= Math.ceil((s.count+1)/2)) cheaperCount++;
+  });
+  const avgDiff = totalCompared ? totalDiff/totalCompared : 0;
+  const avgMargin = items.filter(i=>i.vivaPrice&&i.costPrice).reduce((acc,i)=>{
+    return acc + ((i.vivaPrice-i.costPrice)/i.vivaPrice*100);
+  },0) / (items.filter(i=>i.vivaPrice&&i.costPrice).length||1);
+
+  document.getElementById('summaryStrip').innerHTML = `
+    <div class="summary-stat"><div class="label">Products Shown</div><div class="val">${items.length}</div></div>
+    <div class="summary-stat"><div class="label">Avg vs Market</div><div class="val" style="color:${avgDiff>10?'var(--red)':avgDiff<-10?'var(--green)':'var(--yellow)'}">${pct(avgDiff)}</div><div class="sub">${avgDiff>0?'Above':'Below'} avg competitor price</div></div>
+    <div class="summary-stat"><div class="label">Cheaper Half</div><div class="val" style="color:var(--green)">${cheaperCount}/${totalCompared}</div><div class="sub">Products where Viva is in cheaper half</div></div>
+    <div class="summary-stat"><div class="label">Avg Gross Margin</div><div class="val" style="color:${avgMargin>30?'var(--green)':avgMargin>15?'var(--yellow)':'var(--red)'}">${avgMargin.toFixed(0)}%</div><div class="sub">Based on cost (inc. VAT)</div></div>
+    <div class="summary-stat"><div class="label">Pending Data</div><div class="val" style="color:var(--text-muted)">${items.reduce((a,i)=>a+i.competitors.filter(c=>!c.price).length,0)}</div><div class="sub">Missing competitor data</div></div>
+  `;
+}
+
+function renderProducts(items) {
   const container = document.getElementById('products');
-  const items = filter === 'all' ? DATA : DATA.filter(d => d.category === filter);
   let html = '';
 
   items.forEach(item => {
     const stats = getStats(item);
-    const maxPrice = Math.max(...item.competitors.filter(c=>c.price).map(c=>c.price), item.vivaPrice || 0);
+    const margin = (item.vivaPrice && item.costPrice) ? ((item.vivaPrice - item.costPrice) / item.vivaPrice * 100) : null;
+    const marginClass = margin > 40 ? 'margin-good' : margin > 15 ? 'margin-tight' : 'margin-bad';
+    const maxP = Math.max(...item.competitors.filter(c=>c.price).map(c=>c.price), item.vivaPrice||0);
+    const minFloor = item.costPrice ? item.costPrice * 1.1 : null; // 10% min margin
 
     html += `<div class="product-card">`;
-    html += `<div class="product-header">`;
-    html += `<div><span class="product-name">${item.product}</span> <span style="color:var(--text-muted);font-size:13px;margin-left:8px">${item.packSize}</span></div>`;
-    html += `<span class="product-category">${item.category === 'ed' ? 'Erectile Dysfunction' : item.category === 'hair' ? 'Hair Loss' : item.category === 'weight' ? 'Weight Loss' : item.category === 'testosterone' ? 'Testosterone' : item.category === 'hrt' ? 'HRT' : 'Test Kits'}</span>`;
-    html += `</div>`;
+    html += `<div class="product-header"><div><span class="product-name">${item.product} ${item.strength}</span> <span style="color:var(--text-muted);font-size:12px;margin-left:6px">${item.packSize}</span></div>`;
+    html += `<div class="product-meta"><span class="tag tag-brand">${item.brand}</span><span class="tag tag-cat">${item.category}</span></div></div>`;
     html += `<div class="product-body">`;
 
-    // Header row
-    html += `<div class="price-row header"><div>Competitor</div><div>Rank</div><div>Price</div><div>vs Market</div><div class="hide-mobile">Avg</div><div class="hide-mobile">Median</div><div>Position</div></div>`;
+    // Table
+    html += `<table class="comp-table"><thead><tr>`;
+    html += `<th></th><th>Rank</th><th>Price</th><th>Per Unit</th><th>vs Bar</th><th>Cost</th><th>Margin</th><th>Room to Cut</th>`;
+    html += `</tr></thead><tbody>`;
 
-    // Viva row first
-    const vivaVsAvg = (item.vivaPrice && stats.avg) ? ((item.vivaPrice / stats.avg - 1) * 100) : null;
-    const posClass = stats.position != null ? (stats.position <= 2 ? 'pos-good' : stats.position <= 4 ? 'pos-ok' : 'pos-bad') : '';
-    const posText = stats.position != null ? `${stats.position} of ${stats.count + 1}` : '-';
+    // Viva row
+    const vivaPerUnit = item.vivaPrice ? fmt(item.vivaPrice / parseInt(item.packSize)||1) : '-';
+    html += `<tr class="viva-row">`;
+    html += `<td style="font-weight:700">${item.brand}</td>`;
+    html += `<td style="font-size:11px">YOU</td>`;
+    html += `<td style="font-weight:700">${item.vivaPrice ? fmt(item.vivaPrice) : 'N/A'}</td>`;
+    html += `<td>-</td>`;
+    html += `<td>${maxP && item.vivaPrice ? `<div class="bar-wrap"><div class="bar-fill bar-viva" style="width:${item.vivaPrice/maxP*100}%"></div></div>` : ''}</td>`;
+    html += `<td style="color:var(--orange);font-size:11px">${item.costPrice ? fmt(item.costPrice) : '-'}</td>`;
+    html += `<td class="${marginClass}" style="font-weight:700">${margin != null ? margin.toFixed(0)+'%' : '-'}</td>`;
+    html += `<td style="font-size:11px;color:var(--green)">${(item.vivaPrice && item.costPrice) ? 'Can go to '+fmt(item.costPrice * 1.1) : '-'}</td>`;
+    html += `</tr>`;
 
-    html += `<div class="price-row viva-row">`;
-    html += `<div class="comp-name">${item.brand}</div>`;
-    html += `<div style="color:var(--accent);font-size:11px">YOU</div>`;
-    html += `<div class="price" style="color:var(--accent)">${item.vivaPrice ? fmt(item.vivaPrice) : (item.note || 'N/A')}</div>`;
-    html += `<div>`;
-    if (maxPrice && item.vivaPrice) {
-      const pct = (item.vivaPrice / maxPrice * 100);
-      html += `<div class="bar-container"><div class="bar viva" style="width:${pct}%"></div></div>`;
-    }
-    html += `</div>`;
-    html += `<div class="hide-mobile" style="font-size:12px;color:var(--text-muted)">${stats.avg ? fmt(stats.avg) : '-'}</div>`;
-    html += `<div class="hide-mobile" style="font-size:12px;color:var(--text-muted)">${stats.median ? fmt(stats.median) : '-'}</div>`;
-    html += `<div><span class="position-tag ${posClass}">${posText}</span></div>`;
-    html += `</div>`;
-
-    // Competitor rows
-    const sortedComps = [...item.competitors].sort((a,b) => (a.price||Infinity) - (b.price||Infinity));
-    sortedComps.forEach(comp => {
-      const isCheapest = comp.price === stats.min;
-      const isExpensive = comp.price === stats.max && stats.count > 1;
-      const priceClass = isCheapest ? 'cheapest' : isExpensive ? 'expensive' : 'mid';
-      const barClass = isCheapest ? 'cheap' : isExpensive ? 'expensive' : 'normal';
-
-      html += `<div class="price-row">`;
-      html += `<div class="comp-name"><span class="rank-badge rank-${comp.rank}">${comp.rank}</span> ${comp.name}</div>`;
-      html += `<div style="font-size:11px;color:var(--text-muted)">#${comp.rank} on Google</div>`;
-      html += `<div class="price ${priceClass}">${comp.price ? fmt(comp.price) : `<span style="font-size:11px;color:var(--text-muted)">${comp.note || 'N/A'}</span>`}</div>`;
-      html += `<div>`;
-      if (maxPrice && comp.price) {
-        const pct = (comp.price / maxPrice * 100);
-        html += `<div class="bar-container"><div class="bar ${barClass}" style="width:${pct}%"></div></div>`;
-      }
-      html += `</div>`;
-      html += `<div class="hide-mobile"></div><div class="hide-mobile"></div><div></div>`;
-      html += `</div>`;
+    // Competitors sorted by price
+    const sorted = [...item.competitors].sort((a,b)=>(a.price||Infinity)-(b.price||Infinity));
+    sorted.forEach(c => {
+      const isCheap = c.price === stats.min;
+      const isExp = c.price === stats.max && stats.count > 1;
+      const cls = isCheap ? 'price-cheap' : isExp ? 'price-exp' : 'price-mid';
+      const barCls = isCheap ? 'bar-cheap' : isExp ? 'bar-exp' : 'bar-norm';
+      html += `<tr>`;
+      html += `<td><span class="rank-badge rank-${c.rank}">${c.rank}</span> ${c.name}</td>`;
+      html += `<td style="font-size:11px;color:var(--text-muted)">#${c.rank}</td>`;
+      html += `<td class="${cls}">${c.price ? fmt(c.price) : `<span class="note">${c.note||'N/A'}</span>`}</td>`;
+      html += `<td style="font-size:11px;color:var(--text-muted)">-</td>`;
+      html += `<td>${maxP && c.price ? `<div class="bar-wrap"><div class="bar-fill ${barCls}" style="width:${c.price/maxP*100}%"></div></div>` : ''}</td>`;
+      html += `<td></td><td></td><td></td>`;
+      html += `</tr>`;
     });
 
-    // Stats summary
+    html += `</tbody></table>`;
+
+    // Stats strip
     html += `<div class="stats-row">`;
-    html += `<div class="stat"><div class="label">Cheapest (Top 5)</div><div class="value green">${stats.min ? fmt(stats.min) : 'TBD'}</div></div>`;
-    html += `<div class="stat"><div class="label">Average (Top 5)</div><div class="value">${stats.avg ? fmt(stats.avg) : 'TBD'}</div></div>`;
-    html += `<div class="stat"><div class="label">Median (Top 5)</div><div class="value">${stats.median ? fmt(stats.median) : 'TBD'}</div></div>`;
+    html += `<div class="mini-stat"><div class="ms-label">Cheapest</div><div class="ms-val" style="color:var(--green)">${stats.min?fmt(stats.min):'TBD'}</div></div>`;
+    html += `<div class="mini-stat"><div class="ms-label">Average</div><div class="ms-val">${stats.avg?fmt(stats.avg):'TBD'}</div></div>`;
+    html += `<div class="mini-stat"><div class="ms-label">Median</div><div class="ms-val">${stats.median?fmt(stats.median):'TBD'}</div></div>`;
     if (item.vivaPrice && stats.avg) {
-      const diff = ((item.vivaPrice / stats.avg - 1) * 100).toFixed(0);
-      const cls = diff > 10 ? 'red' : diff < -10 ? 'green' : 'yellow';
-      html += `<div class="stat"><div class="label">Viva vs Average</div><div class="value ${cls}">${diff > 0 ? '+' : ''}${diff}%</div><div class="sub">${diff > 0 ? 'Above' : 'Below'} market average</div></div>`;
+      const d=((item.vivaPrice/stats.avg-1)*100);
+      html += `<div class="mini-stat"><div class="ms-label">Viva vs Avg</div><div class="ms-val" style="color:${d>10?'var(--red)':d<-10?'var(--green)':'var(--yellow)'}">${pct(d)}</div></div>`;
     }
     if (stats.position != null) {
-      const cls = stats.position <= 2 ? 'green' : stats.position <= 4 ? 'yellow' : 'red';
-      html += `<div class="stat"><div class="label">Viva Price Rank</div><div class="value ${cls}">#${stats.position}</div><div class="sub">of ${stats.count + 1} (lower = cheaper)</div></div>`;
+      const pcls = stats.position<=2?'var(--green)':stats.position<=4?'var(--yellow)':'var(--red)';
+      html += `<div class="mini-stat"><div class="ms-label">Price Rank</div><div class="ms-val" style="color:${pcls}">#${stats.position} of ${stats.count+1}</div></div>`;
+    }
+    if (item.costPrice && item.vivaPrice) {
+      const profit = item.vivaPrice - item.costPrice;
+      html += `<div class="mini-stat"><div class="ms-label">Profit / Sale</div><div class="ms-val" style="color:${profit>5?'var(--green)':'var(--red)'}">${fmt(profit)}</div></div>`;
+    }
+    if (minFloor && stats.min) {
+      html += `<div class="mini-stat"><div class="ms-label">Min Viable Price</div><div class="ms-val" style="color:var(--orange)">${fmt(minFloor)}</div><div class="ms-sub">10% margin floor</div></div>`;
     }
     html += `</div>`;
 
     html += `</div></div>`;
   });
 
-  container.innerHTML = html;
-  document.getElementById('dataStatus').textContent = `${items.length} products | Superdrug & VivaFem data pending`;
+  container.innerHTML = html || '<p style="color:var(--text-muted);padding:40px;text-align:center">No products match current filters.</p>';
 }
 
-// Filter buttons
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    renderProducts(btn.dataset.filter);
+// --- EVENTS ---
+['fBrand','fCategory','fProduct','fStrength','fPack'].forEach(id => {
+  document.getElementById(id).addEventListener('change', () => {
+    if (id==='fBrand' || id==='fCategory') {
+      document.getElementById('fProduct').value='all';
+      document.getElementById('fStrength').value='all';
+      document.getElementById('fPack').value='all';
+    }
+    if (id==='fProduct') {
+      document.getElementById('fStrength').value='all';
+      document.getElementById('fPack').value='all';
+    }
+    if (id==='fStrength') {
+      document.getElementById('fPack').value='all';
+    }
+    updateDependentFilters();
+    render();
   });
 });
 
-renderProducts('all');
+populateFilters();
+render();
+
+// --- EXPORT XLSX ---
+function exportXLSX() {
+  const btn = document.getElementById('exportBtn');
+  btn.textContent = 'Loading...';
+  btn.disabled = true;
+
+  // Load SheetJS if not already loaded
+  if (typeof XLSX === 'undefined') {
+    const s = document.createElement('script');
+    s.src = 'https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js';
+    s.onload = () => doExport();
+    s.onerror = () => { btn.textContent = 'Export XLSX'; btn.disabled = false; alert('Failed to load XLSX library. Check your internet connection.'); };
+    document.head.appendChild(s);
+  } else {
+    doExport();
+  }
+
+  function doExport() {
+    try {
+      const items = getFiltered();
+      const rows = [];
+
+      items.forEach(item => {
+        const stats = getStats(item);
+        const margin = (item.vivaPrice && item.costPrice) ? ((item.vivaPrice - item.costPrice) / item.vivaPrice * 100) : null;
+        const minViable = item.costPrice ? item.costPrice * 1.1 : null;
+
+        // Viva row
+        rows.push({
+          Brand: item.brand,
+          Category: item.category,
+          Product: item.product,
+          Strength: item.strength,
+          'Pack Size': item.packSize,
+          Competitor: item.brand + ' (YOU)',
+          'SEO Rank': '-',
+          Price: item.vivaPrice,
+          'Cost Price': item.costPrice || '',
+          'Margin %': margin ? +margin.toFixed(1) : '',
+          'Min Viable (10%)': minViable ? +minViable.toFixed(2) : '',
+          'Cheapest Competitor': stats.min || '',
+          'Avg Competitor': stats.avg ? +stats.avg.toFixed(2) : '',
+          'Median Competitor': stats.median ? +stats.median.toFixed(2) : '',
+          'Price Rank': stats.position ? stats.position + ' of ' + (stats.count + 1) : '',
+          'Profit / Sale': (item.vivaPrice && item.costPrice) ? +(item.vivaPrice - item.costPrice).toFixed(2) : ''
+        });
+
+        // Competitor rows
+        item.competitors.forEach(c => {
+          rows.push({
+            Brand: item.brand,
+            Category: item.category,
+            Product: item.product,
+            Strength: item.strength,
+            'Pack Size': item.packSize,
+            Competitor: c.name,
+            'SEO Rank': c.rank,
+            Price: c.price || (c.note || 'N/A'),
+            'Cost Price': '',
+            'Margin %': '',
+            'Min Viable (10%)': '',
+            'Cheapest Competitor': '',
+            'Avg Competitor': '',
+            'Median Competitor': '',
+            'Price Rank': '',
+            'Profit / Sale': ''
+          });
+        });
+      });
+
+      const ws = XLSX.utils.json_to_sheet(rows);
+
+      // Column widths
+      ws['!cols'] = [
+        {wch:10},{wch:20},{wch:22},{wch:10},{wch:18},{wch:28},{wch:9},{wch:10},
+        {wch:10},{wch:10},{wch:14},{wch:16},{wch:14},{wch:16},{wch:12},{wch:12}
+      ];
+
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Pricing Strategy');
+      XLSX.writeFile(wb, 'viva-pricing-strategy.xlsx');
+    } catch(e) {
+      alert('Export failed: ' + e.message);
+    }
+    btn.textContent = 'Export XLSX';
+    btn.disabled = false;
+  }
+}
 </script>
 </body>
 </html>
