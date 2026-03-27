@@ -683,7 +683,7 @@ const DATA = [
     ]},
   // Utrogestan 100mg - 60 caps (2 months)
   { product:"Utrogestan", strength:"100mg", packSize:"60 capsules (2 months)", category:"HRT", brand:"VivaFem",
-    vivaPrice:null, costPrice:19.80, costWithVat:19.80,
+    vivaPrice:38.99, costPrice:19.80, costWithVat:19.80,
     competitors:[
       {name:"SimplyMeds Online",rank:1,price:49.99,note:"£25.00/pack"},
       {name:"Oxford Online Pharmacy",rank:2,price:54.99,note:"£27.50/pack"},
@@ -693,7 +693,7 @@ const DATA = [
     ]},
   // Utrogestan 100mg - 90 caps (3 months)
   { product:"Utrogestan", strength:"100mg", packSize:"90 capsules (3 months)", category:"HRT", brand:"VivaFem",
-    vivaPrice:null, costPrice:29.70, costWithVat:29.70,
+    vivaPrice:56.99, costPrice:29.70, costWithVat:29.70,
     competitors:[
       {name:"Oxford Online Pharmacy",rank:1,price:69.99,note:"£23.33/pack"},
       {name:"Treated.com",rank:2,price:81.95,note:"£27.32/pack"},
@@ -721,7 +721,7 @@ const DATA = [
     ]},
   // Oestrogel - 2 pumps (2 months)
   { product:"Oestrogel", strength:"0.06%", packSize:"2x 80g pump (2 months)", category:"HRT", brand:"VivaFem",
-    vivaPrice:null, costPrice:18.00, costWithVat:18.00,
+    vivaPrice:42.99, costPrice:18.00, costWithVat:18.00,
     competitors:[
       {name:"AccessDoctor",rank:1,price:35.99,note:"£18.00/pump"},
       {name:"Pharmacy Planet",rank:2,price:36.00,note:"£18.00/pump"},
@@ -733,7 +733,7 @@ const DATA = [
     ]},
   // Oestrogel - 3 pumps (3 months)
   { product:"Oestrogel", strength:"0.06%", packSize:"3x 80g pump (3 months)", category:"HRT", brand:"VivaFem",
-    vivaPrice:null, costPrice:27.00, costWithVat:27.00,
+    vivaPrice:62.99, costPrice:27.00, costWithVat:27.00,
     competitors:[
       {name:"Boots",rank:1,price:44.00,note:"£14.67/pump"},
       {name:"Pharmacy Planet",rank:2,price:45.00,note:"£15.00/pump"},
@@ -777,7 +777,7 @@ const DATA = [
     ]},
   // Lenzetto Spray - 2 pack (2 months)
   { product:"Lenzetto Spray", strength:"1.53mg", packSize:"112 doses (2 months)", category:"HRT", brand:"VivaFem",
-    vivaPrice:null, costPrice:16.56, costWithVat:16.56,
+    vivaPrice:39.99, costPrice:16.56, costWithVat:16.56,
     competitors:[
       {name:"SimplyMeds Online",rank:1,price:40.99,note:"£20.50/pack"},
       {name:"The Family Chemist",rank:2,price:41.98,note:"£21.00/pack"},
@@ -787,7 +787,7 @@ const DATA = [
     ]},
   // Lenzetto Spray - 3 pack (3 months)
   { product:"Lenzetto Spray", strength:"1.53mg", packSize:"168 doses (3 months)", category:"HRT", brand:"VivaFem",
-    vivaPrice:null, costPrice:24.84, costWithVat:24.84,
+    vivaPrice:59.99, costPrice:24.84, costWithVat:24.84,
     competitors:[
       {name:"Chemist4U",rank:1,price:36.99,note:"£12.33/pack - OOS"},
       {name:"Pharmacy Planet",rank:2,price:50.00,note:"£16.67/pack"},
@@ -797,7 +797,25 @@ const DATA = [
       {name:"The Family Chemist",rank:5,price:61.99,note:"£20.66/pack"},
       {name:"Online Pharmacy4U",rank:6,price:62.50,note:"£20.83/pack - OOS"}
     ]},
-  { product:"Menopause Test Kit", strength:"-", packSize:"1 kit", category:"Test Kits", brand:"VivaFem",
+  // Lenzetto + Utrogestan combo - 1 month
+  { product:"Lenzetto + Utrogestan", strength:"1.53mg + 100mg", packSize:"1 spray + 30 caps (1 month)", category:"HRT", brand:"VivaFem",
+    vivaPrice:40.99, costPrice:17.18, costWithVat:17.18,
+    competitors:[
+      {name:"Calculated Separate",rank:1,price:42.98,note:"Cheapest Lenzetto \u00a320.99 + cheapest Utrogestan \u00a316.50 (Dock Pharmacy+Family Chemist)"},
+      {name:"SimplyMeds Online",rank:2,price:51.98,note:"Lenzetto \u00a321.99 + Utrogestan \u00a329.99 separate"},
+      {name:"Oxford Online Pharmacy",rank:3,price:53.97,note:"Lenzetto \u00a321.99 + Utrogestan \u00a331.98 separate"},
+      {name:"The Independent Pharmacy",rank:4,price:56.98,note:"Lenzetto \u00a324.99 + Utrogestan \u00a331.99 separate"}
+    ]},
+  // Lenzetto + Utrogestan combo - 3 months
+  { product:"Lenzetto + Utrogestan", strength:"1.53mg + 100mg", packSize:"3 sprays + 90 caps (3 months)", category:"HRT", brand:"VivaFem",
+    vivaPrice:109.99, costPrice:51.54, costWithVat:51.54,
+    competitors:[
+      {name:"SimplyMeds Online",rank:1,price:110.98,note:"3x Lenzetto \u00a360.99 + Utrogestan 60 \u00a349.99"},
+      {name:"Superdrug",rank:2,price:131.00,note:"3x Lenzetto \u00a353 + separate Utrogestan purchases"},
+      {name:"Boots",rank:3,price:136.00,note:"3x Lenzetto \u00a353 + Utrogestan est. \u00a383 combo less Oestrogel"}
+    ]},
+
+    { product:"Menopause Test Kit", strength:"-", packSize:"1 kit", category:"Test Kits", brand:"VivaFem",
     vivaPrice:119.99, costPrice:110.05, costWithVat:110.05,
     competitors:[
       {name:"ZAVA",rank:4,price:24.99},
@@ -1032,6 +1050,7 @@ const URL_MAP = {
   "Treated.com|Utrogestan + Oestrogel":"https://uk.treated.com/hrt/utrogestan-and-oestrogel-pack",
   "Superdrug|Oestrogel":"https://onlinedoctor.superdrug.com/oestrogel.html",
   "Superdrug|Lenzetto Spray":"https://onlinedoctor.superdrug.com/lenzetto-spray.html",
+  "VivaFem|Lenzetto + Utrogestan":"https://www.vivafem.co.uk",
   "Boots|Oestrogel":"https://onlinedoctor.boots.com/HRT-treatment-online",
   "Boots|Lenzetto":"https://onlinedoctor.boots.com/HRT-treatment-online",
   "Boots|Utrogestan + Oestrogel":"https://onlinedoctor.boots.com/HRT-treatment-online",
