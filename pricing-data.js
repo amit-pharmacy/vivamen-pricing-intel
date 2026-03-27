@@ -619,10 +619,10 @@ const PRICING_DATA = {
     { competitor: "Pharmacy Online", product: "Tadalafil Daily", category: "Erectile Dysfunction", strength: "5mg", type: "daily", packSize: 84, price: 74.99, perUnit: 0.89, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
 
     // --- VivaMen Tadalafil On-Demand (from latest CSV) ---
-    { competitor: "VivaMen", product: "Tadalafil", category: "Erectile Dysfunction", strength: "10mg", type: "on-demand", packSize: 4, price: 17.99, perUnit: 4.50, purchaseType: "one-time", brand: "Generic" },
-    { competitor: "VivaMen", product: "Tadalafil", category: "Erectile Dysfunction", strength: "10mg", type: "on-demand", packSize: 8, price: 29.99, perUnit: 3.75, purchaseType: "one-time", brand: "Generic" },
-    { competitor: "VivaMen", product: "Tadalafil", category: "Erectile Dysfunction", strength: "20mg", type: "on-demand", packSize: 4, price: 17.99, perUnit: 4.50, purchaseType: "one-time", brand: "Generic" },
-    { competitor: "VivaMen", product: "Tadalafil", category: "Erectile Dysfunction", strength: "20mg", type: "on-demand", packSize: 8, price: 29.99, perUnit: 3.75, purchaseType: "one-time", brand: "Generic" },
+    { competitor: "VivaMen", product: "Tadalafil", category: "Erectile Dysfunction", strength: "10mg", type: "on-demand", packSize: 4, price: 13.99, perUnit: 3.50, purchaseType: "one-time", brand: "Generic" },
+    { competitor: "VivaMen", product: "Tadalafil", category: "Erectile Dysfunction", strength: "10mg", type: "on-demand", packSize: 8, price: 23.49, perUnit: 2.94, purchaseType: "one-time", brand: "Generic" },
+    { competitor: "VivaMen", product: "Tadalafil", category: "Erectile Dysfunction", strength: "20mg", type: "on-demand", packSize: 4, price: 14.49, perUnit: 3.62, purchaseType: "one-time", brand: "Generic" },
+    { competitor: "VivaMen", product: "Tadalafil", category: "Erectile Dysfunction", strength: "20mg", type: "on-demand", packSize: 8, price: 24.99, perUnit: 3.12, purchaseType: "one-time", brand: "Generic" },
 
     // ============================================================
     // TADALAFIL DAILY — ED
@@ -935,7 +935,7 @@ const PRICING_DATA = {
     { competitor: "VivaFem", product: "Utrogestan + Oestrogel", category: "HRT", strength: "100mg + 0.06%", type: "daily", packSize: 3, price: 109.99, perUnit: 36.66, purchaseType: "one-time", brand: "Branded", unit: "1 month combo" },
 
     // --- VivaFem Lenzetto + Utrogestan Combo ---
-    { competitor: "VivaFem", product: "Lenzetto + Utrogestan", category: "HRT", strength: "1.53mg + 100mg", type: "daily", packSize: 1, price: 40.99, perUnit: 40.99, purchaseType: "one-time", brand: "Branded", unit: "1 month combo (1 spray + 30 caps)" },
+    { competitor: "VivaFem", product: "Lenzetto + Utrogestan", category: "HRT", strength: "1.53mg + 100mg", type: "daily", packSize: 1, price: 39.99, perUnit: 39.99, purchaseType: "one-time", brand: "Branded", unit: "1 month combo (1 spray + 30 caps)" },
     { competitor: "VivaFem", product: "Lenzetto + Utrogestan", category: "HRT", strength: "1.53mg + 100mg", type: "daily", packSize: 3, price: 109.99, perUnit: 36.66, purchaseType: "one-time", brand: "Branded", unit: "1 month combo (3 sprays + 90 caps)" },
 
     // =============================================
