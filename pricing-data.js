@@ -907,11 +907,11 @@ const PRICING_DATA = {
     { competitor: "VivaMen", product: "Mounjaro", category: "Weight Loss", strength: "15mg", type: "weekly", packSize: 1, price: 319.00, perUnit: 319.00, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
 
     // --- VivaMen Wegovy ---
-    { competitor: "VivaMen", product: "Wegovy", category: "Weight Loss", strength: "0.25mg", type: "weekly", packSize: 1, price: 114.99, perUnit: 114.99, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
-    { competitor: "VivaMen", product: "Wegovy", category: "Weight Loss", strength: "0.5mg", type: "weekly", packSize: 1, price: 119.99, perUnit: 119.99, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
-    { competitor: "VivaMen", product: "Wegovy", category: "Weight Loss", strength: "1mg", type: "weekly", packSize: 1, price: 124.99, perUnit: 124.99, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
-    { competitor: "VivaMen", product: "Wegovy", category: "Weight Loss", strength: "1.7mg", type: "weekly", packSize: 1, price: 179.99, perUnit: 179.99, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
-    { competitor: "VivaMen", product: "Wegovy", category: "Weight Loss", strength: "2.4mg", type: "weekly", packSize: 1, price: 249.99, perUnit: 249.99, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
+    { competitor: "VivaMen", product: "Wegovy", category: "Weight Loss", strength: "0.25mg", type: "weekly", packSize: 1, price: 115.00, perUnit: 115.00, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
+    { competitor: "VivaMen", product: "Wegovy", category: "Weight Loss", strength: "0.5mg", type: "weekly", packSize: 1, price: 120.00, perUnit: 120.00, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
+    { competitor: "VivaMen", product: "Wegovy", category: "Weight Loss", strength: "1mg", type: "weekly", packSize: 1, price: 125.00, perUnit: 125.00, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
+    { competitor: "VivaMen", product: "Wegovy", category: "Weight Loss", strength: "1.7mg", type: "weekly", packSize: 1, price: 180.00, perUnit: 180.00, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
+    { competitor: "VivaMen", product: "Wegovy", category: "Weight Loss", strength: "2.4mg", type: "weekly", packSize: 1, price: 250.00, perUnit: 250.00, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
 
     // =============================================
     // VIVAFEM HRT PRODUCTS
@@ -1143,8 +1143,8 @@ const PRICING_DATA = {
     { competitor: "Pharmica", product: "Wegovy", category: "Weight Loss", strength: "0.25mg", type: "weekly", packSize: 1, price: 119.99, perUnit: 119.99, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
     { competitor: "Pharmica", product: "Wegovy", category: "Weight Loss", strength: "0.5mg", type: "weekly", packSize: 1, price: 134.99, perUnit: 134.99, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
     { competitor: "Pharmica", product: "Wegovy", category: "Weight Loss", strength: "1mg", type: "weekly", packSize: 1, price: 139.99, perUnit: 139.99, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
-    { competitor: "Pharmica", product: "Wegovy", category: "Weight Loss", strength: "1.7mg", type: "weekly", packSize: 1, price: 179.99, perUnit: 179.99, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
-    { competitor: "Pharmica", product: "Wegovy", category: "Weight Loss", strength: "2.4mg", type: "weekly", packSize: 1, price: 249.99, perUnit: 249.99, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
+    { competitor: "Pharmica", product: "Wegovy", category: "Weight Loss", strength: "1.7mg", type: "weekly", packSize: 1, price: 180.00, perUnit: 180.00, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
+    { competitor: "Pharmica", product: "Wegovy", category: "Weight Loss", strength: "2.4mg", type: "weekly", packSize: 1, price: 250.00, perUnit: 250.00, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
 
     // =============================================
     // NUMAN — Weight Loss (Mounjaro & Wegovy) - Subscription
@@ -1297,9 +1297,9 @@ const PRICING_DATA = {
 
     // --- Lloyds Wegovy (1 pen / 4 weeks supply) ---
     { competitor: "Lloyds Pharmacy", product: "Wegovy", category: "Weight Loss", strength: "0.25mg", type: "weekly", packSize: 1, price: 99.99, perUnit: 99.99, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)", notes: "+consultation fee" },
-    { competitor: "Lloyds Pharmacy", product: "Wegovy", category: "Weight Loss", strength: "0.5mg", type: "weekly", packSize: 1, price: 119.99, perUnit: 119.99, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)", notes: "+consultation fee" },
+    { competitor: "Lloyds Pharmacy", product: "Wegovy", category: "Weight Loss", strength: "0.5mg", type: "weekly", packSize: 1, price: 120.00, perUnit: 120.00, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)", notes: "+consultation fee" },
     { competitor: "Lloyds Pharmacy", product: "Wegovy", category: "Weight Loss", strength: "1mg", type: "weekly", packSize: 1, price: 149.99, perUnit: 149.99, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)", notes: "+consultation fee" },
-    { competitor: "Lloyds Pharmacy", product: "Wegovy", category: "Weight Loss", strength: "1.7mg", type: "weekly", packSize: 1, price: 179.99, perUnit: 179.99, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)", notes: "+consultation fee" },
+    { competitor: "Lloyds Pharmacy", product: "Wegovy", category: "Weight Loss", strength: "1.7mg", type: "weekly", packSize: 1, price: 180.00, perUnit: 180.00, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)", notes: "+consultation fee" },
     { competitor: "Lloyds Pharmacy", product: "Wegovy", category: "Weight Loss", strength: "2.4mg", type: "weekly", packSize: 1, price: 199.99, perUnit: 199.99, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)", notes: "+consultation fee" },
 
     // =============================================
