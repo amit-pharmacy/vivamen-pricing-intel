@@ -624,33 +624,100 @@ const DATA = [
       {name:"Click Pharmacy",rank:6,price:25.99,note:"Imvaggis listed"},
       {name:"Clear Chemist",rank:7,price:27.99}
     ]},
-  { product:"Utrogestan + Oestrogel", strength:"100mg + 75mcg", packSize:"30 caps + 80g", category:"HRT", brand:"VivaFem",
+  { product:"Utrogestan + Oestrogel", strength:"100mg + 0.06%", packSize:"30 caps + 80g (1 month)", category:"HRT", brand:"VivaFem",
     vivaPrice:39.99, costPrice:18.90, costWithVat:18.90,
     competitors:[
-      {name:"Asda",rank:1,price:36.00},
-      {name:"E-Surgery",rank:2,price:49.90,note:"£24.95 each"},
-      {name:"The Independent Pharmacy",rank:3,price:59.98,note:"£31.99+£27.99"},
-      {name:"Chemist4U",rank:6,price:49.98,note:"£21.99+£27.99 separate"},
-      {name:"Oxford Online Pharmacy",rank:7,price:49.98,note:"£24.99+£24.99 separate"}
+      {name:"Prescription Doctor",rank:1,price:44.99,note:"Explicit combo listing"},
+      {name:"Chemist4U",rank:2,price:49.98,note:"£21.99+£27.99 separate"},
+      {name:"Oxford Online Pharmacy",rank:3,price:54.99,note:"Combo page price"},
+      {name:"SimplyMeds Online",rank:4,price:54.98,note:"£24.99+£29.99 separate"},
+      {name:"E-Surgery",rank:5,price:59.90,note:"£34.95+£24.95 separate"},
+      {name:"The Independent Pharmacy",rank:6,price:59.98,note:"£27.99+£31.99 separate"},
+      {name:"The Online Clinic",rank:7,price:69.90,note:"£34.95+£34.95 separate"},
+      {name:"Treated.com",rank:8,price:77.95,note:"Combo listing"},
+      {name:"Boots",rank:9,price:83.00,note:"Combo listing"}
     ]},
-  // Standalone Utrogestan
-  { product:"Utrogestan", strength:"100mg", packSize:"30 capsules", category:"HRT", brand:"VivaFem",
+  // Utrogestan 100mg - single pack
+  { product:"Utrogestan", strength:"100mg", packSize:"30 capsules (1 month)", category:"HRT", brand:"VivaFem",
     vivaPrice:19.99, costPrice:9.90, costWithVat:9.90,
     competitors:[
-      {name:"E-Surgery",rank:1,price:24.95},
-      {name:"The Independent Pharmacy",rank:2,price:31.99},
-      {name:"The Online Clinic",rank:3,price:34.95},
-      {name:"Asda",rank:4,price:36.00,note:"Bundled with Estradot"},
-      {name:"Clear Chemist",rank:5,price:9.46,note:"Dispensing pharmacy"}
+      {name:"Dock Pharmacy",rank:1,price:16.50,note:"Dispensing only (BYO Rx)"},
+      {name:"E-Surgery",rank:2,price:24.95},
+      {name:"Chemist4U",rank:3,price:27.99},
+      {name:"Click2Pharmacy",rank:4,price:28.99},
+      {name:"SimplyMeds Online",rank:5,price:29.99},
+      {name:"The Family Chemist",rank:6,price:29.99},
+      {name:"The Independent Pharmacy",rank:7,price:31.99},
+      {name:"Oxford Online Pharmacy",rank:8,price:31.98},
+      {name:"Prescription Doctor",rank:9,price:32.99},
+      {name:"The Online Clinic",rank:10,price:34.95},
+      {name:"Treated.com",rank:11,price:37.95}
     ]},
-  // Standalone Oestrogel
-  { product:"Oestrogel", strength:"0.06%", packSize:"80g pump", category:"HRT", brand:"VivaFem",
+  // Utrogestan 100mg - 60 caps (2 months)
+  { product:"Utrogestan", strength:"100mg", packSize:"60 capsules (2 months)", category:"HRT", brand:"VivaFem",
+    vivaPrice:null, costPrice:19.80, costWithVat:19.80,
+    competitors:[
+      {name:"SimplyMeds Online",rank:1,price:49.99,note:"£25.00/pack"},
+      {name:"Oxford Online Pharmacy",rank:2,price:54.99,note:"£27.50/pack"},
+      {name:"Click2Pharmacy",rank:3,price:56.98,note:"£28.49/pack"},
+      {name:"Treated.com",rank:4,price:59.95,note:"£29.98/pack"},
+      {name:"The Family Chemist",rank:5,price:59.99,note:"£30.00/pack"}
+    ]},
+  // Utrogestan 100mg - 90 caps (3 months)
+  { product:"Utrogestan", strength:"100mg", packSize:"90 capsules (3 months)", category:"HRT", brand:"VivaFem",
+    vivaPrice:null, costPrice:29.70, costWithVat:29.70,
+    competitors:[
+      {name:"Oxford Online Pharmacy",rank:1,price:69.99,note:"£23.33/pack"},
+      {name:"Treated.com",rank:2,price:81.95,note:"£27.32/pack"},
+      {name:"Click2Pharmacy",rank:3,price:83.97,note:"£27.99/pack"},
+      {name:"The Family Chemist",rank:4,price:89.99,note:"£30.00/pack"}
+    ]},
+  // Oestrogel - single pump
+  { product:"Oestrogel", strength:"0.06%", packSize:"1x 80g pump (1 month)", category:"HRT", brand:"VivaFem",
     vivaPrice:19.99, costPrice:9.00, costWithVat:9.00,
     competitors:[
-      {name:"Chemist4U",rank:1,price:21.99},
-      {name:"Oxford Online Pharmacy",rank:2,price:24.99},
-      {name:"Click Pharmacy",rank:3,price:25.99},
-      {name:"The Independent Pharmacy",rank:4,price:27.99}
+      {name:"Dock Pharmacy",rank:1,price:13.49,note:"Dispensing only (BYO Rx)"},
+      {name:"Chemist4U",rank:2,price:21.99},
+      {name:"AccessDoctor",rank:3,price:23.99},
+      {name:"Pharmacy Planet",rank:4,price:24.00},
+      {name:"Oxford Online Pharmacy",rank:5,price:24.99},
+      {name:"Prescription Doctor",rank:6,price:24.99},
+      {name:"SimplyMeds Online",rank:7,price:24.99},
+      {name:"Click Pharmacy",rank:8,price:25.99},
+      {name:"The Independent Pharmacy",rank:9,price:27.99},
+      {name:"E-Surgery",rank:10,price:34.95},
+      {name:"The Online Clinic",rank:11,price:34.95},
+      {name:"Superdrug",rank:12,price:40.00},
+      {name:"Boots",rank:13,price:44.00},
+      {name:"Treated.com",rank:14,price:44.95}
+    ]},
+  // Oestrogel - 2 pumps (2 months)
+  { product:"Oestrogel", strength:"0.06%", packSize:"2x 80g pump (2 months)", category:"HRT", brand:"VivaFem",
+    vivaPrice:null, costPrice:18.00, costWithVat:18.00,
+    competitors:[
+      {name:"AccessDoctor",rank:1,price:35.99,note:"£18.00/pump"},
+      {name:"Pharmacy Planet",rank:2,price:36.00,note:"£18.00/pump"},
+      {name:"Chemist4U",rank:3,price:39.99,note:"£20.00/pump"},
+      {name:"Oxford Online Pharmacy",rank:4,price:45.95,note:"£22.98/pump"},
+      {name:"SimplyMeds Online",rank:5,price:45.98,note:"£22.99/pump"},
+      {name:"Prescription Doctor",rank:6,price:46.99,note:"128 doses"},
+      {name:"Treated.com",rank:7,price:73.95,note:"£36.98/pump"}
+    ]},
+  // Oestrogel - 3 pumps (3 months)
+  { product:"Oestrogel", strength:"0.06%", packSize:"3x 80g pump (3 months)", category:"HRT", brand:"VivaFem",
+    vivaPrice:null, costPrice:27.00, costWithVat:27.00,
+    competitors:[
+      {name:"Pharmacy Planet",rank:1,price:45.00,note:"£15.00/pump"},
+      {name:"AccessDoctor",rank:2,price:57.99,note:"£19.33/pump"},
+      {name:"SimplyMeds Online",rank:3,price:59.97,note:"£19.99/pump"},
+      {name:"Oxford Online Pharmacy",rank:4,price:68.95,note:"£22.98/pump"},
+      {name:"Treated.com",rank:5,price:99.95,note:"£33.32/pump"}
+    ]},
+  // Oestrogel - 4 pumps (4 months)
+  { product:"Oestrogel", strength:"0.06%", packSize:"4x 80g pump (4 months)", category:"HRT", brand:"VivaFem",
+    vivaPrice:null, costPrice:36.00, costWithVat:36.00,
+    competitors:[
+      {name:"Pharmacy Planet",rank:1,price:54.00,note:"£13.50/pump"}
     ]},
   { product:"Androfeme", strength:"1%", packSize:"50ml", category:"HRT", brand:"VivaFem",
     vivaPrice:149.99, costPrice:108.22, costWithVat:108.22,
@@ -661,14 +728,43 @@ const DATA = [
       {name:"Myla Health",rank:6,price:135.00,note:"Contact for price"},
       {name:"Church Pharmacy",rank:7,price:125.00,note:"Login required"}
     ]},
-  { product:"Lenzetto Spray", strength:"1.53mg", packSize:"56 doses", category:"HRT", brand:"VivaFem",
+  // Lenzetto Spray - single (1 month)
+  { product:"Lenzetto Spray", strength:"1.53mg", packSize:"56 doses (1 month)", category:"HRT", brand:"VivaFem",
     vivaPrice:21.99, costPrice:8.28, costWithVat:8.28,
     competitors:[
-      {name:"SimplyMeds Online",rank:1,price:21.99},
-      {name:"Oxford Online Pharmacy",rank:2,price:21.99},
-      {name:"The Independent Pharmacy",rank:3,price:24.99},
-      {name:"The Online Clinic",rank:4,price:34.95},
-      {name:"Clear Chemist",rank:6,price:9.66,note:"Dispensing pharmacy"}
+      {name:"The Family Chemist",rank:1,price:20.99},
+      {name:"SimplyMeds Online",rank:2,price:21.99},
+      {name:"Oxford Online Pharmacy",rank:3,price:21.99},
+      {name:"Chemist4U",rank:4,price:21.99},
+      {name:"Superdrug",rank:5,price:22.00},
+      {name:"Online Pharmacy4U",rank:6,price:22.50},
+      {name:"Dock Pharmacy",rank:7,price:24.50,note:"Dispensing only (BYO Rx)"},
+      {name:"E-Surgery",rank:8,price:24.95},
+      {name:"The Independent Pharmacy",rank:9,price:24.99},
+      {name:"Pharmacy Planet",rank:10,price:29.00},
+      {name:"The Online Clinic",rank:11,price:34.95},
+      {name:"Treated.com",rank:12,price:37.95}
+    ]},
+  // Lenzetto Spray - 2 pack (2 months)
+  { product:"Lenzetto Spray", strength:"1.53mg", packSize:"112 doses (2 months)", category:"HRT", brand:"VivaFem",
+    vivaPrice:null, costPrice:16.56, costWithVat:16.56,
+    competitors:[
+      {name:"SimplyMeds Online",rank:1,price:40.99,note:"£20.50/pack"},
+      {name:"The Family Chemist",rank:2,price:41.98,note:"£21.00/pack"},
+      {name:"Pharmacy Planet",rank:3,price:42.00,note:"£21.00/pack"},
+      {name:"Online Pharmacy4U",rank:4,price:43.50,note:"£21.75/pack"},
+      {name:"Treated.com",rank:5,price:55.95,note:"£27.98/pack"}
+    ]},
+  // Lenzetto Spray - 3 pack (3 months)
+  { product:"Lenzetto Spray", strength:"1.53mg", packSize:"168 doses (3 months)", category:"HRT", brand:"VivaFem",
+    vivaPrice:null, costPrice:24.84, costWithVat:24.84,
+    competitors:[
+      {name:"Chemist4U",rank:1,price:36.99,note:"£12.33/pack - OOS"},
+      {name:"Pharmacy Planet",rank:2,price:50.00,note:"£16.67/pack"},
+      {name:"Superdrug",rank:3,price:53.00,note:"£17.67/pack"},
+      {name:"SimplyMeds Online",rank:4,price:60.99,note:"£20.33/pack"},
+      {name:"The Family Chemist",rank:5,price:61.99,note:"£20.66/pack"},
+      {name:"Online Pharmacy4U",rank:6,price:62.50,note:"£20.83/pack - OOS"}
     ]},
   { product:"Menopause Test Kit", strength:"-", packSize:"1 kit", category:"Test Kits", brand:"VivaFem",
     vivaPrice:119.99, costPrice:110.05, costWithVat:110.05,
@@ -823,6 +919,30 @@ const URL_MAP = {
   "The Independent Pharmacy|Lenzetto Spray":"https://www.theindependentpharmacy.co.uk/menopause-hrt/lenzetto",
   "The Online Clinic|Lenzetto Spray":"https://www.theonlineclinic.co.uk/lenzetto.asp",
   "Clear Chemist|Lenzetto Spray":"https://www.clearchemist.co.uk/lenzetto-spray.html",
+  "Dock Pharmacy|Oestrogel":"https://www.dockpharmacy.com/product/oestrogel-80g/",
+  "Dock Pharmacy|Utrogestan":"https://www.dockpharmacy.com/product/utrogestan-cap-100mg-30/",
+  "Dock Pharmacy|Lenzetto Spray":"https://www.dockpharmacy.com/product/lenzetto-estradiol-1-53mg-transdermal-spray/",
+  "AccessDoctor|Oestrogel":"https://accessdoctor.co.uk/product/oestrogel-pump/",
+  "Pharmacy Planet|Oestrogel":"https://www.pharmacyplanet.com/oestrogel.html",
+  "Pharmacy Planet|Lenzetto Spray":"https://www.pharmacyplanet.com/lenzetto-spray.html",
+  "Prescription Doctor|Oestrogel":"https://www.prescriptiondoctor.com/menopause/oestrogel",
+  "Prescription Doctor|Utrogestan":"https://www.prescriptiondoctor.com/menopause/utrogestan",
+  "Prescription Doctor|Utrogestan + Oestrogel":"https://www.prescriptiondoctor.com/menopause/oestrogel",
+  "SimplyMeds Online|Oestrogel":"https://www.simplymedsonline.co.uk/menopause-hrt/oestrogel.html",
+  "SimplyMeds Online|Utrogestan":"https://www.simplymedsonline.co.uk/menopause-hrt/utrogestan-capsules.html",
+  "The Family Chemist|Utrogestan":"https://www.thefamilychemist.co.uk/product/utrogestan-capsules/",
+  "The Family Chemist|Lenzetto Spray":"https://www.thefamilychemist.co.uk/product/lenzetto-spray/",
+  "Click2Pharmacy|Utrogestan":"https://click2pharmacy.co.uk/product/utrogestan-100mg-capsules/",
+  "Chemist4U|Utrogestan":"https://www.chemist-4-u.com/utrogestan-100mcg-capsules",
+  "Chemist4U|Lenzetto Spray":"https://www.chemist-4-u.com/lenzetto-transdermal-spray",
+  "Treated.com|Oestrogel":"https://uk.treated.com/hrt/oestrogel",
+  "Treated.com|Utrogestan":"https://uk.treated.com/hrt/utrogestan",
+  "Treated.com|Lenzetto Spray":"https://uk.treated.com/hrt/lenzetto",
+  "Treated.com|Utrogestan + Oestrogel":"https://uk.treated.com/hrt/utrogestan-and-oestrogel-pack",
+  "Superdrug|Oestrogel":"https://onlinedoctor.superdrug.com/oestrogel.html",
+  "Superdrug|Lenzetto Spray":"https://onlinedoctor.superdrug.com/lenzetto-spray.html",
+  "Boots|Utrogestan + Oestrogel":"https://onlinedoctor.boots.com/HRT-treatment-online",
+  "Online Pharmacy4U|Lenzetto Spray":"https://online-pharmacy4u.co.uk/products/lencetto-transdermal-1-53mg-spray",
   "ZAVA|Menopause Test Kit":"https://www.zavamed.com/uk/menopause-test-kit.html",
   "Superdrug|Menopause Test Kit":"https://onlinedoctor.superdrug.com/menopause-test-kit.html",
   "Asda|Menopause Test Kit":"https://onlinedoctor.asda.com/uk/menopause-test-kit.html",
