@@ -126,6 +126,21 @@ const SOURCE_URLS = {
 
   // VivaMen/VivaFem Test Kit URLs
   "VivaMen|Testosterone Test Kit": "https://www.vivamen.co.uk",
+  "Medichecks|Testosterone Test Kit": "https://www.medichecks.com/products/testosterone-blood-test",
+  "London Health Co|Testosterone Test Kit": "https://londonhealthcompany.co.uk/products/testosterone-blood-test",
+  "OneDayTests|Testosterone Test Kit": "https://onedaytests.com/products/testosterone-blood-test",
+  "Optimale|Testosterone Test Kit": "https://www.optimale.co.uk/product/testosterone-blood-test/",
+  "Voy (was Manual)|Testosterone Test Kit": "https://www.joinvoy.com/trt/how-it-works",
+  "Welzo|Testosterone Test Kit": "https://welzo.com/products/testosterone-blood-test",
+  "Cloud Pharmacy|Testosterone Test Kit": "https://www.cloudpharmacy.co.uk/medications/testosterone-test-kit/",
+  "Forth|Testosterone Test Kit": "https://www.forthwithlife.co.uk/products/testosterone-home-blood-test-kit/",
+  "SimplyMeds|Testosterone Test Kit": "https://www.simplymedsonline.co.uk/mens-health-otc/testosterone-home-blood-test-kit.html",
+  "Randox Health|Testosterone Test Kit": "https://randoxhealth.com/en-GB/product/home/male-hormone-quickdraw",
+  "ZAVA|Testosterone Test Kit": "https://www.zavamed.com/uk/testosterone-test-kit.html",
+  "Superdrug|Testosterone Test Kit": "https://onlinedoctor.superdrug.com/testosterone-test-kit.html",
+  "Thriva|Testosterone Test Kit": "https://thriva.co/shop/blood-tests/testosterone-blood-test",
+  "Numan|Testosterone Test Kit": "https://www.numan.com/diagnostics/testosterone-blood-test",
+  "OneDayTests (TRT)|Testosterone Test Kit": "https://onedaytests.com/products/ultimate-trt-blood-test",
   "VivaFem|Menopause Confirmation Panel": "https://www.vivafem.co.uk",
   "VivaFem|Female Hormone Test Kit": "https://www.vivafem.co.uk",
 
@@ -971,6 +986,21 @@ const PRICING_DATA = {
     // VIVAMEN/VIVAFEM TEST KITS
     // =============================================
     { competitor: "VivaMen", product: "Testosterone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 129.99, perUnit: 129.99, purchaseType: "one-time", brand: "Branded", unit: "blood test kit" },
+    { competitor: "Medichecks", product: "Testosterone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 19.00, perUnit: 19.00, purchaseType: "one-time", brand: "Unbranded", unit: "finger-prick, 1 biomarker (Total T only)" },
+    { competitor: "London Health Co", product: "Testosterone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 19.00, perUnit: 19.00, purchaseType: "one-time", brand: "Unbranded", unit: "finger-prick, 1 biomarker (Total T only, sale price)" },
+    { competitor: "OneDayTests", product: "Testosterone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 19.00, perUnit: 19.00, purchaseType: "one-time", brand: "Unbranded", unit: "finger-prick, 1 biomarker (Total T only)" },
+    { competitor: "Optimale", product: "Testosterone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 33.95, perUnit: 33.95, purchaseType: "one-time", brand: "Unbranded", unit: "finger-prick, 4 biomarkers (Total T, Free T, SHBG, Albumin). 2 tests needed for TRT" },
+    { competitor: "Voy (was Manual)", product: "Testosterone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 33.95, perUnit: 33.95, purchaseType: "one-time", brand: "Unbranded", unit: "INITIAL only (finger-prick). Must buy enhanced venous test too (£49.95-£119.95). Total £83.90-£153.90" },
+    { competitor: "Welzo", product: "Testosterone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 39.99, perUnit: 39.99, purchaseType: "one-time", brand: "Unbranded", unit: "finger-prick, 1 biomarker (Total T)" },
+    { competitor: "Cloud Pharmacy", product: "Testosterone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 39.95, perUnit: 39.95, purchaseType: "one-time", brand: "Unbranded", unit: "finger-prick, 1 biomarker (Total T)" },
+    { competitor: "Forth", product: "Testosterone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 41.00, perUnit: 41.00, purchaseType: "one-time", brand: "Unbranded", unit: "finger-prick, 1 biomarker (Total T). +£59 home nurse / +£45 clinic for venous" },
+    { competitor: "SimplyMeds", product: "Testosterone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 43.99, perUnit: 43.99, purchaseType: "one-time", brand: "Unbranded", unit: "finger-prick, 1 biomarker (Total T)" },
+    { competitor: "Randox Health", product: "Testosterone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 44.00, perUnit: 44.00, purchaseType: "one-time", brand: "Unbranded", unit: "Tasso+ upper arm, 8 biomarkers inc testosterone. At home, no clinic" },
+    { competitor: "ZAVA", product: "Testosterone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 49.99, perUnit: 49.99, purchaseType: "one-time", brand: "Unbranded", unit: "finger-prick, 1 biomarker (Total T)" },
+    { competitor: "Superdrug", product: "Testosterone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 55.00, perUnit: 55.00, purchaseType: "one-time", brand: "Unbranded", unit: "finger-prick, 1 biomarker (Total T)" },
+    { competitor: "Thriva", product: "Testosterone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 62.10, perUnit: 62.10, purchaseType: "subscription", brand: "Unbranded", unit: "finger-prick, 4 biomarkers (Total T, Free T, SHBG, FAI). Subscription price" },
+    { competitor: "Numan", product: "Testosterone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 68.00, perUnit: 68.00, purchaseType: "one-time", brand: "Unbranded", unit: "Tasso+ device, 5 biomarkers (Total T, Free T, Albumin, FAI, SHBG). No fingerprick, no clinic" },
+    { competitor: "OneDayTests (TRT)", product: "Testosterone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 145.00, perUnit: 145.00, purchaseType: "one-time", brand: "Unbranded", unit: "42 biomarkers (full TRT panel: FBC, liver, kidney, cholesterol, hormones)" },
     { competitor: "VivaFem", product: "Menopause Confirmation Panel", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 119.99, perUnit: 119.99, purchaseType: "one-time", brand: "Branded", unit: "blood test kit" },
     { competitor: "VivaFem", product: "Female Hormone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 119.99, perUnit: 119.99, purchaseType: "one-time", brand: "Branded", unit: "blood test (Oestradiol, Progesterone, Free Testosterone, FSH, LH)" },
 

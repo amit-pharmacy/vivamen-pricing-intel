@@ -596,13 +596,23 @@ const DATA = [
 
   // ========== TEST KITS ==========
   { product:"Testosterone Test Kit", strength:"-", packSize:"1 kit", category:"Test Kits", brand:"VivaMen",
-    vivaPrice:129.99, costPrice:111.60, costWithVat:111.60,
+    vivaPrice:129.99, costPrice:147.60, costWithVat:147.60,
     competitors:[
-      {name:"London Health Co",rank:1,price:19.00,note:"Sale price"},
-      {name:"Optimale",rank:2,price:33.95},
-      {name:"OneDayTests",rank:5,price:19.00},
-      {name:"ZAVA",rank:4,price:49.99},
-      {name:"Superdrug",rank:3,price:55.00}
+      {name:"Medichecks",rank:1,price:19.00,note:"1 biomarker (Total T only). Finger-prick at home OR venous draw at clinic/home nurse (extra cost). Basic screening only"},
+      {name:"London Health Co",rank:2,price:19.00,note:"1 biomarker (Total T only). Finger-prick at home. Sale price (was \u00a329)"},
+      {name:"OneDayTests",rank:3,price:19.00,note:"1 biomarker (Total T only). Finger-prick at home, walk-in clinic, or +\u00a370 home nurse"},
+      {name:"Optimale",rank:4,price:33.95,note:"4 biomarkers (Total T, Free T, SHBG, Albumin). Finger-prick at home. Disc price (was \u00a354.99). 2 tests needed for TRT + FBC + lipid screen"},
+      {name:"Voy (was Manual)",rank:5,price:33.95,note:"INITIAL test only (finger-prick). Must then take \u00a349.95-\u00a3119.95 ENHANCED venous test. Total cost \u00a383.90-\u00a3153.90 for both. Needs clinic/nurse visit for 2nd test"},
+      {name:"Forth",rank:6,price:41.00,note:"1 biomarker (Total T only). Finger-prick at home. +\u00a359 for home nurse or +\u00a345 for clinic venous"},
+      {name:"Welzo",rank:7,price:39.99,note:"1 biomarker (Total T). Finger-prick at home"},
+      {name:"Cloud Pharmacy",rank:8,price:39.95,note:"1 biomarker (Total T). Finger-prick at home"},
+      {name:"SimplyMeds",rank:9,price:43.99,note:"1 biomarker (Total T). Finger-prick at home"},
+      {name:"Randox Health",rank:10,price:44.00,note:"8 biomarkers inc testosterone. Upper arm collection device (Tasso+). At home, no clinic needed"},
+      {name:"ZAVA",rank:11,price:49.99,note:"1 biomarker (Total T only). Finger-prick at home"},
+      {name:"Superdrug",rank:12,price:55.00,note:"1 biomarker (Total T). Finger-prick at home"},
+      {name:"Thriva",rank:13,price:62.10,note:"4 biomarkers (Total T, Free T, SHBG, FAI). Finger-prick at home. Subscription price"},
+      {name:"Numan",rank:14,price:68.00,note:"5 biomarkers (Total T, Free T, Albumin, FAI, SHBG). Tasso+ device at home, no fingerprick. No clinic needed"},
+      {name:"OneDayTests (TRT)",rank:15,price:145.00,note:"42 biomarkers (comprehensive TRT panel inc FBC, liver, kidney, cholesterol, hormones). Finger-prick or clinic"}
     ]},
 
   // ========== VIVAFEM HRT ==========
@@ -955,6 +965,16 @@ const URL_MAP = {
   "OneDayTests|Testosterone Test Kit":"https://onedaytests.com/products/testosterone-blood-test",
   "ZAVA|Testosterone Test Kit":"https://www.zavamed.com/uk/testosterone-test-kit.html",
   "Superdrug|Testosterone Test Kit":"https://onlinedoctor.superdrug.com/testosterone-test-kit.html",
+  "Medichecks|Testosterone Test Kit":"https://www.medichecks.com/products/testosterone-blood-test",
+  "Voy (was Manual)|Testosterone Test Kit":"https://www.joinvoy.com/trt/how-it-works",
+  "Forth|Testosterone Test Kit":"https://www.forthwithlife.co.uk/products/testosterone-home-blood-test-kit/",
+  "Welzo|Testosterone Test Kit":"https://welzo.com/products/testosterone-blood-test",
+  "Cloud Pharmacy|Testosterone Test Kit":"https://www.cloudpharmacy.co.uk/medications/testosterone-test-kit/",
+  "SimplyMeds|Testosterone Test Kit":"https://www.simplymedsonline.co.uk/mens-health-otc/testosterone-home-blood-test-kit.html",
+  "Randox Health|Testosterone Test Kit":"https://randoxhealth.com/en-GB/product/home/male-hormone-quickdraw",
+  "Thriva|Testosterone Test Kit":"https://thriva.co/shop/blood-tests/testosterone-blood-test",
+  "Numan|Testosterone Test Kit":"https://www.numan.com/diagnostics/testosterone-blood-test",
+  "OneDayTests (TRT)|Testosterone Test Kit":"https://onedaytests.com/products/ultimate-trt-blood-test",
   // HRT
   "The Independent Pharmacy|Estriol Cream":"https://www.theindependentpharmacy.co.uk/vaginal-dryness/estriol",
   "Clear Chemist|Estriol Cream":"https://www.clearchemist.co.uk/estriol-cream-0-01-with-applicator-80g.html",
