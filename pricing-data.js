@@ -124,6 +124,11 @@ const SOURCE_URLS = {
   "MyPharmacy365|Utrogestan + Oestrogel": "https://mypharmacy365.co.uk/product/oestrogel_and_utrogestan_capsule_and_gel_combination.2210/",
   "Online Pharmacy4U|Lenzetto": "https://online-pharmacy4u.co.uk/products/lencetto-transdermal-1-53mg-spray",
 
+  // VivaMen/VivaFem Test Kit URLs
+  "VivaMen|Testosterone Test Kit": "https://www.vivamen.co.uk",
+  "VivaFem|Menopause Confirmation Panel": "https://www.vivafem.co.uk",
+  "VivaFem|Female Hormone Test Kit": "https://www.vivafem.co.uk",
+
   // Test Kit URLs
   "E-Pharmacy|Chlamydia Test Kit": "https://e-pharmacy.co.uk/product/gonorrhoea-and-chlamydia-home-test-kit/",
   "Dr Fox|Chlamydia Test Kit": "https://www.doctorfox.co.uk/chlamydia/postal-test-kit.html",
@@ -963,8 +968,15 @@ const PRICING_DATA = {
     { competitor: "Boots", product: "Utrogestan + Oestrogel", category: "HRT", strength: "100mg + 0.06%", type: "daily", packSize: 3, price: 83.00, perUnit: 27.67, purchaseType: "one-time", brand: "Branded", unit: "1 month combo" },
 
     // =============================================
-    // TEST KITS - CHLAMYDIA
+    // VIVAMEN/VIVAFEM TEST KITS
     // =============================================
+    { competitor: "VivaMen", product: "Testosterone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 129.99, perUnit: 129.99, purchaseType: "one-time", brand: "Branded", unit: "blood test kit" },
+    { competitor: "VivaFem", product: "Menopause Confirmation Panel", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 119.99, perUnit: 119.99, purchaseType: "one-time", brand: "Branded", unit: "blood test kit" },
+    { competitor: "VivaFem", product: "Female Hormone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 119.99, perUnit: 119.99, purchaseType: "one-time", brand: "Branded", unit: "blood test (Oestradiol, Progesterone, Free Testosterone, FSH, LH)" },
+
+    // =============================================
+    // TEST KITS - CHLAMYDIA
+    // ============================================='
     { competitor: "E-Pharmacy", product: "Chlamydia Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 15.95, perUnit: 15.95, purchaseType: "one-time", brand: "Unbranded", unit: "kit (chlamydia+gonorrhoea combo, unisex)" },
     { competitor: "Dr Fox", product: "Chlamydia Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 23.40, perUnit: 23.40, purchaseType: "one-time", brand: "Unbranded", unit: "kit (unisex, with code TEST10)" },
     { competitor: "Chemist Click", product: "Chlamydia Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 27.49, perUnit: 27.49, purchaseType: "one-time", brand: "Unbranded", unit: "kit (unisex)" },
