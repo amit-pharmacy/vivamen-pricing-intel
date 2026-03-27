@@ -823,13 +823,15 @@ const PRICING_DATA = {
     // =============================================
 
     // --- VivaFem Oestrogel ---
-    { competitor: "VivaFem", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 1, price: 19.99, perUnit: 19.99, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "VivaFem", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 1, price: 21.99, perUnit: 21.99, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
     // --- VivaFem Utrogestan ---
     { competitor: "VivaFem", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 30, price: 19.99, perUnit: 0.67, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
     // --- VivaFem Lenzetto ---
     { competitor: "VivaFem", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 1, price: 21.99, perUnit: 21.99, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
     // --- VivaFem Utrogestan + Oestrogel Combo ---
     { competitor: "VivaFem", product: "Utrogestan + Oestrogel", category: "HRT", strength: "100mg + 0.06%", type: "daily", packSize: 1, price: 39.99, perUnit: 39.99, purchaseType: "one-time", brand: "Branded", unit: "1 month combo" },
+    { competitor: "VivaFem", product: "Utrogestan + Oestrogel", category: "HRT", strength: "100mg + 0.06%", type: "daily", packSize: 2, price: 79.99, perUnit: 40.00, purchaseType: "one-time", brand: "Branded", unit: "1 month combo" },
+    { competitor: "VivaFem", product: "Utrogestan + Oestrogel", category: "HRT", strength: "100mg + 0.06%", type: "daily", packSize: 3, price: 109.99, perUnit: 36.66, purchaseType: "one-time", brand: "Branded", unit: "1 month combo" },
 
     // =============================================
     // HRT COMPETITORS - OESTROGEL
