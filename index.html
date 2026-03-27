@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VivaMen Competitor Pricing Intelligence</title>
+<title>VivaMen & VivaFem Competitor Pricing Intelligence</title>
 <style>
   :root {
     --bg: #0f1117;
@@ -13,6 +13,8 @@
     --text: #e4e6ed;
     --text-muted: #8b8fa3;
     --accent: #6366f1;
+    --vivafem: #d946ef;
+    --vivafem-light: rgba(217, 70, 239, 0.15);
     --accent-hover: #818cf8;
     --green: #22c55e;
     --red: #ef4444;
@@ -49,6 +51,7 @@
   }
 
   header h1 span { color: var(--accent); }
+  header h1 span.vivafem-title { color: var(--vivafem); }
 
   .header-meta {
     font-size: 12px;
@@ -245,6 +248,7 @@
   }
 
   .competitor-badge.vivamen { background: rgba(99, 102, 241, 0.15); color: var(--accent); }
+  .competitor-badge.vivafem { background: var(--vivafem-light); color: var(--vivafem); }
   .competitor-badge.pharmica { background: rgba(34, 197, 94, 0.15); color: var(--green); }
   .competitor-badge.doctorfox { background: rgba(249, 115, 22, 0.15); color: var(--orange); }
   .competitor-badge.numan { background: rgba(234, 179, 8, 0.15); color: var(--yellow); }
@@ -398,6 +402,7 @@
   }
 
   .bar-fill.vivamen-bar { background: var(--accent); }
+  .bar-fill.vivafem-bar { background: var(--vivafem); }
   .bar-fill.cheapest-bar { background: var(--green); }
   .bar-fill.normal-bar { background: var(--text-muted); opacity: 0.5; }
 
@@ -715,7 +720,7 @@
 <!-- Login Gate -->
 <div id="loginGate">
   <div class="login-box">
-    <h2><span>VivaMen</span> Pricing Intel</h2>
+    <h2><span>VivaMen</span> & <span class="vivafem-title">VivaFem</span> Pricing Intel</h2>
     <p>Enter password to access the dashboard</p>
     <input type="password" class="login-input" id="loginPassword" placeholder="Password" autofocus>
     <button class="login-btn" id="loginBtn" onclick="attemptLogin()">Access Dashboard</button>
@@ -725,7 +730,7 @@
 
 <div id="appContent">
 <header>
-  <h1><span>VivaMen</span> Pricing Intelligence</h1>
+  <h1><span>VivaMen</span> & <span class="vivafem-title">VivaFem</span> Pricing Intelligence</h1>
   <div style="display:flex;align-items:center;gap:12px">
     <a href="pricing-strategy.html" style="font-size:12px;color:var(--accent);text-decoration:none;padding:7px 14px;border:1px solid var(--border);border-radius:6px;">Pricing Strategy</a>
     <button id="exportBtn" onclick="exportXLSX()" style="font-size:12px;font-weight:600;color:var(--text);background:var(--accent);border:none;padding:7px 14px;border-radius:6px;cursor:pointer;">Export XLSX</button>
@@ -1213,7 +1218,8 @@ document.getElementById('loginPassword').addEventListener('keydown', function(e)
 
       competitors.forEach(comp => {
         const compItems = group.items.filter(p => p.competitor === comp);
-        const isViva = comp === 'VivaMen';
+        const isViva = comp === 'VivaMen' || comp === 'VivaFem';
+        const isVivaFem = comp === 'VivaFem';
         html += '<tr>';
         html += `<td><span class="competitor-badge ${getCompClass(comp)}">${comp}</span></td>`;
 
@@ -1385,9 +1391,10 @@ document.getElementById('loginPassword').addEventListener('keydown', function(e)
 
       entries.forEach(([comp, item]) => {
         const pct = (item.perUnit / maxPrice * 100);
-        const isViva = comp === 'VivaMen';
+        const isViva = comp === 'VivaMen' || comp === 'VivaFem';
+        const isVivaFem = comp === 'VivaFem';
         const isCheapest = item.perUnit === entries[0][1].perUnit;
-        const barClass = isViva ? 'vivamen-bar' : (isCheapest ? 'cheapest-bar' : 'normal-bar');
+        const barClass = isVivaFem ? 'vivafem-bar' : (isViva ? 'vivamen-bar' : (isCheapest ? 'cheapest-bar' : 'normal-bar'));
         const packInfo = item.packSize ? ` (x${item.packSize})` : '';
 
         html += `<div class="bar-row">
@@ -1453,11 +1460,13 @@ document.getElementById('loginPassword').addEventListener('keydown', function(e)
   function getCompClass(name) {
     const map = {
       'VivaMen': 'vivamen',
+      'VivaFem': 'vivafem',
       'Pharmica': 'pharmica',
       'Doctor Fox': 'doctorfox',
       'Numan': 'numan',
       'Hims UK': 'hims',
       'Manual': 'manual',
+      'Voy (was Manual)': 'manual',
       'Pharmacy Online': 'pharmacyonline',
       'Oushk Pharmacy': 'oushk'
     };

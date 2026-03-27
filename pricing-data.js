@@ -124,6 +124,29 @@ const SOURCE_URLS = {
   "MyPharmacy365|Utrogestan + Oestrogel": "https://mypharmacy365.co.uk/product/oestrogel_and_utrogestan_capsule_and_gel_combination.2210/",
   "Online Pharmacy4U|Lenzetto": "https://online-pharmacy4u.co.uk/products/lencetto-transdermal-1-53mg-spray",
 
+  // Testosterone competitor URLs
+  "Asda|Testogel": "https://onlinedoctor.asda.com/uk/testogel.html",
+  "E-Surgery|Testogel": "https://e-surgery.com/product/testogel-sachets/",
+  "Simple Online Pharmacy|Testogel": "https://www.simpleonlinepharmacy.co.uk/online-doctor/low-testosterone/testogel-sachets/",
+  "Superdrug|Testogel": "https://onlinedoctor.superdrug.com/testogel-for-women.html",
+  "PharmXtra|Testogel": "https://www.pharmxtra.com/testogel-sachets",
+  "Clear Chemist|Tostran": "https://www.clearchemist.co.uk/tostran-gel.html",
+  "Simple Online Pharmacy|Tostran": "https://www.simpleonlinepharmacy.co.uk/online-doctor/low-testosterone/tostran/",
+  "E-Surgery|Tostran": "https://e-surgery.com/product/tostran-gel/",
+  "Asda|Tostran": "https://onlinedoctor.asda.com/uk/tostran.html",
+  "Superdrug|Tostran": "https://onlinedoctor.superdrug.com/tostran.html",
+
+  // HRT extra product URLs
+  "VivaFem|Estriol Cream": "https://www.vivafem.co.uk",
+  "Pharmacy Online|Estriol Cream": "https://www.pharmacyonline.co.uk/estriol-cream",
+  "The Independent Pharmacy|Estriol Cream": "https://www.theindependentpharmacy.co.uk/estriol-cream",
+  "VivaFem|Imvaggis": "https://www.vivafem.co.uk",
+  "E-Surgery|Imvaggis": "https://e-surgery.com/product/imvaggis/",
+  "The Independent Pharmacy|Imvaggis": "https://www.theindependentpharmacy.co.uk/imvaggis",
+  "VivaFem|Androfeme": "https://www.vivafem.co.uk",
+  "Livewell Nationwide|Androfeme": "https://www.livewellnationwide.com/androfeme",
+  "LIVVE|Androfeme": "https://www.livve.co.uk/androfeme",
+
   // VivaMen/VivaFem Test Kit URLs
   "VivaMen|Testosterone Test Kit": "https://www.vivamen.co.uk",
   "Medichecks|Testosterone Test Kit": "https://www.medichecks.com/products/testosterone-blood-test",
@@ -856,6 +879,20 @@ const PRICING_DATA = {
     // --- VivaMen Tostran ---
     { competitor: "VivaMen", product: "Tostran", category: "Testosterone", strength: "2%", type: "daily", packSize: 1, price: 54.99, perUnit: 54.99, purchaseType: "one-time", brand: "Branded", unit: "60g pump" },
 
+    // --- Testogel Competitors ---
+    { competitor: "Simple Online Pharmacy", product: "Testogel", category: "Testosterone", strength: "40.5mg", type: "daily", packSize: 30, price: 46.99, perUnit: 1.57, purchaseType: "one-time", brand: "Branded", unit: "sachet (out of stock)" },
+    { competitor: "Asda", product: "Testogel", category: "Testosterone", strength: "40.5mg", type: "daily", packSize: 30, price: 54.50, perUnit: 1.82, purchaseType: "one-time", brand: "Branded", unit: "sachet" },
+    { competitor: "E-Surgery", product: "Testogel", category: "Testosterone", strength: "40.5mg", type: "daily", packSize: 30, price: 54.95, perUnit: 1.83, purchaseType: "one-time", brand: "Branded", unit: "sachet" },
+    { competitor: "Superdrug", product: "Testogel", category: "Testosterone", strength: "40.5mg", type: "daily", packSize: 30, price: 55.00, perUnit: 1.83, purchaseType: "one-time", brand: "Branded", unit: "sachet" },
+    { competitor: "PharmXtra", product: "Testogel", category: "Testosterone", strength: "40.5mg", type: "daily", packSize: 30, price: 119.99, perUnit: 4.00, purchaseType: "one-time", brand: "Branded", unit: "sachet" },
+
+    // --- Tostran Competitors ---
+    { competitor: "Clear Chemist", product: "Tostran", category: "Testosterone", strength: "2%", type: "daily", packSize: 1, price: 37.38, perUnit: 37.38, purchaseType: "one-time", brand: "Branded", unit: "60g pump" },
+    { competitor: "Simple Online Pharmacy", product: "Tostran", category: "Testosterone", strength: "2%", type: "daily", packSize: 1, price: 39.99, perUnit: 39.99, purchaseType: "one-time", brand: "Branded", unit: "60g pump (out of stock)" },
+    { competitor: "E-Surgery", product: "Tostran", category: "Testosterone", strength: "2%", type: "daily", packSize: 1, price: 49.95, perUnit: 49.95, purchaseType: "one-time", brand: "Branded", unit: "60g pump" },
+    { competitor: "Asda", product: "Tostran", category: "Testosterone", strength: "2%", type: "daily", packSize: 1, price: 53.00, perUnit: 53.00, purchaseType: "one-time", brand: "Branded", unit: "60g pump" },
+    { competitor: "Superdrug", product: "Tostran", category: "Testosterone", strength: "2%", type: "daily", packSize: 1, price: 55.00, perUnit: 55.00, purchaseType: "one-time", brand: "Branded", unit: "60g pump" },
+
     // ============================================================
     // WEIGHT LOSS — New category
     // ============================================================
@@ -981,6 +1018,30 @@ const PRICING_DATA = {
     { competitor: "Oxford Online Pharmacy", product: "Utrogestan + Oestrogel", category: "HRT", strength: "100mg + 0.06%", type: "daily", packSize: 1, price: 54.99, perUnit: 54.99, purchaseType: "one-time", brand: "Branded", unit: "1 month combo" },
     { competitor: "Treated.com", product: "Utrogestan + Oestrogel", category: "HRT", strength: "100mg + 0.06%", type: "daily", packSize: 1, price: 77.95, perUnit: 77.95, purchaseType: "one-time", brand: "Branded", unit: "1 month combo" },
     { competitor: "Boots", product: "Utrogestan + Oestrogel", category: "HRT", strength: "100mg + 0.06%", type: "daily", packSize: 3, price: 83.00, perUnit: 27.67, purchaseType: "one-time", brand: "Branded", unit: "1 month combo" },
+
+    // =============================================
+    // VIVAFEM HRT - ESTRIOL, IMVAGGIS, ANDROFEME
+    // =============================================
+    { competitor: "VivaFem", product: "Estriol Cream", category: "HRT", strength: "1mg/g", type: "daily", packSize: 1, price: 16.99, perUnit: 16.99, purchaseType: "one-time", brand: "Branded", unit: "15g tube" },
+    { competitor: "Pharmacy Online", product: "Estriol Cream", category: "HRT", strength: "1mg/g", type: "daily", packSize: 1, price: 20.95, perUnit: 20.95, purchaseType: "one-time", brand: "Branded", unit: "15g Ovestin" },
+    { competitor: "The Independent Pharmacy", product: "Estriol Cream", category: "HRT", strength: "1mg/g", type: "daily", packSize: 1, price: 24.99, perUnit: 24.99, purchaseType: "one-time", brand: "Branded", unit: "15g tube" },
+    { competitor: "Clear Chemist", product: "Estriol Cream", category: "HRT", strength: "1mg/g", type: "daily", packSize: 1, price: 29.99, perUnit: 29.99, purchaseType: "one-time", brand: "Branded", unit: "80g tube" },
+    { competitor: "Asda", product: "Estriol Cream", category: "HRT", strength: "1mg/g", type: "daily", packSize: 1, price: 50.00, perUnit: 50.00, purchaseType: "one-time", brand: "Branded", unit: "80g tube only" },
+    { competitor: "Superdrug", product: "Estriol Cream", category: "HRT", strength: "1mg/g", type: "daily", packSize: 1, price: 55.00, perUnit: 55.00, purchaseType: "one-time", brand: "Branded", unit: "80g tube only" },
+
+    { competitor: "VivaFem", product: "Imvaggis", category: "HRT", strength: "0.03mg", type: "daily", packSize: 24, price: 29.99, perUnit: 1.25, purchaseType: "one-time", brand: "Branded", unit: "pessary" },
+    { competitor: "E-Surgery", product: "Imvaggis", category: "HRT", strength: "0.03mg", type: "daily", packSize: 24, price: 24.95, perUnit: 1.04, purchaseType: "one-time", brand: "Branded", unit: "pessary" },
+    { competitor: "The Independent Pharmacy", product: "Imvaggis", category: "HRT", strength: "0.03mg", type: "daily", packSize: 24, price: 25.99, perUnit: 1.08, purchaseType: "one-time", brand: "Branded", unit: "pessary" },
+    { competitor: "Click Pharmacy", product: "Imvaggis", category: "HRT", strength: "0.03mg", type: "daily", packSize: 24, price: 25.99, perUnit: 1.08, purchaseType: "one-time", brand: "Branded", unit: "pessary" },
+    { competitor: "Clear Chemist", product: "Imvaggis", category: "HRT", strength: "0.03mg", type: "daily", packSize: 24, price: 27.99, perUnit: 1.17, purchaseType: "one-time", brand: "Branded", unit: "pessary" },
+    { competitor: "Treated.com", product: "Imvaggis", category: "HRT", strength: "0.03mg", type: "daily", packSize: 24, price: 53.95, perUnit: 2.25, purchaseType: "one-time", brand: "Branded", unit: "pessary (inc consultation+delivery)" },
+
+    { competitor: "VivaFem", product: "Androfeme", category: "HRT", strength: "1%", type: "daily", packSize: 1, price: 149.99, perUnit: 149.99, purchaseType: "one-time", brand: "Branded", unit: "50ml" },
+    { competitor: "Livewell Nationwide", product: "Androfeme", category: "HRT", strength: "1%", type: "daily", packSize: 1, price: 99.50, perUnit: 99.50, purchaseType: "one-time", brand: "Branded", unit: "50ml" },
+    { competitor: "LIVVE", product: "Androfeme", category: "HRT", strength: "1%", type: "daily", packSize: 1, price: 120.00, perUnit: 120.00, purchaseType: "one-time", brand: "Branded", unit: "50ml" },
+    { competitor: "Church Pharmacy", product: "Androfeme", category: "HRT", strength: "1%", type: "daily", packSize: 1, price: 125.00, perUnit: 125.00, purchaseType: "one-time", brand: "Branded", unit: "50ml (login required)" },
+    { competitor: "Myla Health", product: "Androfeme", category: "HRT", strength: "1%", type: "daily", packSize: 1, price: 135.00, perUnit: 135.00, purchaseType: "one-time", brand: "Branded", unit: "50ml" },
+    { competitor: "The Online Clinic", product: "Androfeme", category: "HRT", strength: "1%", type: "daily", packSize: 1, price: 149.95, perUnit: 149.95, purchaseType: "one-time", brand: "Branded", unit: "50ml" },
 
     // =============================================
     // VIVAMEN/VIVAFEM TEST KITS
