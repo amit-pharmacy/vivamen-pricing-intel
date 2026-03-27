@@ -1,5 +1,5 @@
 // VivaMen Competitor Pricing Data
-// Last updated: 2026-03-24
+// Last updated: 2026-03-27
 // Sources: Direct scraping of competitor websites
 
 // Source URL map: competitor|product -> URL where this price was found
@@ -75,6 +75,54 @@ const SOURCE_URLS = {
   "VivaMen|Wegovy": "https://www.vivamen.co.uk",
   "VivaMen|Testogel": "https://www.vivamen.co.uk",
   "VivaMen|Tostran": "https://www.vivamen.co.uk",
+
+  // --- VivaFem HRT ---
+  "VivaFem|Oestrogel": "https://www.vivafem.co.uk",
+  "VivaFem|Utrogestan": "https://www.vivafem.co.uk",
+  "VivaFem|Lenzetto": "https://www.vivafem.co.uk",
+  "VivaFem|Utrogestan + Oestrogel": "https://www.vivafem.co.uk",
+  "Chemist4U|Oestrogel": "https://www.chemist-4-u.com/oestrogel-pump",
+  "Chemist4U|Utrogestan": "https://www.chemist-4-u.com/utrogestan-100mcg-capsules",
+  "Chemist4U|Lenzetto": "https://www.chemist-4-u.com/lenzetto-transdermal-spray",
+  "Oxford Online Pharmacy|Oestrogel": "https://www.oxfordonlinepharmacy.co.uk/hormone-replacement-therapy/oestrogel",
+  "Oxford Online Pharmacy|Utrogestan": "https://www.oxfordonlinepharmacy.co.uk/hormone-replacement-therapy/utrogestan-100mg-30-capsules",
+  "Oxford Online Pharmacy|Lenzetto": "https://www.oxfordonlinepharmacy.co.uk/hormone-replacement-therapy/lenzetto-estradiol-1-53mg-transdermal-spray-solution-56-doses-8-1ml",
+  "Oxford Online Pharmacy|Utrogestan + Oestrogel": "https://www.oxfordonlinepharmacy.co.uk/hormone-replacement-therapy/oestrogel-80g-plus-30-utrogestan-caps-100mg-monthly-combi-pack",
+  "SimplyMeds Online|Oestrogel": "https://www.simplymedsonline.co.uk/menopause-hrt/oestrogel.html",
+  "SimplyMeds Online|Utrogestan": "https://www.simplymedsonline.co.uk/menopause-hrt/utrogestan-capsules.html",
+  "SimplyMeds Online|Lenzetto": "https://www.simplymedsonline.co.uk/menopause-hrt/lenzetto-spray.html",
+  "The Independent Pharmacy|Oestrogel": "https://www.theindependentpharmacy.co.uk/menopause-hrt/oestrogel",
+  "The Independent Pharmacy|Utrogestan": "https://www.theindependentpharmacy.co.uk/menopause-hrt/utrogestan-100mg-capsules",
+  "The Independent Pharmacy|Lenzetto": "https://www.theindependentpharmacy.co.uk/menopause-hrt/lenzetto",
+  "E-Surgery|Oestrogel": "https://e-surgery.com/product/oestrogel-pump-pack/",
+  "E-Surgery|Utrogestan": "https://e-surgery.com/product/utrogestan-capsules/",
+  "E-Surgery|Lenzetto": "https://e-surgery.com/product/lenzetto-spray/",
+  "Pharmacy Planet|Oestrogel": "https://www.pharmacyplanet.com/oestrogel.html",
+  "Pharmacy Planet|Lenzetto": "https://www.pharmacyplanet.com/lenzetto-spray.html",
+  "The Family Chemist|Utrogestan": "https://www.thefamilychemist.co.uk/product/utrogestan-capsules/",
+  "The Family Chemist|Lenzetto": "https://www.thefamilychemist.co.uk/product/lenzetto-spray/",
+  "Click2Pharmacy|Utrogestan": "https://click2pharmacy.co.uk/product/utrogestan-100mg-capsules/",
+  "Prescription Doctor|Oestrogel": "https://www.prescriptiondoctor.com/menopause/oestrogel",
+  "Prescription Doctor|Utrogestan": "https://www.prescriptiondoctor.com/menopause/utrogestan",
+  "Prescription Doctor|Utrogestan + Oestrogel": "https://www.prescriptiondoctor.com/menopause/oestrogel",
+  "AccessDoctor|Oestrogel": "https://accessdoctor.co.uk/product/oestrogel-pump/",
+  "Dock Pharmacy|Oestrogel": "https://www.dockpharmacy.com/product/oestrogel-80g/",
+  "Dock Pharmacy|Utrogestan": "https://www.dockpharmacy.com/product/utrogestan-cap-100mg-30/",
+  "Dock Pharmacy|Lenzetto": "https://www.dockpharmacy.com/product/lenzetto-estradiol-1-53mg-transdermal-spray/",
+  "The Online Clinic|Oestrogel": "https://www.theonlineclinic.co.uk/oestrogel.asp",
+  "The Online Clinic|Utrogestan": "https://www.theonlineclinic.co.uk/utrogestan.asp",
+  "The Online Clinic|Lenzetto": "https://www.theonlineclinic.co.uk/lenzetto.asp",
+  "Treated.com|Oestrogel": "https://uk.treated.com/hrt/oestrogel",
+  "Treated.com|Utrogestan": "https://uk.treated.com/hrt/utrogestan",
+  "Treated.com|Lenzetto": "https://uk.treated.com/hrt/lenzetto",
+  "Treated.com|Utrogestan + Oestrogel": "https://uk.treated.com/hrt/utrogestan-and-oestrogel-pack",
+  "Superdrug|Oestrogel": "https://onlinedoctor.superdrug.com/oestrogel.html",
+  "Superdrug|Lenzetto": "https://onlinedoctor.superdrug.com/lenzetto-spray.html",
+  "Boots|Oestrogel": "https://onlinedoctor.boots.com/HRT-treatment-online",
+  "Boots|Lenzetto": "https://onlinedoctor.boots.com/HRT-treatment-online",
+  "Boots|Utrogestan + Oestrogel": "https://onlinedoctor.boots.com/HRT-treatment-online",
+  "MyPharmacy365|Utrogestan + Oestrogel": "https://mypharmacy365.co.uk/product/oestrogel_and_utrogestan_capsule_and_gel_combination.2210/",
+  "Online Pharmacy4U|Lenzetto": "https://online-pharmacy4u.co.uk/products/lencetto-transdermal-1-53mg-spray",
   "VivaMen|Minoxidil Oral": "https://www.vivamen.co.uk",
   "VivaMen|Minoxidil + Finasteride Solution": "https://www.vivamen.co.uk",
 
@@ -769,6 +817,111 @@ const PRICING_DATA = {
     { competitor: "VivaMen", product: "Wegovy", category: "Weight Loss", strength: "1mg", type: "weekly", packSize: 1, price: 124.99, perUnit: 124.99, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
     { competitor: "VivaMen", product: "Wegovy", category: "Weight Loss", strength: "1.7mg", type: "weekly", packSize: 1, price: 179.99, perUnit: 179.99, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
     { competitor: "VivaMen", product: "Wegovy", category: "Weight Loss", strength: "2.4mg", type: "weekly", packSize: 1, price: 249.99, perUnit: 249.99, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
+
+    // =============================================
+    // VIVAFEM HRT PRODUCTS
+    // =============================================
+
+    // --- VivaFem Oestrogel ---
+    { competitor: "VivaFem", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 1, price: 19.99, perUnit: 19.99, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    // --- VivaFem Utrogestan ---
+    { competitor: "VivaFem", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 30, price: 19.99, perUnit: 0.67, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
+    // --- VivaFem Lenzetto ---
+    { competitor: "VivaFem", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 1, price: 21.99, perUnit: 21.99, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    // --- VivaFem Utrogestan + Oestrogel Combo ---
+    { competitor: "VivaFem", product: "Utrogestan + Oestrogel", category: "HRT", strength: "100mg + 0.06%", type: "daily", packSize: 1, price: 39.99, perUnit: 39.99, purchaseType: "one-time", brand: "Branded", unit: "1 month combo" },
+
+    // =============================================
+    // HRT COMPETITORS - OESTROGEL
+    // =============================================
+    { competitor: "Dock Pharmacy", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 1, price: 13.49, perUnit: 13.49, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "Chemist4U", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 1, price: 21.99, perUnit: 21.99, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "Chemist4U", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 2, price: 39.99, perUnit: 20.00, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "AccessDoctor", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 1, price: 23.99, perUnit: 23.99, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "AccessDoctor", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 2, price: 35.99, perUnit: 18.00, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "AccessDoctor", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 3, price: 57.99, perUnit: 19.33, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "Pharmacy Planet", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 1, price: 24.00, perUnit: 24.00, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "Pharmacy Planet", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 2, price: 36.00, perUnit: 18.00, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "Pharmacy Planet", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 3, price: 45.00, perUnit: 15.00, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "Pharmacy Planet", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 4, price: 54.00, perUnit: 13.50, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "Oxford Online Pharmacy", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 1, price: 24.99, perUnit: 24.99, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "Oxford Online Pharmacy", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 2, price: 45.95, perUnit: 22.98, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "Oxford Online Pharmacy", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 3, price: 68.95, perUnit: 22.98, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "Prescription Doctor", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 1, price: 24.99, perUnit: 24.99, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "Prescription Doctor", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 2, price: 46.99, perUnit: 23.50, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "SimplyMeds Online", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 1, price: 24.99, perUnit: 24.99, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "SimplyMeds Online", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 2, price: 45.98, perUnit: 22.99, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "SimplyMeds Online", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 3, price: 59.97, perUnit: 19.99, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "The Independent Pharmacy", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 1, price: 27.99, perUnit: 27.99, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "E-Surgery", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 1, price: 34.95, perUnit: 34.95, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "The Online Clinic", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 1, price: 34.95, perUnit: 34.95, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "Superdrug", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 1, price: 40.00, perUnit: 40.00, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "Boots", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 3, price: 44.00, perUnit: 14.67, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "Treated.com", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 1, price: 44.95, perUnit: 44.95, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "Treated.com", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 2, price: 73.95, perUnit: 36.98, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+    { competitor: "Treated.com", product: "Oestrogel", category: "HRT", strength: "0.06%", type: "daily", packSize: 3, price: 99.95, perUnit: 33.32, purchaseType: "one-time", brand: "Branded", unit: "80g pump" },
+
+    // =============================================
+    // HRT COMPETITORS - UTROGESTAN
+    // =============================================
+    { competitor: "Dock Pharmacy", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 30, price: 16.50, perUnit: 0.55, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
+    { competitor: "E-Surgery", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 30, price: 24.95, perUnit: 0.83, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
+    { competitor: "Chemist4U", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 30, price: 27.99, perUnit: 0.93, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
+    { competitor: "Click2Pharmacy", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 30, price: 28.99, perUnit: 0.97, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
+    { competitor: "Click2Pharmacy", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 60, price: 56.98, perUnit: 0.95, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
+    { competitor: "Click2Pharmacy", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 90, price: 83.97, perUnit: 0.93, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
+    { competitor: "SimplyMeds Online", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 30, price: 29.99, perUnit: 1.00, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
+    { competitor: "SimplyMeds Online", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 60, price: 49.99, perUnit: 0.83, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
+    { competitor: "The Family Chemist", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 30, price: 29.99, perUnit: 1.00, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
+    { competitor: "The Family Chemist", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 60, price: 59.99, perUnit: 1.00, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
+    { competitor: "The Family Chemist", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 90, price: 89.99, perUnit: 1.00, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
+    { competitor: "The Independent Pharmacy", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 30, price: 31.99, perUnit: 1.07, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
+    { competitor: "Oxford Online Pharmacy", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 30, price: 31.98, perUnit: 1.07, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
+    { competitor: "Oxford Online Pharmacy", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 60, price: 54.99, perUnit: 0.92, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
+    { competitor: "Oxford Online Pharmacy", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 90, price: 69.99, perUnit: 0.78, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
+    { competitor: "Prescription Doctor", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 30, price: 32.99, perUnit: 1.10, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
+    { competitor: "The Online Clinic", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 30, price: 34.95, perUnit: 1.17, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
+    { competitor: "Treated.com", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 30, price: 37.95, perUnit: 1.27, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
+    { competitor: "Treated.com", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 60, price: 59.95, perUnit: 1.00, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
+    { competitor: "Treated.com", product: "Utrogestan", category: "HRT", strength: "100mg", type: "daily", packSize: 90, price: 81.95, perUnit: 0.91, purchaseType: "one-time", brand: "Branded", unit: "capsule" },
+
+    // =============================================
+    // HRT COMPETITORS - LENZETTO
+    // =============================================
+    { competitor: "The Family Chemist", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 1, price: 20.99, perUnit: 20.99, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "The Family Chemist", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 2, price: 41.98, perUnit: 21.00, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "The Family Chemist", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 3, price: 61.99, perUnit: 20.66, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "SimplyMeds Online", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 1, price: 21.99, perUnit: 21.99, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "SimplyMeds Online", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 2, price: 40.99, perUnit: 20.50, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "SimplyMeds Online", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 3, price: 60.99, perUnit: 20.33, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "Oxford Online Pharmacy", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 1, price: 21.99, perUnit: 21.99, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "Chemist4U", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 1, price: 21.99, perUnit: 21.99, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "Chemist4U", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 3, price: 36.99, perUnit: 12.33, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "Superdrug", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 1, price: 22.00, perUnit: 22.00, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "Superdrug", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 3, price: 53.00, perUnit: 17.67, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "Online Pharmacy4U", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 1, price: 22.50, perUnit: 22.50, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "Online Pharmacy4U", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 2, price: 43.50, perUnit: 21.75, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "Dock Pharmacy", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 1, price: 24.50, perUnit: 24.50, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "E-Surgery", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 1, price: 24.95, perUnit: 24.95, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "The Independent Pharmacy", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 1, price: 24.99, perUnit: 24.99, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "Pharmacy Planet", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 1, price: 29.00, perUnit: 29.00, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "Pharmacy Planet", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 2, price: 42.00, perUnit: 21.00, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "Pharmacy Planet", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 3, price: 50.00, perUnit: 16.67, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "The Online Clinic", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 1, price: 34.95, perUnit: 34.95, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "Treated.com", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 1, price: 37.95, perUnit: 37.95, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "Treated.com", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 2, price: 55.95, perUnit: 27.98, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "Boots", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 1, price: 22.00, perUnit: 22.00, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+    { competitor: "Boots", product: "Lenzetto", category: "HRT", strength: "1.53mg", type: "daily", packSize: 3, price: 53.00, perUnit: 17.67, purchaseType: "one-time", brand: "Branded", unit: "56 doses" },
+
+    // =============================================
+    // HRT COMPETITORS - UTROGESTAN + OESTROGEL COMBO
+    // =============================================
+    { competitor: "MyPharmacy365", product: "Utrogestan + Oestrogel", category: "HRT", strength: "100mg + 0.06%", type: "daily", packSize: 1, price: 39.99, perUnit: 39.99, purchaseType: "one-time", brand: "Branded", unit: "1 month combo" },
+    { competitor: "MyPharmacy365", product: "Utrogestan + Oestrogel", category: "HRT", strength: "100mg + 0.06%", type: "daily", packSize: 3, price: 107.99, perUnit: 36.00, purchaseType: "one-time", brand: "Branded", unit: "1 month combo" },
+    { competitor: "Prescription Doctor", product: "Utrogestan + Oestrogel", category: "HRT", strength: "100mg + 0.06%", type: "daily", packSize: 1, price: 44.99, perUnit: 44.99, purchaseType: "one-time", brand: "Branded", unit: "1 month combo" },
+    { competitor: "Oxford Online Pharmacy", product: "Utrogestan + Oestrogel", category: "HRT", strength: "100mg + 0.06%", type: "daily", packSize: 1, price: 54.99, perUnit: 54.99, purchaseType: "one-time", brand: "Branded", unit: "1 month combo" },
+    { competitor: "Treated.com", product: "Utrogestan + Oestrogel", category: "HRT", strength: "100mg + 0.06%", type: "daily", packSize: 1, price: 77.95, perUnit: 77.95, purchaseType: "one-time", brand: "Branded", unit: "1 month combo" },
+    { competitor: "Boots", product: "Utrogestan + Oestrogel", category: "HRT", strength: "100mg + 0.06%", type: "daily", packSize: 3, price: 83.00, perUnit: 27.67, purchaseType: "one-time", brand: "Branded", unit: "1 month combo" },
 
     // =============================================
     // PHARMICA — Weight Loss (Mounjaro & Wegovy)
