@@ -799,11 +799,61 @@ const DATA = [
   { product:"Female Hormone Test Kit", strength:"-", packSize:"1 kit", category:"Test Kits", brand:"VivaFem",
     vivaPrice:119.99, costPrice:100.80, costWithVat:100.80,
     competitors:[
-      {name:"EasyTests",rank:3,price:32.00,note:"JS blocked"},
-      {name:"London Health Co",rank:2,price:34.99,note:"Sale price"},
-      {name:"Numan",rank:5,price:83.30},
-      {name:"Better2Know",rank:1,price:125.00},
-      {name:"Hertility Health",rank:4,price:149.00}
+      {name:"Randox Health",rank:1,price:44.00,note:"8 biomarkers inc FSH, Progesterone, Oestrogen+"},
+      {name:"Welzo",rank:2,price:59.00,note:"7 biomarkers: LH, FSH, Oestradiol, Testosterone. No Progesterone"},
+      {name:"Vitall",rank:3,price:69.00,note:"3 biomarkers: Oestradiol, FSH, LH only"},
+      {name:"OneDayTests",rank:4,price:75.00,note:"5 biomarkers: Oestradiol, Progesterone, FSH, LH, Testosterone"},
+      {name:"Medichecks",rank:5,price:79.00,note:"9 biomarkers: FSH, LH, Oestradiol, Testosterone, SHBG, Prolactin. No Progesterone"},
+      {name:"Forth",rank:6,price:89.00,note:"11 biomarkers inc FSH, LH, Oestradiol, Progesterone, Testosterone"},
+      {name:"Thriva",rank:7,price:99.00,note:"Oestradiol, LH, FSH, Free+Total Testosterone. No Progesterone"},
+      {name:"Forth (Menopause)",rank:8,price:119.00,note:"20 biomarkers inc FSH, LH, Oestradiol, Progesterone, Testosterone"},
+      {name:"Mayfield Clinic",rank:9,price:150.00,note:"Full female hormone profile"}
+    ]},
+
+  // ========== STI & SEXUAL HEALTH TEST KITS ==========
+
+  // --- Chlamydia Test Kit (Unisex) ---
+  { product:"Chlamydia Test Kit", strength:"-", packSize:"1 kit", category:"Test Kits", brand:"VivaFem",
+    vivaPrice:null, costPrice:null, costWithVat:null,
+    competitors:[
+      {name:"E-Pharmacy",rank:1,price:15.95,note:"Chlamydia+Gonorrhoea combo, unisex"},
+      {name:"Dr Fox",rank:2,price:23.40,note:"Chlamydia only, unisex, with discount code TEST10"},
+      {name:"Chemist Click",rank:3,price:27.49,note:"Chlamydia only, unisex"},
+      {name:"Simple Online Pharmacy",rank:4,price:27.50,note:"Chlamydia only, unisex (urine men / swab women)"},
+      {name:"LloydsPharmacy",rank:5,price:27.99,note:"Separate male & female kits, chlamydia+gonorrhoea"},
+      {name:"Medicines2U",rank:6,price:29.99,note:"Chlamydia+Gonorrhoea combo"},
+      {name:"Superdrug",rank:7,price:34.99,note:"Chlamydia only, unisex (urine men / swab women)"},
+      {name:"Boots",rank:8,price:35.00,note:"Separate male & female kits, chlamydia only"},
+      {name:"Cloud Pharmacy",rank:9,price:35.00,note:"Chlamydia+Gonorrhoea combo, unisex"}
+    ]},
+
+  // --- Gonorrhoea Test Kit (Unisex - mostly sold as combo with Chlamydia) ---
+  { product:"Gonorrhoea Test Kit", strength:"-", packSize:"1 kit", category:"Test Kits", brand:"VivaFem",
+    vivaPrice:null, costPrice:null, costWithVat:null,
+    competitors:[
+      {name:"Simple Online Pharmacy",rank:1,price:27.50,note:"Gonorrhoea only, unisex"},
+      {name:"LloydsPharmacy",rank:2,price:27.99,note:"Combined with Chlamydia, separate M/F kits"},
+      {name:"Chemist Click",rank:3,price:29.99,note:"Chlamydia+Gonorrhoea combo, unisex"},
+      {name:"Asda",rank:4,price:32.00,note:"Oral chlamydia+gonorrhoea combo"},
+      {name:"Cloud Pharmacy",rank:5,price:35.00,note:"Chlamydia+Gonorrhoea combo"},
+      {name:"The Independent Pharmacy",rank:6,price:42.99,note:"Chlamydia+Gonorrhoea combo, unisex"},
+      {name:"Superdrug",rank:7,price:42.99,note:"Chlamydia+Gonorrhoea combo, unisex"},
+      {name:"Boots",rank:8,price:43.00,note:"Chlamydia+Gonorrhoea combo, men only"},
+      {name:"Better2Know",rank:9,price:45.00,note:"Chlamydia+Gonorrhoea combo"},
+      {name:"Medicines Online",rank:10,price:45.00,note:"3-in-1: Chlamydia+Gonorrhoea+Ureaplasma"}
+    ]},
+
+  // --- BV (Bacterial Vaginosis) Test Kit ---
+  { product:"BV Test Kit", strength:"-", packSize:"1 kit", category:"Test Kits", brand:"VivaFem",
+    vivaPrice:null, costPrice:null, costWithVat:null,
+    competitors:[
+      {name:"Boots (Canestest)",rank:1,price:5.99,note:"OTC pH swab test, instant result"},
+      {name:"HomeHealth UK",rank:2,price:6.49,note:"5-pack pH rapid test devices"},
+      {name:"The Family Chemist",rank:3,price:6.99,note:"pH swab test"},
+      {name:"YourPharmacy",rank:4,price:8.49,note:"pH swab, CE-marked, 30-sec result"},
+      {name:"The Independent Pharmacy",rank:5,price:10.49,note:"Canestest OTC pH swab"},
+      {name:"HomeDiagnostics",rank:6,price:89.95,note:"Lab test: Gardnerella, Trich, Candida, Culture (+delivery)"},
+      {name:"Mayfield Clinic",rank:7,price:150.00,note:"Lab swab: 5 biomarkers inc Gardnerella, Mycoplasma, Trich"}
     ]},
 ];
 
@@ -967,6 +1017,43 @@ const URL_MAP = {
   "Boots|Utrogestan + Oestrogel":"https://onlinedoctor.boots.com/HRT-treatment-online",
   "Online Pharmacy4U|Lenzetto Spray":"https://online-pharmacy4u.co.uk/products/lencetto-transdermal-1-53mg-spray",
   "ZAVA|Menopause Test Kit":"https://www.zavamed.com/uk/menopause-test-kit.html",
+  // STI & BV Test Kits
+  "E-Pharmacy|Chlamydia Test Kit":"https://e-pharmacy.co.uk/product/gonorrhoea-and-chlamydia-home-test-kit/",
+  "Dr Fox|Chlamydia Test Kit":"https://www.doctorfox.co.uk/chlamydia/postal-test-kit.html",
+  "Simple Online Pharmacy|Chlamydia Test Kit":"https://www.simpleonlinepharmacy.co.uk/online-doctor/testing-kits/chlamydia-test/",
+  "Chemist Click|Chlamydia Test Kit":"https://www.chemistclick.co.uk/sti-test-kit",
+  "LloydsPharmacy|Chlamydia Test Kit":"https://onlinedoctor.lloydspharmacy.com/uk/sti-tests",
+  "Medicines2U|Chlamydia Test Kit":"https://www.medicines2u.co.uk/online-doctor/chlamydia-treatment/chlamydia-gonorrhoea-std-sti-home-test-kit/",
+  "Boots|Chlamydia Test Kit":"https://onlinedoctor.boots.com/chlamydia-women",
+  "Superdrug|Chlamydia Test Kit":"https://onlinedoctor.superdrug.com/chlamydia-test-kit.html",
+  "Cloud Pharmacy|Chlamydia Test Kit":"https://www.cloudpharmacy.co.uk/medications/sti-test-kit/",
+  "Simple Online Pharmacy|Gonorrhoea Test Kit":"https://www.simpleonlinepharmacy.co.uk/online-doctor/testing-kits/gonorrhoea-test-kit/",
+  "LloydsPharmacy|Gonorrhoea Test Kit":"https://onlinedoctor.lloydspharmacy.com/uk/sti-tests",
+  "Chemist Click|Gonorrhoea Test Kit":"https://www.chemistclick.co.uk/sti-test-kit",
+  "Asda|Gonorrhoea Test Kit":"https://onlinedoctor.asda.com/uk/oral-chlamydia-gonorrhea-test-kit.html",
+  "Cloud Pharmacy|Gonorrhoea Test Kit":"https://www.cloudpharmacy.co.uk/medications/sti-test-kit/",
+  "The Independent Pharmacy|Gonorrhoea Test Kit":"https://www.theindependentpharmacy.co.uk/chlamydia/chlamydia-gonorrhoea-test-kit",
+  "Superdrug|Gonorrhoea Test Kit":"https://onlinedoctor.superdrug.com/chlamydia-gonorrhoea-test-kit.html",
+  "Boots|Gonorrhoea Test Kit":"https://onlinedoctor.boots.com/sti-home-test-kit",
+  "Better2Know|Gonorrhoea Test Kit":"https://www.better2know.co.uk/shop/products/home-testing-kits/chlamydia-and-gonorrhoea-test",
+  "Medicines Online|Gonorrhoea Test Kit":"https://medicinesonline.org.uk/product/sti-std-test-chlamydia-ureaplasma-gonorrhoea-home-kit/",
+  "Boots (Canestest)|BV Test Kit":"https://www.boots.com/canestest-self-test-for-vaginal-infections-10202183",
+  "HomeHealth UK|BV Test Kit":"https://homehealth-uk.com/all-products/bacterial-vaginosis-bv-and-thrush-ph-rapid-test-devices/",
+  "The Family Chemist|BV Test Kit":"https://www.thefamilychemist.co.uk/product/bacterial-vaginosis-self-testing/",
+  "YourPharmacy|BV Test Kit":"https://yourpharmacy.uk/product/vaginal-infection/",
+  "The Independent Pharmacy|BV Test Kit":"https://www.theindependentpharmacy.co.uk/bacterial-vaginosis-bv/canestest",
+  "HomeDiagnostics|BV Test Kit":"https://www.homediagnostics.co.uk/tests/sexual-health/bacterial-vaginosis-test",
+  "Mayfield Clinic|BV Test Kit":"https://www.mayfieldclinic.co.uk/products/at-home-vaginitis-bv-swab-test-kit-self-collect",
+  // Female Hormone Test Kit competitors
+  "Randox Health|Female Hormone Test Kit":"https://randoxhealth.com/en-GB/product/home/female-hormone-Quickdraw",
+  "Welzo|Female Hormone Test Kit":"https://welzo.com/products/female-hormone-blood-test",
+  "Vitall|Female Hormone Test Kit":"https://vitall.co.uk/test/menopause-hormones",
+  "OneDayTests|Female Hormone Test Kit":"https://onedaytests.com/collections/female-hormone-blood-tests",
+  "Medichecks|Female Hormone Test Kit":"https://www.medichecks.com/products/female-hormone-check-blood-test",
+  "Forth|Female Hormone Test Kit":"https://www.forthwithlife.co.uk/products/female-hormone-home-blood-test-kit/",
+  "Thriva|Female Hormone Test Kit":"https://thriva.co/shop/womens-health-test-packages/womens-hormones-blood-test-insights",
+  "Forth (Menopause)|Female Hormone Test Kit":"https://www.forthwithlife.co.uk/products/menopause-home-blood-test-kit/",
+  "Mayfield Clinic|Female Hormone Test Kit":"https://www.mayfieldclinic.co.uk/home-test-kit-category/hormone-reproductive-health",
   "Superdrug|Menopause Test Kit":"https://onlinedoctor.superdrug.com/menopause-test-kit.html",
   "Asda|Menopause Test Kit":"https://onlinedoctor.asda.com/uk/menopause-test-kit.html",
   "Better2Know|Menopause Test Kit":"https://www.better2know.co.uk/shop/products/home-testing-kits/menopause-screen",

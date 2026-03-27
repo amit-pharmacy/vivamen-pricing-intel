@@ -123,6 +123,43 @@ const SOURCE_URLS = {
   "Boots|Utrogestan + Oestrogel": "https://onlinedoctor.boots.com/HRT-treatment-online",
   "MyPharmacy365|Utrogestan + Oestrogel": "https://mypharmacy365.co.uk/product/oestrogel_and_utrogestan_capsule_and_gel_combination.2210/",
   "Online Pharmacy4U|Lenzetto": "https://online-pharmacy4u.co.uk/products/lencetto-transdermal-1-53mg-spray",
+
+  // Test Kit URLs
+  "E-Pharmacy|Chlamydia Test Kit": "https://e-pharmacy.co.uk/product/gonorrhoea-and-chlamydia-home-test-kit/",
+  "Dr Fox|Chlamydia Test Kit": "https://www.doctorfox.co.uk/chlamydia/postal-test-kit.html",
+  "Simple Online Pharmacy|Chlamydia Test Kit": "https://www.simpleonlinepharmacy.co.uk/online-doctor/testing-kits/chlamydia-test/",
+  "Chemist Click|Chlamydia Test Kit": "https://www.chemistclick.co.uk/sti-test-kit",
+  "LloydsPharmacy|Chlamydia Test Kit": "https://onlinedoctor.lloydspharmacy.com/uk/sti-tests",
+  "Medicines2U|Chlamydia Test Kit": "https://www.medicines2u.co.uk/online-doctor/chlamydia-treatment/chlamydia-gonorrhoea-std-sti-home-test-kit/",
+  "Boots|Chlamydia Test Kit": "https://onlinedoctor.boots.com/chlamydia-women",
+  "Superdrug|Chlamydia Test Kit": "https://onlinedoctor.superdrug.com/chlamydia-test-kit.html",
+  "Cloud Pharmacy|Chlamydia Test Kit": "https://www.cloudpharmacy.co.uk/medications/sti-test-kit/",
+  "Simple Online Pharmacy|Gonorrhoea Test Kit": "https://www.simpleonlinepharmacy.co.uk/online-doctor/testing-kits/gonorrhoea-test-kit/",
+  "LloydsPharmacy|Gonorrhoea Test Kit": "https://onlinedoctor.lloydspharmacy.com/uk/sti-tests",
+  "Chemist Click|Gonorrhoea Test Kit": "https://www.chemistclick.co.uk/sti-test-kit",
+  "Asda|Gonorrhoea Test Kit": "https://onlinedoctor.asda.com/uk/oral-chlamydia-gonorrhea-test-kit.html",
+  "Cloud Pharmacy|Gonorrhoea Test Kit": "https://www.cloudpharmacy.co.uk/medications/sti-test-kit/",
+  "The Independent Pharmacy|Gonorrhoea Test Kit": "https://www.theindependentpharmacy.co.uk/chlamydia/chlamydia-gonorrhoea-test-kit",
+  "Superdrug|Gonorrhoea Test Kit": "https://onlinedoctor.superdrug.com/chlamydia-gonorrhoea-test-kit.html",
+  "Boots|Gonorrhoea Test Kit": "https://onlinedoctor.boots.com/sti-home-test-kit",
+  "Better2Know|Gonorrhoea Test Kit": "https://www.better2know.co.uk/shop/products/home-testing-kits/chlamydia-and-gonorrhoea-test",
+  "Medicines Online|Gonorrhoea Test Kit": "https://medicinesonline.org.uk/product/sti-std-test-chlamydia-ureaplasma-gonorrhoea-home-kit/",
+  "Boots (Canestest)|BV Test Kit": "https://www.boots.com/canestest-self-test-for-vaginal-infections-10202183",
+  "HomeHealth UK|BV Test Kit": "https://homehealth-uk.com/all-products/bacterial-vaginosis-bv-and-thrush-ph-rapid-test-devices/",
+  "The Family Chemist|BV Test Kit": "https://www.thefamilychemist.co.uk/product/bacterial-vaginosis-self-testing/",
+  "YourPharmacy|BV Test Kit": "https://yourpharmacy.uk/product/vaginal-infection/",
+  "The Independent Pharmacy|BV Test Kit": "https://www.theindependentpharmacy.co.uk/bacterial-vaginosis-bv/canestest",
+  "HomeDiagnostics|BV Test Kit": "https://www.homediagnostics.co.uk/tests/sexual-health/bacterial-vaginosis-test",
+  "Mayfield Clinic|BV Test Kit": "https://www.mayfieldclinic.co.uk/products/at-home-vaginitis-bv-swab-test-kit-self-collect",
+  "Randox Health|Female Hormone Test Kit": "https://randoxhealth.com/en-GB/product/home/female-hormone-Quickdraw",
+  "Welzo|Female Hormone Test Kit": "https://welzo.com/products/female-hormone-blood-test",
+  "Vitall|Female Hormone Test Kit": "https://vitall.co.uk/test/menopause-hormones",
+  "OneDayTests|Female Hormone Test Kit": "https://onedaytests.com/collections/female-hormone-blood-tests",
+  "Medichecks|Female Hormone Test Kit": "https://www.medichecks.com/products/female-hormone-check-blood-test",
+  "Forth|Female Hormone Test Kit": "https://www.forthwithlife.co.uk/products/female-hormone-home-blood-test-kit/",
+  "Thriva|Female Hormone Test Kit": "https://thriva.co/shop/womens-health-test-packages/womens-hormones-blood-test-insights",
+  "Forth (Menopause)|Female Hormone Test Kit": "https://www.forthwithlife.co.uk/products/menopause-home-blood-test-kit/",
+  "Mayfield Clinic|Female Hormone Test Kit": "https://www.mayfieldclinic.co.uk/home-test-kit-category/hormone-reproductive-health",
   "VivaMen|Minoxidil Oral": "https://www.vivamen.co.uk",
   "VivaMen|Minoxidil + Finasteride Solution": "https://www.vivamen.co.uk",
 
@@ -924,6 +961,57 @@ const PRICING_DATA = {
     { competitor: "Oxford Online Pharmacy", product: "Utrogestan + Oestrogel", category: "HRT", strength: "100mg + 0.06%", type: "daily", packSize: 1, price: 54.99, perUnit: 54.99, purchaseType: "one-time", brand: "Branded", unit: "1 month combo" },
     { competitor: "Treated.com", product: "Utrogestan + Oestrogel", category: "HRT", strength: "100mg + 0.06%", type: "daily", packSize: 1, price: 77.95, perUnit: 77.95, purchaseType: "one-time", brand: "Branded", unit: "1 month combo" },
     { competitor: "Boots", product: "Utrogestan + Oestrogel", category: "HRT", strength: "100mg + 0.06%", type: "daily", packSize: 3, price: 83.00, perUnit: 27.67, purchaseType: "one-time", brand: "Branded", unit: "1 month combo" },
+
+    // =============================================
+    // TEST KITS - CHLAMYDIA
+    // =============================================
+    { competitor: "E-Pharmacy", product: "Chlamydia Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 15.95, perUnit: 15.95, purchaseType: "one-time", brand: "Unbranded", unit: "kit (chlamydia+gonorrhoea combo, unisex)" },
+    { competitor: "Dr Fox", product: "Chlamydia Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 23.40, perUnit: 23.40, purchaseType: "one-time", brand: "Unbranded", unit: "kit (unisex, with code TEST10)" },
+    { competitor: "Chemist Click", product: "Chlamydia Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 27.49, perUnit: 27.49, purchaseType: "one-time", brand: "Unbranded", unit: "kit (unisex)" },
+    { competitor: "Simple Online Pharmacy", product: "Chlamydia Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 27.50, perUnit: 27.50, purchaseType: "one-time", brand: "Unbranded", unit: "kit (unisex, urine men / swab women)" },
+    { competitor: "LloydsPharmacy", product: "Chlamydia Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 27.99, perUnit: 27.99, purchaseType: "one-time", brand: "Unbranded", unit: "kit (separate M/F, chlamydia+gonorrhoea)" },
+    { competitor: "Medicines2U", product: "Chlamydia Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 29.99, perUnit: 29.99, purchaseType: "one-time", brand: "Unbranded", unit: "kit (chlamydia+gonorrhoea combo)" },
+    { competitor: "Superdrug", product: "Chlamydia Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 34.99, perUnit: 34.99, purchaseType: "one-time", brand: "Unbranded", unit: "kit (unisex, urine men / swab women)" },
+    { competitor: "Boots", product: "Chlamydia Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 35.00, perUnit: 35.00, purchaseType: "one-time", brand: "Unbranded", unit: "kit (separate M/F versions)" },
+    { competitor: "Cloud Pharmacy", product: "Chlamydia Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 35.00, perUnit: 35.00, purchaseType: "one-time", brand: "Unbranded", unit: "kit (chlamydia+gonorrhoea combo, unisex)" },
+
+    // =============================================
+    // TEST KITS - GONORRHOEA (mostly combo with Chlamydia)
+    // =============================================
+    { competitor: "Simple Online Pharmacy", product: "Gonorrhoea Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 27.50, perUnit: 27.50, purchaseType: "one-time", brand: "Unbranded", unit: "kit (gonorrhoea only, unisex)" },
+    { competitor: "LloydsPharmacy", product: "Gonorrhoea Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 27.99, perUnit: 27.99, purchaseType: "one-time", brand: "Unbranded", unit: "kit (combined with chlamydia, M/F)" },
+    { competitor: "Chemist Click", product: "Gonorrhoea Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 29.99, perUnit: 29.99, purchaseType: "one-time", brand: "Unbranded", unit: "kit (chlamydia+gonorrhoea combo, unisex)" },
+    { competitor: "Asda", product: "Gonorrhoea Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 32.00, perUnit: 32.00, purchaseType: "one-time", brand: "Unbranded", unit: "kit (oral chlamydia+gonorrhoea combo)" },
+    { competitor: "Cloud Pharmacy", product: "Gonorrhoea Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 35.00, perUnit: 35.00, purchaseType: "one-time", brand: "Unbranded", unit: "kit (chlamydia+gonorrhoea combo)" },
+    { competitor: "The Independent Pharmacy", product: "Gonorrhoea Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 42.99, perUnit: 42.99, purchaseType: "one-time", brand: "Unbranded", unit: "kit (chlamydia+gonorrhoea combo, unisex)" },
+    { competitor: "Superdrug", product: "Gonorrhoea Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 42.99, perUnit: 42.99, purchaseType: "one-time", brand: "Unbranded", unit: "kit (chlamydia+gonorrhoea combo, unisex)" },
+    { competitor: "Boots", product: "Gonorrhoea Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 43.00, perUnit: 43.00, purchaseType: "one-time", brand: "Unbranded", unit: "kit (chlamydia+gonorrhoea combo, men)" },
+    { competitor: "Better2Know", product: "Gonorrhoea Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 45.00, perUnit: 45.00, purchaseType: "one-time", brand: "Unbranded", unit: "kit (chlamydia+gonorrhoea combo)" },
+    { competitor: "Medicines Online", product: "Gonorrhoea Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 45.00, perUnit: 45.00, purchaseType: "one-time", brand: "Unbranded", unit: "kit (3-in-1: chlamydia+gonorrhoea+ureaplasma)" },
+
+    // =============================================
+    // TEST KITS - BV (Bacterial Vaginosis)
+    // =============================================
+    { competitor: "Boots (Canestest)", product: "BV Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 5.99, perUnit: 5.99, purchaseType: "one-time", brand: "Unbranded", unit: "pH swab test (instant result)" },
+    { competitor: "HomeHealth UK", product: "BV Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 5, price: 6.49, perUnit: 1.30, purchaseType: "one-time", brand: "Unbranded", unit: "pH rapid test device" },
+    { competitor: "The Family Chemist", product: "BV Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 6.99, perUnit: 6.99, purchaseType: "one-time", brand: "Unbranded", unit: "pH swab test" },
+    { competitor: "YourPharmacy", product: "BV Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 8.49, perUnit: 8.49, purchaseType: "one-time", brand: "Unbranded", unit: "pH swab, CE-marked, 30-sec result" },
+    { competitor: "The Independent Pharmacy", product: "BV Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 10.49, perUnit: 10.49, purchaseType: "one-time", brand: "Unbranded", unit: "Canestest pH swab" },
+    { competitor: "HomeDiagnostics", product: "BV Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 89.95, perUnit: 89.95, purchaseType: "one-time", brand: "Unbranded", unit: "lab test: Gardnerella, Trich, Candida, Culture" },
+    { competitor: "Mayfield Clinic", product: "BV Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 150.00, perUnit: 150.00, purchaseType: "one-time", brand: "Unbranded", unit: "lab swab: 5 biomarkers inc Gardnerella, Mycoplasma, Trich" },
+
+    // =============================================
+    // TEST KITS - WOMEN'S HORMONAL BLOOD TEST
+    // =============================================
+    { competitor: "Randox Health", product: "Female Hormone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 44.00, perUnit: 44.00, purchaseType: "one-time", brand: "Unbranded", unit: "blood test (8 biomarkers: FSH, Progesterone, Oestrogen+)" },
+    { competitor: "Welzo", product: "Female Hormone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 59.00, perUnit: 59.00, purchaseType: "one-time", brand: "Unbranded", unit: "blood test (7 biomarkers: LH, FSH, Oestradiol, Testosterone. No Progesterone)" },
+    { competitor: "Vitall", product: "Female Hormone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 69.00, perUnit: 69.00, purchaseType: "one-time", brand: "Unbranded", unit: "blood test (3 biomarkers: Oestradiol, FSH, LH only)" },
+    { competitor: "OneDayTests", product: "Female Hormone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 75.00, perUnit: 75.00, purchaseType: "one-time", brand: "Unbranded", unit: "blood test (5 biomarkers: Oestradiol, Progesterone, FSH, LH, Testosterone)" },
+    { competitor: "Medichecks", product: "Female Hormone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 79.00, perUnit: 79.00, purchaseType: "one-time", brand: "Unbranded", unit: "blood test (9 biomarkers: FSH, LH, Oestradiol, Testosterone. No Progesterone)" },
+    { competitor: "Forth", product: "Female Hormone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 89.00, perUnit: 89.00, purchaseType: "one-time", brand: "Unbranded", unit: "blood test (11 biomarkers inc FSH, LH, Oestradiol, Progesterone, Testosterone)" },
+    { competitor: "Thriva", product: "Female Hormone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 99.00, perUnit: 99.00, purchaseType: "one-time", brand: "Unbranded", unit: "blood test (Oestradiol, LH, FSH, Free+Total Testosterone. No Progesterone)" },
+    { competitor: "Forth (Menopause)", product: "Female Hormone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 119.00, perUnit: 119.00, purchaseType: "one-time", brand: "Unbranded", unit: "blood test (20 biomarkers inc FSH, LH, Oestradiol, Progesterone)" },
+    { competitor: "Mayfield Clinic", product: "Female Hormone Test Kit", category: "Test Kits", strength: "-", type: "one-off", packSize: 1, price: 150.00, perUnit: 150.00, purchaseType: "one-time", brand: "Unbranded", unit: "blood test (Full female hormone profile)" },
 
     // =============================================
     // PHARMICA — Weight Loss (Mounjaro & Wegovy)
