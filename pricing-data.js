@@ -1531,6 +1531,59 @@ const PRICING_DATA = {
     { competitor: "Simple Online Pharmacy", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 16, price: 17.19, perUnit: 1.07, purchaseType: "one-time", brand: "Generic" },
     { competitor: "Simple Online Pharmacy", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 32, price: 32.49, perUnit: 1.02, purchaseType: "one-time", brand: "Generic" },
     { competitor: "Simple Online Pharmacy", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 64, price: 45.50, perUnit: 0.71, purchaseType: "one-time", brand: "Generic" },
+    // --- Superdrug Sildenafil 25mg ---
+    { competitor: "Superdrug", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 4, price: 15.99, perUnit: 4.00, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Superdrug", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 8, price: 23.00, perUnit: 2.88, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Superdrug", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 12, price: 40.50, perUnit: 3.38, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Superdrug", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 16, price: 44.00, perUnit: 2.75, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Superdrug", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 28, price: 78.00, perUnit: 2.79, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Superdrug", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 56, price: 152.00, perUnit: 2.71, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+
+    // --- Chemist Click Sildenafil 25mg ---
+    { competitor: "Chemist Click", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 2, price: 3.49, perUnit: 1.75, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Chemist Click", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 4, price: 5.89, perUnit: 1.47, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Chemist Click", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 8, price: 9.45, perUnit: 1.18, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Chemist Click", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 12, price: 13.45, perUnit: 1.12, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Chemist Click", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 16, price: 16.99, perUnit: 1.06, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Chemist Click", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 20, price: 20.99, perUnit: 1.05, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Chemist Click", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 24, price: 24.75, perUnit: 1.03, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Chemist Click", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 28, price: 28.49, perUnit: 1.02, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Chemist Click", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 32, price: 31.99, perUnit: 1.00, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Chemist Click", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 64, price: 48.99, perUnit: 0.77, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Chemist Click", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 4, price: 5.01, perUnit: 1.25, purchaseType: "subscription", brand: "Generic", unit: "tablet", notes: "~15% subscription discount" },
+    { competitor: "Chemist Click", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 8, price: 8.03, perUnit: 1.00, purchaseType: "subscription", brand: "Generic", unit: "tablet", notes: "~15% subscription discount" },
+    { competitor: "Chemist Click", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 16, price: 14.44, perUnit: 0.90, purchaseType: "subscription", brand: "Generic", unit: "tablet", notes: "~15% subscription discount" },
+    { competitor: "Chemist Click", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 32, price: 27.19, perUnit: 0.85, purchaseType: "subscription", brand: "Generic", unit: "tablet", notes: "~15% subscription discount" },
+    { competitor: "Chemist Click", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 64, price: 41.64, perUnit: 0.65, purchaseType: "subscription", brand: "Generic", unit: "tablet", notes: "~15% subscription discount" },
+
+    // --- UK Meds Sildenafil 25mg ---
+    { competitor: "UK Meds", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 4, price: 8.99, perUnit: 2.25, purchaseType: "one-time", brand: "Generic", unit: "tablet", notes: "Same price all strengths" },
+    { competitor: "UK Meds", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 8, price: 12.86, perUnit: 1.61, purchaseType: "one-time", brand: "Generic", unit: "tablet", notes: "Same price all strengths" },
+    { competitor: "UK Meds", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 12, price: 15.29, perUnit: 1.27, purchaseType: "one-time", brand: "Generic", unit: "tablet", notes: "Same price all strengths" },
+    { competitor: "UK Meds", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 32, price: 22.49, perUnit: 0.70, purchaseType: "one-time", brand: "Generic", unit: "tablet", notes: "Same price all strengths" },
+    { competitor: "UK Meds", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 64, price: 35.99, perUnit: 0.56, purchaseType: "one-time", brand: "Generic", unit: "tablet", notes: "Same price all strengths. Best value." },
+    { competitor: "UK Meds", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 4, price: 8.09, perUnit: 2.02, purchaseType: "subscription", brand: "Generic", unit: "tablet", notes: "10% subscription discount" },
+    { competitor: "UK Meds", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 8, price: 11.57, perUnit: 1.45, purchaseType: "subscription", brand: "Generic", unit: "tablet", notes: "10% subscription discount" },
+    { competitor: "UK Meds", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 12, price: 13.76, perUnit: 1.15, purchaseType: "subscription", brand: "Generic", unit: "tablet", notes: "10% subscription discount" },
+    { competitor: "UK Meds", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 32, price: 20.24, perUnit: 0.63, purchaseType: "subscription", brand: "Generic", unit: "tablet", notes: "10% subscription discount" },
+    { competitor: "UK Meds", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 64, price: 32.39, perUnit: 0.51, purchaseType: "subscription", brand: "Generic", unit: "tablet", notes: "10% subscription discount. Best value." },
+
+    // --- Asda Online Doctor Sildenafil 25mg ---
+    { competitor: "Asda Online Doctor", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 4, price: 14.00, perUnit: 3.50, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Asda Online Doctor", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 8, price: 18.00, perUnit: 2.25, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Asda Online Doctor", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 12, price: 35.00, perUnit: 2.92, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Asda Online Doctor", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 16, price: 41.00, perUnit: 2.56, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Asda Online Doctor", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 28, price: 65.00, perUnit: 2.32, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+
+    // --- Click Pharmacy Sildenafil 25mg ---
+    { competitor: "Click Pharmacy", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 4, price: 9.99, perUnit: 2.50, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Click Pharmacy", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 8, price: 17.99, perUnit: 2.25, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Click Pharmacy", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 12, price: 23.99, perUnit: 2.00, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Click Pharmacy", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 24, price: 44.99, perUnit: 1.87, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+    { competitor: "Click Pharmacy", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 28, price: 49.99, perUnit: 1.79, purchaseType: "one-time", brand: "Generic", unit: "tablet" },
+
+    // --- Numan Sildenafil 25mg Subscription ---
+    { competitor: "Numan", product: "Sildenafil", category: "Erectile Dysfunction", strength: "25mg", type: "on-demand", packSize: 8, price: 34.00, perUnit: 4.25, purchaseType: "subscription", brand: "Generic", unit: "tablet", notes: "Subscription only. From £1.17/tab advertised but consultation required. £34/month for 8x50mg reported." },
 
     // --- Simple Online Sildenafil 50mg ---
     { competitor: "Simple Online Pharmacy", product: "Sildenafil", category: "Erectile Dysfunction", strength: "50mg", type: "on-demand", packSize: 4, price: 7.49, perUnit: 1.87, purchaseType: "one-time", brand: "Generic" },
@@ -1607,4 +1660,9 @@ const PRICING_DATA = {
     { competitor: "Simple Online Pharmacy", product: "Wegovy", category: "Weight Loss", strength: "2.4mg", type: "weekly", packSize: 1, price: 189.00, perUnit: 189.00, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
 
   ]
+  "Superdrug|Sildenafil":"https://onlinedoctor.superdrug.com/sildenafil.html",
+  "Chemist Click|Sildenafil":"https://www.chemistclick.co.uk/erectile-dysfunction-treatment/sildenafil-tablets",
+  "UK Meds|Sildenafil":"https://www.ukmeds.co.uk/viagra-sildenafil",
+  "Asda Online Doctor|Sildenafil":"https://onlinedoctor.asda.com/uk/sildenafil.html",
+  "Click Pharmacy|Sildenafil":"https://www.clickpharmacy.co.uk/erectile-dysfunction/sildenafil",
 };
