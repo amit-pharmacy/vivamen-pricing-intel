@@ -276,6 +276,11 @@ const SOURCE_URLS = {
   "Simple Online Pharmacy|Priligy": "https://www.simpleonlinepharmacy.co.uk/online-doctor/premature-ejaculation/priligy/",
   "Simple Online Pharmacy|Mounjaro": "https://www.simpleonlinepharmacy.co.uk/online-doctor/weight-loss/mounjaro/",
   "Simple Online Pharmacy|Wegovy": "https://www.simpleonlinepharmacy.co.uk/online-doctor/weight-loss/wegovy/",
+  "Superdrug|Sildenafil": "https://onlinedoctor.superdrug.com/sildenafil.html",
+  "Chemist Click|Sildenafil": "https://www.chemistclick.co.uk/erectile-dysfunction-treatment/sildenafil-tablets",
+  "UK Meds|Sildenafil": "https://www.ukmeds.co.uk/viagra-sildenafil",
+  "Asda Online Doctor|Sildenafil": "https://onlinedoctor.asda.com/uk/sildenafil.html",
+  "Click Pharmacy|Sildenafil": "https://www.clickpharmacy.co.uk/erectile-dysfunction/sildenafil",
 };
 
 // Helper to get source URL for a pricing entry
@@ -1660,9 +1665,4 @@ const PRICING_DATA = {
     { competitor: "Simple Online Pharmacy", product: "Wegovy", category: "Weight Loss", strength: "2.4mg", type: "weekly", packSize: 1, price: 189.00, perUnit: 189.00, purchaseType: "one-time", brand: "Branded", unit: "pen (4 doses)" },
 
   ]
-  "Superdrug|Sildenafil":"https://onlinedoctor.superdrug.com/sildenafil.html",
-  "Chemist Click|Sildenafil":"https://www.chemistclick.co.uk/erectile-dysfunction-treatment/sildenafil-tablets",
-  "UK Meds|Sildenafil":"https://www.ukmeds.co.uk/viagra-sildenafil",
-  "Asda Online Doctor|Sildenafil":"https://onlinedoctor.asda.com/uk/sildenafil.html",
-  "Click Pharmacy|Sildenafil":"https://www.clickpharmacy.co.uk/erectile-dysfunction/sildenafil",
 };
