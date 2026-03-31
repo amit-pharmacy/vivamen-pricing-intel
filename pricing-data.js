@@ -290,7 +290,8 @@ function getSourceUrl(entry) {
 
 const PRICING_DATA = {
   metadata: {
-    lastUpdated: "2026-03-22",
+    lastUpdated: "2026-03-31",
+    pricesVerified: "2026-03-31",
     currency: "GBP",
     sources: [
       { competitor: "Pharmica", url: "https://www.pharmica.co.uk", method: "Direct scrape" },
@@ -716,7 +717,7 @@ const PRICING_DATA = {
     // --- Pharmica Finasteride Milpharm One-Time (most expensive) ---
     { competitor: "Pharmica", product: "Finasteride", category: "Hair Loss", strength: "1mg", type: "daily", packSize: 28, price: 19.99, perUnit: 0.71, purchaseType: "one-time", brand: "Milpharm", notes: "Milpharm manufacturer" },
     { competitor: "Pharmica", product: "Finasteride", category: "Hair Loss", strength: "1mg", type: "daily", packSize: 56, price: 38.99, perUnit: 0.70, purchaseType: "one-time", brand: "Milpharm", notes: "Milpharm manufacturer" },
-    { competitor: "Pharmica", product: "Finasteride", category: "Hair Loss", strength: "1mg", type: "daily", packSize: 84, price: 57.03, perUnit: 0.68, purchaseType: "one-time", brand: "Milpharm", notes: "Milpharm manufacturer" },
+    { competitor: "Pharmica", product: "Finasteride", category: "Hair Loss", strength: "1mg", type: "daily", packSize: 84, price: 56.99, perUnit: 0.68, purchaseType: "one-time", brand: "Milpharm", notes: "Milpharm manufacturer" },
     { competitor: "Pharmica", product: "Finasteride", category: "Hair Loss", strength: "1mg", type: "daily", packSize: 168, price: 109.99, perUnit: 0.65, purchaseType: "one-time", brand: "Milpharm", notes: "Milpharm manufacturer" },
 
     // --- Pharmica Finasteride Avianta One-Time (mid-price) ---

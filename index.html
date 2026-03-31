@@ -735,7 +735,7 @@
     <a href="pricing-strategy.html" style="font-size:12px;color:var(--accent);text-decoration:none;padding:7px 14px;border:1px solid var(--border);border-radius:6px;">Pricing Strategy</a>
     <button id="exportBtn" onclick="exportXLSX()" style="font-size:12px;font-weight:600;color:var(--text);background:var(--accent);border:none;padding:7px 14px;border-radius:6px;cursor:pointer;">Export XLSX</button>
     <button class="add-product-btn" onclick="openAddProduct()">+ Add Product</button>
-    <div class="header-meta">Last updated: <span id="lastUpdated"></span></div>
+    <div class="header-meta">Last updated: <span id="lastUpdated"></span> &nbsp;|&nbsp; Prices verified: <span id="pricesVerified"></span></div>
   </div>
 </header>
 
@@ -956,6 +956,7 @@ document.getElementById('loginPassword').addEventListener('keydown', function(e)
 
   // Init
   document.getElementById('lastUpdated').textContent = PRICING_DATA.metadata.lastUpdated;
+  document.getElementById('pricesVerified').textContent = PRICING_DATA.metadata.pricesVerified || 'N/A';
   populateFilters();
   bindEvents();
   render();
